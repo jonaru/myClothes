@@ -40,7 +40,7 @@ public class ClothesPlannerUnitTest {
         IWardrobeItem shirt = new Shirt(BLUE_SHIRT);
         wardrobe.addWardrobeItem(shirt);
 
-        assertEquals(shirt, wardrobe.find(BLUE_SHIRT));
+        assertEquals(shirt, wardrobe.findWardrobeItem(BLUE_SHIRT));
     }
 
         /*

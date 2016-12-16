@@ -1,5 +1,6 @@
 package com.example.jonatan.clothesplanner;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,16 +13,28 @@ import android.widget.TextView;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     private final IWardrobe wardrobe = new Wardrobe();
     private LinearLayout wardrobeItemsLinearLayout;
+    private FileOutputStream fileOutputStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         wardrobeItemsLinearLayout = (LinearLayout) findViewById(R.id.wardrobe_layout);
+
+        try {
+            fileOutputStream = openFileOutput("wardrobeView", Context.MODE_PRIVATE);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addWardrobeItem(View view) {
@@ -32,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
         wardrobeItemViewGroup.addView(createNewTextView(editText.getText().toString()));
         wardrobeItemViewGroup.addView(createNewRemoveButton());
         wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
+
+        try {
+            fileOutputStream.write(editText.getText().toString().getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private View createNewRemoveButton() {

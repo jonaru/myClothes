@@ -1,16 +1,16 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.jonatan.clothesplanner.R;
-import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
-import com.example.jonatan.clothesplanner.wardrobe.IWardrobeItem;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,7 +32,7 @@ public class Wardrobe implements IWardrobe {
     }
 
     @Override
-    public IWardrobeItem find(String wardrobeItemString) {
+    public IWardrobeItem findWardrobeItem(String wardrobeItemString) {
         for (IWardrobeItem item : wardrobeItemList)
         {
             if (item.getWardrobeItemString().compareTo(wardrobeItemString) == 0)

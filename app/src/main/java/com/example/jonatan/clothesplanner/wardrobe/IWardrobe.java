@@ -1,5 +1,6 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
 
@@ -10,7 +11,7 @@ import android.widget.EditText;
 public interface IWardrobe {
     void addWardrobeItem(EditText item);
 
-    IWardrobeItem find(String wardrobeItemString);
+    IWardrobeItem findWardrobeItem(String wardrobeItemString);
 
     void addWardrobeItem(IWardrobeItem wardrobeItem);
 }
