@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ClothesPlanner</string>
+    <string name="button_add">Add</string>
+    <string name="add_description">Add description</string>
+    <string name="wardrobe_array_prompt">Type of item</string>
+
+    <string-array name="wardrobe_array">
+        <item>Trousers</item>
+        <item>Shirt</item>
+        <item>Sweater</item>
+    </string-array>
+</resources>
