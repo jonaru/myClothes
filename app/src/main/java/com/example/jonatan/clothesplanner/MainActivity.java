@@ -41,48 +41,10 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.editText_add_item);
         wardrobe.addWardrobeItem(editText, wardrobeItemsLinearLayout, this);
 
-        /*
-        LinearLayout wardrobeItemViewGroup = new LinearLayout(this);
-        wardrobeItemViewGroup.addView(createNewTextView(editText.getText().toString()));
-        wardrobeItemViewGroup.addView(createNewRemoveButton());
-        wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
-        */
-
         try {
             fileOutputStream.write(editText.getText().toString().getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    /*
-    private View createNewRemoveButton() {
-        final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        final Button removeButton = new Button(this);
-        removeButton.setLayoutParams(layoutParams);
-        removeButton.setText("remove");
-        removeButton.setGravity(View.FOCUS_RIGHT);
-        removeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ViewGroup parentView = (ViewGroup) view.getParent();
-                ViewGroup grandparentView = (ViewGroup) parentView.getParent();
-                grandparentView.removeView(parentView);
-            }
-        });
-        return removeButton;
-    }
-
-    private TextView createNewTextView(String text) {
-        final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        final TextView textView = new TextView(this);
-        textView.setLayoutParams(layoutParams);
-        textView.setText(text);
-        return textView;
-    }
-    */
 }
