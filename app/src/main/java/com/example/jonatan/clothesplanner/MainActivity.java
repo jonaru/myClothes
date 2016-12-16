@@ -39,12 +39,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void addWardrobeItem(View view) {
         EditText editText = (EditText) findViewById(R.id.editText_add_item);
-        wardrobe.addWardrobeItem(editText);
+        wardrobe.addWardrobeItem(editText, wardrobeItemsLinearLayout, this);
 
+        /*
         LinearLayout wardrobeItemViewGroup = new LinearLayout(this);
         wardrobeItemViewGroup.addView(createNewTextView(editText.getText().toString()));
         wardrobeItemViewGroup.addView(createNewRemoveButton());
         wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
+        */
 
         try {
             fileOutputStream.write(editText.getText().toString().getBytes());
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*
     private View createNewRemoveButton() {
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -81,4 +84,5 @@ public class MainActivity extends AppCompatActivity {
         textView.setText(text);
         return textView;
     }
+    */
 }
