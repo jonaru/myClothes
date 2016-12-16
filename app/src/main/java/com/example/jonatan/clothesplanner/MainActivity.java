@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
         wardrobeItemViewGroup.addView(createNewTextView(editText.getText().toString()));
         wardrobeItemViewGroup.addView(createNewRemoveButton());
         wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
-
-        //wardrobeItemsLinearLayout.addView(createNewTextView(editText.getText().toString()));
     }
 
     private View createNewRemoveButton() {
