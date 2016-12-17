@@ -23,4 +23,9 @@ public class ClothesPlannerInstrumentedTest {
 
         assertEquals("com.example.jonatan.clothesplanner", appContext.getPackageName());
     }
+
+    @Test
+    public void addWardrobeItemTest() throws Exception{
+        Context appContext = InstrumentationRegistry.getTargetContext();
+    }
 }
