@@ -27,6 +27,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
+import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
@@ -97,10 +98,29 @@ public class ClothesPlannerInstrumentedTest {
         //Click remove button and check that the item does not exist anymore
         //onView(withText(R.string.remove)).check(matches(isCompletelyDisplayed()));
         //onView(withText(R.string.remove)).check(matches(isClickable()));
-        onView(withText(R.string.remove)).check(matches(isDisplayingAtLeast(1)));
+        //onView(withText(R.string.remove)).check(matches(isDisplayingAtLeast(1)));
         //onView(withText(R.string.remove)).perform(withCustomConstraints(click(), isClickable()));
 
-        //onView(withParent(withId(R.id.wardrobe_layout))).check(doesNotExist());
+        onView(withText(R.string.remove)).perform(
+                new ViewAction() {
+                    @Override
+                    public Matcher<View> getConstraints() {
+                        return isEnabled(); // no constraints, they are checked above
+                    }
+
+                    @Override
+                    public String getDescription() {
+                        return "click plus button";
+                    }
+
+                    @Override
+                    public void perform(UiController uiController, View view) {
+                        view.performClick();
+                    }
+                }
+        );
+
+        onView(withParent(withId(R.id.wardrobe_layout))).check(doesNotExist());
     }
 
 }
