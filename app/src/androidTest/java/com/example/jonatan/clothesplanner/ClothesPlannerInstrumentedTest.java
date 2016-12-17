@@ -2,6 +2,7 @@ package com.example.jonatan.clothesplanner;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.ViewAssertion;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -14,7 +15,14 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withParent;
+import static android.support.test.espresso.matcher.ViewMatchers.withTagKey;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
 /**
@@ -47,12 +55,23 @@ public class ClothesPlannerInstrumentedTest {
 
 
     @Test
-    public void addWardrobeItemTest() throws Exception{
+    public void addRemoveWardrobeItemTest() throws Exception{
         // Type text and then press the button.
         onView(withId(R.id.editText_add_item))
                 .perform(typeText(mStringToBetyped), closeSoftKeyboard());
+
         onView(withId(R.id.button)).perform(click());
-        //onView(withId(R.id.wardrobe_layout)).check(matches)
+
+        // Check that item has been added to the wardrobe linear layout
+        onView(withId(R.id.wardrobe_layout))
+                .check(matches(hasDescendant(withText(mStringToBetyped))));
+
+        //Click remove button and check that the item does not exist anymore
+        onView(withText(R.string.remove))
+                .perform(click());
+
+        onView(withParent(withId(R.id.wardrobe_layout)))
+                .check(doesNotExist());
     }
 
 }
