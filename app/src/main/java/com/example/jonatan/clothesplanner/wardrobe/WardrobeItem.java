@@ -9,6 +9,7 @@ public class WardrobeItem implements IWardrobeItem {
     private final String wardrobeItem;
 
     public WardrobeItem(String wardrobeItemString) {
+        //noinspection RedundantStringConstructorCall
         wardrobeItem = new String(wardrobeItemString);
     }
 

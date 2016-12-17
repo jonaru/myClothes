@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void addWardrobeItem(View view) {
+    public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) {
         EditText editText = (EditText) findViewById(R.id.editText_add_item);
         wardrobe.addWardrobeItem(editText, wardrobeItemsLinearLayout, this);
 

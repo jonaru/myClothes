@@ -9,7 +9,8 @@ public class Shirt implements IWardrobeItem {
 
     private final String shirt;
 
-    public Shirt(String shirtString) {
+    public Shirt(@SuppressWarnings("SameParameterValue") String shirtString) {
+        //noinspection RedundantStringConstructorCall
         shirt = new String(shirtString);
     }
 

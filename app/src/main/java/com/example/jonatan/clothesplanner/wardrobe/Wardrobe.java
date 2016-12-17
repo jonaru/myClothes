@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Jonatan on 2016-12-13.
  */
 public class Wardrobe implements IWardrobe {
-    private List<IWardrobeItem> wardrobeItemList = new ArrayList<>();
+    private final List<IWardrobeItem> wardrobeItemList = new ArrayList<>();
 
     @Override
     public void addWardrobeItem(EditText itemText, LinearLayout wardrobeItemsLinearLayout, MainActivity mainActivity) {
