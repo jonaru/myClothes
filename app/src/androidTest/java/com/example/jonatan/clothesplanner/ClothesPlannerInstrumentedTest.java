@@ -51,7 +51,8 @@ public class ClothesPlannerInstrumentedTest {
         // Type text and then press the button.
         onView(withId(R.id.editText_add_item))
                 .perform(typeText(mStringToBetyped), closeSoftKeyboard());
-        //onView(withId(R.id.changeTextBt)).perform(click());
+        onView(withId(R.id.button)).perform(click());
+        //onView(withId(R.id.wardrobe_layout)).check(matches)
     }
 
 }
