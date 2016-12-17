@@ -71,6 +71,7 @@ public class ClothesPlannerInstrumentedTest {
 
         //Click remove button and check that the item does not exist anymore
         onView(withId(R.id.activity_main)).perform(swipeUp());
+        onView(withId(R.id.wardrobe_layout)).perform(swipeUp());
         onView(withText(R.string.remove)).check(matches(isCompletelyDisplayed()));
         onView(withText(R.string.remove))
                 .perform(click());
