@@ -26,6 +26,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
 import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
@@ -96,9 +97,9 @@ public class ClothesPlannerInstrumentedTest {
         //Click remove button and check that the item does not exist anymore
         //onView(withText(R.string.remove)).check(matches(isCompletelyDisplayed()));
         onView(withText(R.string.remove)).check(matches(isClickable()));
-        //onView(withText(R.string.remove)).perform(withCustomConstraints(click(), isClickable()));
+        onView(withText(R.string.remove)).perform(withCustomConstraints(click(), isDisplayingAtLeast(0)));
 
-        //onView(withParent(withId(R.id.wardrobe_layout))).check(doesNotExist());
+        onView(withParent(withId(R.id.wardrobe_layout))).check(doesNotExist());
     }
 
 }
