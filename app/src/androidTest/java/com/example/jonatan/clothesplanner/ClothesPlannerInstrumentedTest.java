@@ -15,6 +15,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
+import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -69,8 +70,7 @@ public class ClothesPlannerInstrumentedTest {
                 .check(matches(hasDescendant(withText(mStringToBetyped))));
 
         //Click remove button and check that the item does not exist anymore
-        closeSoftKeyboard();
-        Thread.sleep(1000);
+        onView(withId(R.id.activity_main)).perform(swipeUp());
         onView(withText(R.string.remove)).check(matches(isCompletelyDisplayed()));
         onView(withText(R.string.remove))
                 .perform(click());
