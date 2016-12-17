@@ -1,7 +1,5 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
-import android.content.Context;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 

@@ -3,6 +3,9 @@
     <string name="button_add">Add</string>
     <string name="add_description">Add description</string>
     <string name="wardrobe_array_prompt">Type of item</string>
+    <string name="add_items">Add items</string>
+    <string name="your_wardrobe">Your Wardrobe</string>
+    <string name="remove">remove</string>
 
     <string-array name="wardrobe_array">
         <item>Trousers</item>

@@ -1,6 +1,5 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,7 +17,7 @@ import java.util.List;
  * Created by Jonatan on 2016-12-13.
  */
 public class Wardrobe implements IWardrobe {
-    private List<IWardrobeItem> wardrobeItemList = new ArrayList<IWardrobeItem>();
+    private List<IWardrobeItem> wardrobeItemList = new ArrayList<>();
 
     @Override
     public void addWardrobeItem(EditText itemText, LinearLayout wardrobeItemsLinearLayout, MainActivity mainActivity) {
@@ -55,7 +54,7 @@ public class Wardrobe implements IWardrobe {
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         final Button removeButton = new Button(mainActivity);
         removeButton.setLayoutParams(layoutParams);
-        removeButton.setText("remove");
+        removeButton.setText(R.string.remove);
         removeButton.setGravity(View.FOCUS_RIGHT);
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
