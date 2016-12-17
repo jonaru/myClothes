@@ -69,6 +69,7 @@ public class ClothesPlannerInstrumentedTest {
 
         //Click remove button and check that the item does not exist anymore
         closeSoftKeyboard();
+        Thread.sleep(1000);
         onView(withText(R.string.remove))
                 .perform(click());
 
