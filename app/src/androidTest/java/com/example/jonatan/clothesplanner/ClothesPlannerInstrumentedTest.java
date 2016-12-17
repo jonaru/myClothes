@@ -15,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -100,7 +101,7 @@ public class ClothesPlannerInstrumentedTest {
         //onView(withText(R.string.remove)).check(matches(isClickable()));
         //onView(withText(R.string.remove)).check(matches(isDisplayingAtLeast(1)));
         //onView(withText(R.string.remove)).perform(withCustomConstraints(click(), isClickable()));
-
+/*
         onView(withText(R.string.remove)).perform(
                 new ViewAction() {
                     @Override
@@ -121,6 +122,10 @@ public class ClothesPlannerInstrumentedTest {
         );
 
         onView(withParent(withId(R.id.wardrobe_layout))).check(doesNotExist());
+        */
+
+        onData(withText(R.string.remove)).perform(click());
+        onData(withParent(withId(R.id.wardrobe_layout))).check(doesNotExist());
     }
 
 }
