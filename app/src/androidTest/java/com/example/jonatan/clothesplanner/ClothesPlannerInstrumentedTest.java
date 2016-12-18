@@ -15,24 +15,16 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
-import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
-import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
-import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
-import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
-import static android.support.test.espresso.matcher.ViewMatchers.withTagKey;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
@@ -45,25 +37,6 @@ import static org.junit.Assert.*;
 public class ClothesPlannerInstrumentedTest {
 
     private String mStringToBetyped;
-
-    public static ViewAction withCustomConstraints(final ViewAction action, final Matcher<View> constraints) {
-        return new ViewAction() {
-            @Override
-            public Matcher<View> getConstraints() {
-                return constraints;
-            }
-
-            @Override
-            public String getDescription() {
-                return action.getDescription();
-            }
-
-            @Override
-            public void perform(UiController uiController, View view) {
-                action.perform(uiController, view);
-            }
-        };
-    }
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
@@ -97,7 +70,6 @@ public class ClothesPlannerInstrumentedTest {
                 .check(matches(hasDescendant(withText(mStringToBetyped))));
 
         //Click remove button and check that the item does not exist anymore
-        //onView(withText(R.string.remove)).perform(withCustomConstraints(click(), isClickable()));
         onView(withText(R.string.remove)).perform(
                 new ViewAction() {
                     @Override
@@ -118,11 +90,6 @@ public class ClothesPlannerInstrumentedTest {
         );
 
         onView(withParent(withId(R.id.wardrobe_layout))).check(doesNotExist());
-
-        /*
-        onData(withText(R.string.remove)).perform(click());
-        onView(withParent(withId(R.id.wardrobe_layout))).check(doesNotExist());
-        */
     }
 
 }
