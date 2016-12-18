@@ -96,8 +96,19 @@ public class ClothesPlannerInstrumentedTest {
 
         //Click remove and check that item is removed from file
         clickRemove();
-        //inputString = readLineFromWardrobeFile();
-        //assertTrue(inputString.length() == 0);
+        String secondInput = readLineFromWardrobeFile();
+
+        String currentLine;
+
+        /*
+        while((currentLine = reader.readLine()) != null) {
+            // trim newline when comparing with lineToRemove
+            String trimmedLine = currentLine.trim();
+            if(trimmedLine.equals(inputString)) continue;
+        }
+        */
+
+        //assertFalse(secondInput.equals(wardrobeItemStringToBeAdded));
     }
 
     private String readLineFromWardrobeFile() throws IOException {

@@ -1,5 +1,6 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -10,6 +11,9 @@ import android.widget.TextView;
 import com.example.jonatan.clothesplanner.MainActivity;
 import com.example.jonatan.clothesplanner.R;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +22,25 @@ import java.util.List;
  */
 public class Wardrobe implements IWardrobe {
     private final List<IWardrobeItem> wardrobeItemList = new ArrayList<>();
+    private FileOutputStream fileOutputStream;
+
+    public Wardrobe ()
+    {
+    }
 
     @Override
     public void addWardrobeItem(EditText itemText, LinearLayout wardrobeItemsLinearLayout, MainActivity mainActivity) {
         String wardrobeItemString = itemText.getText().toString();
         IWardrobeItem itemToAdd = new WardrobeItem(wardrobeItemString);
         addWardrobeItem(itemToAdd);
+
+        try {
+            fileOutputStream = mainActivity.openFileOutput(mainActivity.getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);
+            fileOutputStream.write(itemText.getText().toString().getBytes());
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         LinearLayout wardrobeItemViewGroup = new LinearLayout(mainActivity);
         wardrobeItemViewGroup.addView(createNewTextView(itemText.getText().toString(), mainActivity));
@@ -56,14 +73,7 @@ public class Wardrobe implements IWardrobe {
         removeButton.setLayoutParams(layoutParams);
         removeButton.setText(R.string.remove);
         removeButton.setGravity(View.FOCUS_RIGHT);
-        removeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ViewGroup parentView = (ViewGroup) view.getParent();
-                ViewGroup grandparentView = (ViewGroup) parentView.getParent();
-                grandparentView.removeView(parentView);
-            }
-        });
+        removeButton.setOnClickListener(new RemoveButtonOnClickListener(mainActivity));
         return removeButton;
     }
 

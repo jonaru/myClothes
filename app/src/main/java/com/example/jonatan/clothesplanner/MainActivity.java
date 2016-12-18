@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     private final IWardrobe wardrobe = new Wardrobe();
     private LinearLayout wardrobeItemsLinearLayout;
-    private FileOutputStream fileOutputStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,23 +25,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         wardrobeItemsLinearLayout = (LinearLayout) findViewById(R.id.wardrobe_layout);
-
-        try {
-            fileOutputStream = openFileOutput(getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) {
         EditText editText = (EditText) findViewById(R.id.editText_add_item);
         wardrobe.addWardrobeItem(editText, wardrobeItemsLinearLayout, this);
-
-        try {
-            fileOutputStream.write(editText.getText().toString().getBytes());
-            fileOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
