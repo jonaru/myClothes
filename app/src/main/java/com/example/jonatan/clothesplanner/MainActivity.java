@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         wardrobeItemsLinearLayout = (LinearLayout) findViewById(R.id.wardrobe_layout);
 
         try {
-            fileOutputStream = openFileOutput("wardrobeView", Context.MODE_PRIVATE);
+            fileOutputStream = openFileOutput(getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             fileOutputStream.write(editText.getText().toString().getBytes());
+            fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

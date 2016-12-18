@@ -1,10 +1,10 @@
 package com.example.jonatan.clothesplanner;
 
 import android.content.Context;
+import android.os.Environment;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.ViewAssertion;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
@@ -14,6 +14,12 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -36,7 +42,8 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class ClothesPlannerInstrumentedTest {
 
-    private String mStringToBetyped;
+    private String wardrobeItemStringToBeAdded;
+    private FileInputStream fileInputStream;
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
@@ -45,7 +52,7 @@ public class ClothesPlannerInstrumentedTest {
     @Before
     public void initValidString() {
         // Specify a valid string.
-        mStringToBetyped = "khakis";
+        wardrobeItemStringToBeAdded = "khakis";
     }
 
     @Test
@@ -58,18 +65,52 @@ public class ClothesPlannerInstrumentedTest {
 
 
     @Test
-    public void addRemoveWardrobeItemTest() throws Exception{
+    public void addRemoveWardrobeItemTest() throws Exception {
         // Type text and then press the button.
         onView(withId(R.id.editText_add_item))
-                .perform(typeText(mStringToBetyped), closeSoftKeyboard());
+                .perform(typeText(wardrobeItemStringToBeAdded), closeSoftKeyboard());
 
         onView(withId(R.id.button)).perform(click());
 
         // Check that item has been added to the wardrobe linear layout
         onView(withId(R.id.wardrobe_layout))
-                .check(matches(hasDescendant(withText(mStringToBetyped))));
+                .check(matches(hasDescendant(withText(wardrobeItemStringToBeAdded))));
 
         //Click remove button and check that the item does not exist anymore
+        clickRemove();
+
+        onView(withParent(withId(R.id.wardrobe_layout))).check(doesNotExist());
+    }
+
+    @Test
+    public void addRemoveWardrobeItemReadFromFileTest() throws Exception {
+        // Type text and then press the button.
+        onView(withId(R.id.editText_add_item))
+                .perform(typeText(wardrobeItemStringToBeAdded), closeSoftKeyboard());
+
+        onView(withId(R.id.button)).perform(click());
+
+        // Check that the item was written to file
+        String inputString = readLineFromWardrobeFile();
+        assertEquals(inputString, wardrobeItemStringToBeAdded);
+
+        //Click remove and check that item is removed from file
+        clickRemove();
+        //inputString = readLineFromWardrobeFile();
+        //assertTrue(inputString.length() == 0);
+    }
+
+    private String readLineFromWardrobeFile() throws IOException {
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        fileInputStream = appContext.openFileInput(appContext.getResources().getString(R.string.wardrobe_view));
+        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        String inputString = bufferedReader.readLine();
+        fileInputStream.close();
+        return inputString;
+    }
+
+    private void clickRemove() {
         onView(withText(R.string.remove)).perform(
                 new ViewAction() {
                     @Override
@@ -88,8 +129,5 @@ public class ClothesPlannerInstrumentedTest {
                     }
                 }
         );
-
-        onView(withParent(withId(R.id.wardrobe_layout))).check(doesNotExist());
     }
-
 }

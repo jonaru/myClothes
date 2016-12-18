@@ -6,6 +6,7 @@
     <string name="add_items">Add items</string>
     <string name="your_wardrobe">Your Wardrobe</string>
     <string name="remove">remove</string>
+    <string name="wardrobe_view">wardrobeView</string>
 
     <string-array name="wardrobe_array">
         <item>Trousers</item>
