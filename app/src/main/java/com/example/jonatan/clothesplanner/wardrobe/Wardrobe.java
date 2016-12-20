@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import com.example.jonatan.clothesplanner.MainActivity;
 import com.example.jonatan.clothesplanner.R;
-import com.example.jonatan.clothesplanner.wardrobe.WardrobeItem.IWardrobeItem;
-import com.example.jonatan.clothesplanner.wardrobe.WardrobeItem.WardrobeItem;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

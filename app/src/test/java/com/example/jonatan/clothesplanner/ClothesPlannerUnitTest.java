@@ -4,8 +4,8 @@ import android.view.View;
 
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
-import com.example.jonatan.clothesplanner.wardrobe.WardrobeItem.IWardrobeItem;
-import com.example.jonatan.clothesplanner.wardrobe.WardrobeItem.Shirt;
+import com.example.jonatan.clothesplanner.wardrobe.IWardrobeItem;
+import com.example.jonatan.clothesplanner.wardrobe.Shirt;
 
 
 import org.junit.Test;

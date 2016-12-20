@@ -1,6 +1,4 @@
-package com.example.jonatan.clothesplanner.wardrobe.WardrobeItem;
-
-import com.example.jonatan.clothesplanner.wardrobe.WardrobeItem.IWardrobeItem;
+package com.example.jonatan.clothesplanner.wardrobe;
 
 /**
  * Created by Jonatan on 2016-12-13.
