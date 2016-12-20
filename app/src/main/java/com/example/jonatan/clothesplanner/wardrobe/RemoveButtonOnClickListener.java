@@ -14,8 +14,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -43,6 +41,7 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
         grandparentView.removeView(parentView);
     }
 
+    //Need to clean up technical debt here
     private void removeWardrobeItemFromFile(TextView textView) {
         try {
             removeLineFromFile(mainActivity.getResources().getString(R.string.wardrobe_view), textView.getText().toString());
@@ -53,12 +52,13 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
         }
     }
 
-    private void removeLineFromFile(String wardrobeFileString, String lineToRemove) throws IOException {
+    private boolean removeLineFromFile(String wardrobeFileString, String lineToRemove) throws IOException {
         FileInputStream fileInputStream = mainActivity.openFileInput(wardrobeFileString);
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
         BufferedReader reader = new BufferedReader(inputStreamReader);
 
-        FileOutputStream fileOutputStream = mainActivity.openFileOutput("myTempFile.txt", Context.MODE_PRIVATE);
+        final String myTempFileString = "myTempFile.txt";
+        FileOutputStream fileOutputStream = mainActivity.openFileOutput(myTempFileString, Context.MODE_PRIVATE);
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
         BufferedWriter writer = new BufferedWriter(outputStreamWriter);
 
@@ -75,7 +75,7 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
         reader.close();
 
         File inputFile = new File(mainActivity.getFilesDir()+"/"+wardrobeFileString);
-        File tempFile = new File(mainActivity.getFilesDir()+"/myTempFile.txt");
-        boolean successful = tempFile.renameTo(inputFile);
+        File tempFile = new File(mainActivity.getFilesDir()+"/"+myTempFileString);
+        return tempFile.renameTo(inputFile);
     }
 }
