@@ -18,6 +18,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 /**
  * Created by Jonatan on 2016-12-18.
@@ -53,13 +54,13 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
     }
 
     private void removeLineFromFile(String wardrobeFileString, String lineToRemove) throws IOException {
-        //FileInputStream fileInputStream = mainActivity.openFileInput(wardrobeFileString);
-        //InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-        File inputFile = new File(wardrobeFileString);
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+        FileInputStream fileInputStream = mainActivity.openFileInput(wardrobeFileString);
+        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+        BufferedReader reader = new BufferedReader(inputStreamReader);
 
-        File tempFile = new File("myTempFile.txt");
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        FileOutputStream fileOutputStream = mainActivity.openFileOutput("myTempFile.txt", Context.MODE_PRIVATE);
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+        BufferedWriter writer = new BufferedWriter(outputStreamWriter);
 
         String currentLine;
 
@@ -72,7 +73,9 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
 
         writer.close();
         reader.close();
-        mainActivity.deleteFile(wardrobeFileString);
+
+        File inputFile = new File(mainActivity.getFilesDir()+"/"+wardrobeFileString);
+        File tempFile = new File(mainActivity.getFilesDir()+"/myTempFile.txt");
         boolean successful = tempFile.renameTo(inputFile);
     }
 }
