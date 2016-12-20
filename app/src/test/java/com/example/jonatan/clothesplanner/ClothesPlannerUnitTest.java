@@ -3,16 +3,17 @@ package com.example.jonatan.clothesplanner;
 import android.view.View;
 
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
-import com.example.jonatan.clothesplanner.wardrobe.IWardrobeItem;
-import com.example.jonatan.clothesplanner.wardrobe.Shirt;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
+import com.example.jonatan.clothesplanner.wardrobe.WardrobeItem.IWardrobeItem;
+import com.example.jonatan.clothesplanner.wardrobe.WardrobeItem.Shirt;
+
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
+import static junit.framework.Assert.assertEquals;
 
 /**
  * Example local unit test, which will execute on the development machine (host).

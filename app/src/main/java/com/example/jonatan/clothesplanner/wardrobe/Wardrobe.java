@@ -2,7 +2,6 @@ package com.example.jonatan.clothesplanner.wardrobe;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -10,8 +9,9 @@ import android.widget.TextView;
 
 import com.example.jonatan.clothesplanner.MainActivity;
 import com.example.jonatan.clothesplanner.R;
+import com.example.jonatan.clothesplanner.wardrobe.WardrobeItem.IWardrobeItem;
+import com.example.jonatan.clothesplanner.wardrobe.WardrobeItem.WardrobeItem;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
