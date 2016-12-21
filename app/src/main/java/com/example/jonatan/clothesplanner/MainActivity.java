@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final IWardrobe wardrobe = new Wardrobe();
+    private IWardrobe wardrobe;
     private LinearLayout wardrobeItemsLinearLayout;
 
     @Override
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         wardrobeItemsLinearLayout = (LinearLayout) findViewById(R.id.wardrobe_layout);
+        wardrobe = new Wardrobe(wardrobeItemsLinearLayout, this);
     }
 
     public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) {

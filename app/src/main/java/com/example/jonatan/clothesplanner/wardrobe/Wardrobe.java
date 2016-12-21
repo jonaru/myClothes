@@ -12,8 +12,14 @@ import com.example.jonatan.clothesplanner.R;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItem;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +32,32 @@ public class Wardrobe implements IWardrobe {
 
     public Wardrobe ()
     {
+    }
+
+    public Wardrobe(LinearLayout wardrobeItemsLinearLayout, MainActivity mainActivity) {
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = mainActivity.openFileInput(mainActivity.getResources().getString(R.string.wardrobe_view));
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+
+            String currentLine;
+
+            while((currentLine = reader.readLine()) != null) {
+                // trim newline when comparing with lineToRemove
+                String trimmedLine = currentLine.trim();
+                LinearLayout wardrobeItemViewGroup = new LinearLayout(mainActivity);
+                wardrobeItemViewGroup.addView(createNewTextView(trimmedLine, mainActivity));
+                wardrobeItemViewGroup.addView(createNewRemoveButton(mainActivity));
+                wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
+            }
+
+            reader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.view.View;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,9 +30,11 @@ import static android.support.test.espresso.assertion.ViewAssertions.doesNotExis
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
+import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.*;
 
 /**
@@ -42,19 +45,43 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class ClothesPlannerInstrumentedTest {
 
-    private String wardrobeItemStringToBeAdded;
+    static private String wardrobeItemStringToBeWrittenBeforeStart = "jeans";
+    static private String wardrobeItemStringToBeAdded = "khakis";
     private FileInputStream fileInputStream;
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
             MainActivity.class);
 
-    @Before
-    public void initValidString() {
-        // Specify a valid string.
-        wardrobeItemStringToBeAdded = "khakis";
+    @BeforeClass
+    public static void populateWardrobeFile() {
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        FileOutputStream fileOutputStream;
+        try {
+            fileOutputStream = appContext.openFileOutput(appContext.getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);
+            fileOutputStream.write(wardrobeItemStringToBeWrittenBeforeStart.getBytes());
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    /*
+    @Test
+    public void loadWardrobeFromFileOnStartupTest() throws Exception {
+        // Check that item has been added to the wardrobe linear layout
+        onView(withId(R.id.wardrobe_layout))
+                .check(matches(hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart))));
+
+        //Click remove button and check that the item does not exist anymore
+        clickRemove(wardrobeItemStringToBeWrittenBeforeStart);
+        onView(allOf(withParent(withId(R.id.wardrobe_layout)), withText(wardrobeItemStringToBeWrittenBeforeStart))).check(doesNotExist());
+
+        //Check that file has been cleared
+        String wardrobeFileString = readLineFromWardrobeFile();
+        assertNull(wardrobeFileString);
+    }
+*/
     @Test
     public void useAppContext() throws Exception {
         // Context of the app under test.
@@ -77,9 +104,9 @@ public class ClothesPlannerInstrumentedTest {
                 .check(matches(hasDescendant(withText(wardrobeItemStringToBeAdded))));
 
         //Click remove button and check that the item does not exist anymore
-        clickRemove();
+        clickRemove(wardrobeItemStringToBeAdded);
 
-        onView(withParent(withId(R.id.wardrobe_layout))).check(doesNotExist());
+        onView(allOf(withParent(withId(R.id.wardrobe_layout)), withText(wardrobeItemStringToBeAdded))).check(doesNotExist());
     }
 
     @Test
@@ -95,7 +122,7 @@ public class ClothesPlannerInstrumentedTest {
         assertEquals(inputString, wardrobeItemStringToBeAdded);
 
         //Click remove and check that item is removed from file
-        clickRemove();
+        clickRemove(wardrobeItemStringToBeAdded);
         String secondInput = readLineFromWardrobeFile();
 
         assertNull(secondInput);
@@ -111,8 +138,8 @@ public class ClothesPlannerInstrumentedTest {
         return inputString;
     }
 
-    private void clickRemove() {
-        onView(withText(R.string.remove)).perform(
+    private void clickRemove(String itemStringToRemove) {
+        onView(allOf(withText(R.string.remove), withParent(withChild(withText(itemStringToRemove))))).perform(
                 new ViewAction() {
                     @Override
                     public Matcher<View> getConstraints() {
