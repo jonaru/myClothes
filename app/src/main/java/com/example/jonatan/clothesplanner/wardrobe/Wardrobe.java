@@ -29,12 +29,13 @@ import java.util.List;
  */
 public class Wardrobe implements IWardrobe {
     private final List<IWardrobeItem> wardrobeItemList = new ArrayList<>();
-    private FileOutputStream fileOutputStream;
+    //private FileOutputStream fileOutputStream;
 
     public Wardrobe ()
     {
     }
 
+    /*
     public Wardrobe(LinearLayout wardrobeItemsLinearLayout, AppCompatActivity activity) {
         FileInputStream fileInputStream = null;
         try {
@@ -60,6 +61,7 @@ public class Wardrobe implements IWardrobe {
             e.printStackTrace();
         }
     }
+    */
 
     @Override
     public void addWardrobeItem(EditText itemText, LinearLayout wardrobeItemsLinearLayout, AppCompatActivity activity) {
@@ -67,6 +69,7 @@ public class Wardrobe implements IWardrobe {
         IWardrobeItem itemToAdd = new WardrobeItem(wardrobeItemString);
         addWardrobeItem(itemToAdd);
 
+        /*
         try {
             fileOutputStream = activity.openFileOutput(activity.getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);
             fileOutputStream.write(itemText.getText().toString().getBytes());
@@ -75,10 +78,12 @@ public class Wardrobe implements IWardrobe {
             e.printStackTrace();
         }
 
+        /*
         LinearLayout wardrobeItemViewGroup = new LinearLayout(activity);
         wardrobeItemViewGroup.addView(createNewTextView(itemText.getText().toString(), activity));
         wardrobeItemViewGroup.addView(createNewRemoveButton(activity));
         wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
+        */
     }
 
     @Override
@@ -98,6 +103,7 @@ public class Wardrobe implements IWardrobe {
         return null;
     }
 
+    /*
     private View createNewRemoveButton(AppCompatActivity activity) {
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -119,5 +125,6 @@ public class Wardrobe implements IWardrobe {
         textView.setText(text);
         return textView;
     }
+    */
 
 }
