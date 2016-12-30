@@ -1,11 +1,11 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.jonatan.clothesplanner.MainActivity;
 import com.example.jonatan.clothesplanner.R;
 
 import java.io.BufferedReader;
@@ -23,12 +23,12 @@ import java.io.OutputStreamWriter;
  */
 
 public class RemoveButtonOnClickListener implements View.OnClickListener {
-    private final MainActivity mainActivity;
+    private final AppCompatActivity myActivity;
 
-    public RemoveButtonOnClickListener(MainActivity inputMainActivity){
+    public RemoveButtonOnClickListener(AppCompatActivity inputMainActivity){
         super();
 
-        mainActivity = inputMainActivity;
+        myActivity = inputMainActivity;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
     //Need to clean up technical debt here
     private void removeWardrobeItemFromFile(TextView textView) {
         try {
-            removeLineFromFile(mainActivity.getResources().getString(R.string.wardrobe_view), textView.getText().toString());
+            removeLineFromFile(myActivity.getResources().getString(R.string.wardrobe_view), textView.getText().toString());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -53,12 +53,12 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
     }
 
     private boolean removeLineFromFile(String wardrobeFileString, String lineToRemove) throws IOException {
-        FileInputStream fileInputStream = mainActivity.openFileInput(wardrobeFileString);
+        FileInputStream fileInputStream = myActivity.openFileInput(wardrobeFileString);
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
         BufferedReader reader = new BufferedReader(inputStreamReader);
 
         final String myTempFileString = "myTempFile.txt";
-        FileOutputStream fileOutputStream = mainActivity.openFileOutput(myTempFileString, Context.MODE_PRIVATE);
+        FileOutputStream fileOutputStream = myActivity.openFileOutput(myTempFileString, Context.MODE_PRIVATE);
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
         BufferedWriter writer = new BufferedWriter(outputStreamWriter);
 
@@ -74,8 +74,8 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
         writer.close();
         reader.close();
 
-        File inputFile = new File(mainActivity.getFilesDir()+"/"+wardrobeFileString);
-        File tempFile = new File(mainActivity.getFilesDir()+"/"+myTempFileString);
+        File inputFile = new File(myActivity.getFilesDir()+"/"+wardrobeFileString);
+        File tempFile = new File(myActivity.getFilesDir()+"/"+myTempFileString);
         return tempFile.renameTo(inputFile);
     }
 }

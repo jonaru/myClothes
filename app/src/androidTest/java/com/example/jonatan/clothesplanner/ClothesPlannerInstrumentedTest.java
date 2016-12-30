@@ -7,9 +7,11 @@ import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
 import org.hamcrest.Matcher;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -53,8 +55,24 @@ public class ClothesPlannerInstrumentedTest {
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
             MainActivity.class);
 
-    @BeforeClass
-    public static void populateWardrobeFile() {
+    /*
+    public void ClothesPlannerInstrumentedTest()
+    {
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        FileOutputStream fileOutputStream;
+        try {
+            fileOutputStream = appContext.openFileOutput(appContext.getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);
+            fileOutputStream.write(wardrobeItemStringToBeWrittenBeforeStart.getBytes());
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    */
+
+
+    @Before
+    public void populateWardrobeFile() {
         Context appContext = InstrumentationRegistry.getTargetContext();
         FileOutputStream fileOutputStream;
         try {
@@ -66,9 +84,18 @@ public class ClothesPlannerInstrumentedTest {
         }
     }
 
-    /*
+    @After
+    public void saveInstanceState() {
+        Context appContext = InstrumentationRegistry.getTargetContext();
+
+    }
+
+
     @Test
     public void loadWardrobeFromFileOnStartupTest() throws Exception {
+        //Click My Wardrobe button
+        onView(withId(R.id.WardrobeButton)).perform(click());
+
         // Check that item has been added to the wardrobe linear layout
         onView(withId(R.id.wardrobe_layout))
                 .check(matches(hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart))));
@@ -81,7 +108,7 @@ public class ClothesPlannerInstrumentedTest {
         String wardrobeFileString = readLineFromWardrobeFile();
         assertNull(wardrobeFileString);
     }
-*/
+
     @Test
     public void useAppContext() throws Exception {
         // Context of the app under test.
@@ -93,6 +120,9 @@ public class ClothesPlannerInstrumentedTest {
 
     @Test
     public void addRemoveWardrobeItemTest() throws Exception {
+        //Click My Wardrobe button
+        onView(withId(R.id.WardrobeButton)).perform(click());
+
         // Type text and then press the button.
         onView(withId(R.id.editText_add_item))
                 .perform(typeText(wardrobeItemStringToBeAdded), closeSoftKeyboard());
@@ -111,6 +141,9 @@ public class ClothesPlannerInstrumentedTest {
 
     @Test
     public void addRemoveWardrobeItemReadFromFileTest() throws Exception {
+        //Click My Wardrobe button
+        onView(withId(R.id.WardrobeButton)).perform(click());
+
         // Type text and then press the button.
         onView(withId(R.id.editText_add_item))
                 .perform(typeText(wardrobeItemStringToBeAdded), closeSoftKeyboard());

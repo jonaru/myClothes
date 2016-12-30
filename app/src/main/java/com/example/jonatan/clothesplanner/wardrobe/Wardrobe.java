@@ -1,6 +1,7 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,10 +35,10 @@ public class Wardrobe implements IWardrobe {
     {
     }
 
-    public Wardrobe(LinearLayout wardrobeItemsLinearLayout, MainActivity mainActivity) {
+    public Wardrobe(LinearLayout wardrobeItemsLinearLayout, AppCompatActivity activity) {
         FileInputStream fileInputStream = null;
         try {
-            fileInputStream = mainActivity.openFileInput(mainActivity.getResources().getString(R.string.wardrobe_view));
+            fileInputStream = activity.openFileInput(activity.getResources().getString(R.string.wardrobe_view));
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader reader = new BufferedReader(inputStreamReader);
 
@@ -46,9 +47,9 @@ public class Wardrobe implements IWardrobe {
             while((currentLine = reader.readLine()) != null) {
                 // trim newline when comparing with lineToRemove
                 String trimmedLine = currentLine.trim();
-                LinearLayout wardrobeItemViewGroup = new LinearLayout(mainActivity);
-                wardrobeItemViewGroup.addView(createNewTextView(trimmedLine, mainActivity));
-                wardrobeItemViewGroup.addView(createNewRemoveButton(mainActivity));
+                LinearLayout wardrobeItemViewGroup = new LinearLayout(activity);
+                wardrobeItemViewGroup.addView(createNewTextView(trimmedLine, activity));
+                wardrobeItemViewGroup.addView(createNewRemoveButton(activity));
                 wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
             }
 
@@ -61,22 +62,22 @@ public class Wardrobe implements IWardrobe {
     }
 
     @Override
-    public void addWardrobeItem(EditText itemText, LinearLayout wardrobeItemsLinearLayout, MainActivity mainActivity) {
+    public void addWardrobeItem(EditText itemText, LinearLayout wardrobeItemsLinearLayout, AppCompatActivity activity) {
         String wardrobeItemString = itemText.getText().toString();
         IWardrobeItem itemToAdd = new WardrobeItem(wardrobeItemString);
         addWardrobeItem(itemToAdd);
 
         try {
-            fileOutputStream = mainActivity.openFileOutput(mainActivity.getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);
+            fileOutputStream = activity.openFileOutput(activity.getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);
             fileOutputStream.write(itemText.getText().toString().getBytes());
             fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        LinearLayout wardrobeItemViewGroup = new LinearLayout(mainActivity);
-        wardrobeItemViewGroup.addView(createNewTextView(itemText.getText().toString(), mainActivity));
-        wardrobeItemViewGroup.addView(createNewRemoveButton(mainActivity));
+        LinearLayout wardrobeItemViewGroup = new LinearLayout(activity);
+        wardrobeItemViewGroup.addView(createNewTextView(itemText.getText().toString(), activity));
+        wardrobeItemViewGroup.addView(createNewRemoveButton(activity));
         wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
     }
 
@@ -97,23 +98,23 @@ public class Wardrobe implements IWardrobe {
         return null;
     }
 
-    private View createNewRemoveButton(MainActivity mainActivity) {
+    private View createNewRemoveButton(AppCompatActivity activity) {
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        final Button removeButton = new Button(mainActivity);
+        final Button removeButton = new Button(activity);
         removeButton.setLayoutParams(layoutParams);
         removeButton.setText(R.string.remove);
         removeButton.setGravity(View.FOCUS_RIGHT);
-        removeButton.setOnClickListener(new RemoveButtonOnClickListener(mainActivity));
+        removeButton.setOnClickListener(new RemoveButtonOnClickListener(activity));
         return removeButton;
     }
 
-    private TextView createNewTextView(String text, MainActivity mainActivity) {
+    private TextView createNewTextView(String text, AppCompatActivity activity) {
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        final TextView textView = new TextView(mainActivity);
+        final TextView textView = new TextView(activity);
         textView.setLayoutParams(layoutParams);
         textView.setText(text);
         return textView;

@@ -1,5 +1,6 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
+import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -11,7 +12,7 @@ import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
  */
 
 public interface IWardrobe {
-    void addWardrobeItem(EditText item, LinearLayout wardrobeItemsLinearLayout, MainActivity mainActivity);
+    void addWardrobeItem(EditText item, LinearLayout wardrobeItemsLinearLayout, AppCompatActivity activity);
 
     IWardrobeItem findWardrobeItem(@SuppressWarnings("SameParameterValue") String wardrobeItemString);
 
