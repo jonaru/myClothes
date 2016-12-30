@@ -16,4 +16,9 @@ public class Shirt implements IWardrobeItem {
     public String getWardrobeItemString() {
         return shirt;
     }
+
+    @Override
+    public WardrobeItemType getWardrobeItemType() {
+        return WardrobeItemType.SHIRT;
+    }
 }

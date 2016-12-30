@@ -4,15 +4,20 @@ package com.example.jonatan.clothesplanner.wardrobe.wardrobeitem;
  * Created by Jonatan on 2016-12-13.
  */
 public class WardrobeItem implements IWardrobeItem {
-    private final String wardrobeItem;
+    private final String wardrobeItemString;
 
-    public WardrobeItem(String wardrobeItemString) {
+    public WardrobeItem(String wardrobeItemInputString) {
         //noinspection RedundantStringConstructorCall
-        wardrobeItem = new String(wardrobeItemString);
+        wardrobeItemString = new String(wardrobeItemInputString);
     }
 
     @Override
     public String getWardrobeItemString() {
-        return wardrobeItem;
+        return wardrobeItemString;
+    }
+
+    @Override
+    public WardrobeItemType getWardrobeItemType() {
+        return WardrobeItemType.DEFAULT;
     }
 }

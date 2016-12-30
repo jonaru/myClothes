@@ -5,4 +5,6 @@ package com.example.jonatan.clothesplanner.wardrobe.wardrobeitem;
  */
 public interface IWardrobeItem {
     String getWardrobeItemString();
+
+    WardrobeItemType getWardrobeItemType();
 }
