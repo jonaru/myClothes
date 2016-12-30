@@ -61,7 +61,7 @@ public class WardrobeActivity extends AppCompatActivity {
 
     public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) {
         EditText editText = (EditText) findViewById(R.id.editText_add_item);
-        wardrobe.addWardrobeItem(editText, wardrobeItemsLinearLayout, this);
+        wardrobe.addWardrobeItem(editText.toString());
 
         try {
             fileOutputStream = openFileOutput(getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);

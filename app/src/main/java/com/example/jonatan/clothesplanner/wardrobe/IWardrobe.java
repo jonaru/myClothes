@@ -12,7 +12,7 @@ import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
  */
 
 public interface IWardrobe {
-    void addWardrobeItem(EditText item, LinearLayout wardrobeItemsLinearLayout, AppCompatActivity activity);
+    void addWardrobeItem(String itemString);
 
     IWardrobeItem findWardrobeItem(@SuppressWarnings("SameParameterValue") String wardrobeItemString);
 

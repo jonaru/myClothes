@@ -44,6 +44,15 @@ public class ClothesPlannerUnitTest {
         assertEquals(shirt, wardrobe.findWardrobeItem(BLUE_SHIRT));
     }
 
+    @Test
+    public void testAddWardrobeItemByString() throws Exception {
+        IWardrobe wardrobe = new Wardrobe();
+        IWardrobeItem shirt = new Shirt(BLUE_SHIRT);
+        wardrobe.addWardrobeItem(BLUE_SHIRT);
+
+        assertEquals(BLUE_SHIRT, wardrobe.findWardrobeItem(BLUE_SHIRT).getWardrobeItemString());
+    }
+
         /*
         when(mMockView.getString(R.string.hello_word))
                 .thenReturn(FAKE_STRING);
