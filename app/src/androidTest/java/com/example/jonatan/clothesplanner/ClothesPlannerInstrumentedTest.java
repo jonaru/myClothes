@@ -92,6 +92,16 @@ public class ClothesPlannerInstrumentedTest {
 
 
     @Test
+    public void navigateBetweenActivitiesTest() throws Exception {
+        //Click My Wardrobe button
+        onView(withId(R.id.WeeklyPlanButton)).perform(click());
+
+        //Click on back button
+
+    }
+
+
+    @Test
     public void loadWardrobeFromFileOnStartupTest() throws Exception {
         //Click My Wardrobe button
         onView(withId(R.id.WardrobeButton)).perform(click());

@@ -35,9 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToWardrobe(View view) {
         Intent intent = new Intent(this, WardrobeActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-        //String message = editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
+    public void goToWeeklyPlan(View view) {
+        Intent intent = new Intent(this, WeeklyPlanActivity.class);
         startActivity(intent);
     }
 }
