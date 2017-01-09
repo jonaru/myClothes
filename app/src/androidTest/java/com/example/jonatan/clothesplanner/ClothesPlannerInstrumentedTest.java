@@ -94,21 +94,22 @@ public class ClothesPlannerInstrumentedTest {
 
 
     @Test
-    public void navigateBetweenActivitiesTest() throws Exception {
+    public void displayWeeklyPlanTest() throws Exception {
         //Click My Wardrobe button
         onView(withId(R.id.WardrobeButton)).perform(click());
 
-        // Add wardrobe items
-        onView(withId(R.id.editText_add_item))
-                .perform(typeText(KHAKIS), closeSoftKeyboard());
-
+        // Add khakis items
+        onView(withId(R.id.editText_add_item)).perform(typeText(KHAKIS), closeSoftKeyboard());
         //select trousers from the drop-down menu (spinner)
         onView(withId(R.id.wardrobe_spinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Trousers"))).perform(click());
         onView(withId(R.id.button)).perform(click());
 
-        onView(withId(R.id.editText_add_item))
-                .perform(typeText(BLUE_SHIRT), closeSoftKeyboard());
+        //add shirt item
+        onView(withId(R.id.editText_add_item)).perform(typeText(BLUE_SHIRT), closeSoftKeyboard());
+        //select trousers from the drop-down menu (spinner)
+        onView(withId(R.id.wardrobe_spinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Shirt"))).perform(click());
         onView(withId(R.id.button)).perform(click());
 
         //Click on back button
@@ -121,6 +122,8 @@ public class ClothesPlannerInstrumentedTest {
         // Check that item has been added to the wardrobe linear layout
         onView(withId(R.id.weekly_plan_layout))
                 .check(matches(hasDescendant(withText(KHAKIS))));
+        onView(withId(R.id.weekly_plan_layout))
+                .check(matches(hasDescendant(withText(BLUE_SHIRT))));
 
         //Click on back button
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));

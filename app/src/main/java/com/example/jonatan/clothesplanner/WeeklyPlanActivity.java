@@ -29,5 +29,9 @@ public class WeeklyPlanActivity extends AppCompatActivity {
         {
            weeklyPlanLinearLayout.addView(trousers.get(i).getView(this));
         }
+        for (int i = 0; i < shirts.size(); i++)
+        {
+            weeklyPlanLinearLayout.addView(shirts.get(i).getView(this));
+        }
     }
 }

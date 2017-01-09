@@ -45,6 +45,7 @@ public class WardrobeActivity extends AppCompatActivity {
             String currentLine;
 
             while((currentLine = reader.readLine()) != null) {
+                //TODO: refactor here. Need to add WardrobeItem, and break out duplicated code
                 // trim newline when comparing with lineToRemove
                 String trimmedLine = currentLine.trim();
                 LinearLayout wardrobeItemViewGroup = new LinearLayout(this);
@@ -97,6 +98,7 @@ public class WardrobeActivity extends AppCompatActivity {
         return removeButton;
     }
 
+    //TODO: Remove this shit and all references to it.
     private TextView createNewTextView(String text) {
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
