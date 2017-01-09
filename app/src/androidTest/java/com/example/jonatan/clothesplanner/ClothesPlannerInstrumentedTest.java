@@ -22,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -35,6 +36,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 /**
@@ -98,6 +101,10 @@ public class ClothesPlannerInstrumentedTest {
         // Add wardrobe items
         onView(withId(R.id.editText_add_item))
                 .perform(typeText(KHAKIS), closeSoftKeyboard());
+
+        //select trousers from the drop-down menu (spinner)
+        onView(withId(R.id.wardrobe_spinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Trousers"))).perform(click());
         onView(withId(R.id.button)).perform(click());
 
         onView(withId(R.id.editText_add_item))
@@ -112,9 +119,9 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.WeeklyPlanButton)).perform(click());
 
         // Check that item has been added to the wardrobe linear layout
-  /*      onView(withId(R.id.weekly_plan_layout))
+        onView(withId(R.id.weekly_plan_layout))
                 .check(matches(hasDescendant(withText(KHAKIS))));
-*/
+
         //Click on back button
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));

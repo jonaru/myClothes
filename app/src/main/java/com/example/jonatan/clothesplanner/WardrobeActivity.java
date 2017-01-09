@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
@@ -32,7 +33,7 @@ public class WardrobeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wardrobe);
 
         wardrobeItemsLinearLayout = (LinearLayout) findViewById(R.id.wardrobe_layout);
-        wardrobe = new Wardrobe();
+        wardrobe = Wardrobe.getInstance();
 
         FileInputStream fileInputStream = null;
         try {
@@ -59,9 +60,14 @@ public class WardrobeActivity extends AppCompatActivity {
         }
     }
 
-    public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) {
+    public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) throws WardrobeException {
+        if (wardrobe == null) {
+            throw new WardrobeException();
+        }
         EditText editText = (EditText) findViewById(R.id.editText_add_item);
-        wardrobe.addWardrobeItem(editText.toString());
+        Spinner wardrobeSpinner = (Spinner) findViewById(R.id.wardrobe_spinner);
+        String itemTypeString = (String) wardrobeSpinner.getSelectedItem();
+        wardrobe.addWardrobeItem(editText.getText().toString(), itemTypeString);
 
         try {
             fileOutputStream = openFileOutput(getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);

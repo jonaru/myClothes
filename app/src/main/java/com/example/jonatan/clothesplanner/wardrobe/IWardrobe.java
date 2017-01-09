@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import com.example.jonatan.clothesplanner.MainActivity;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
 
 import java.util.List;
 
@@ -15,11 +16,16 @@ import java.util.List;
  */
 
 public interface IWardrobe {
-    void addWardrobeItem(String itemString);
 
     IWardrobeItem findWardrobeItem(@SuppressWarnings("SameParameterValue") String wardrobeItemString);
+
+    void addWardrobeItem(String itemString, String itemTypeString);
 
     void addWardrobeItem(IWardrobeItem wardrobeItem);
 
     List<Shirt> getShirts();
+
+    List<Trousers> getTrousers();
+
+    void clear();
 }

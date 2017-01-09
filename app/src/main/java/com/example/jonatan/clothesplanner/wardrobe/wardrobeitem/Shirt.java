@@ -3,7 +3,7 @@ package com.example.jonatan.clothesplanner.wardrobe.wardrobeitem;
 /**
  * Created by Jonatan on 2016-12-13.
  */
-public class Shirt implements IWardrobeItem {
+public class Shirt extends WardrobeItem {
 
     private final String shirt;
 
