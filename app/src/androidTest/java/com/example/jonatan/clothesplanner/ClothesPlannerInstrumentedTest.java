@@ -8,6 +8,7 @@ import android.support.test.espresso.ViewAction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.View;
 
 import org.hamcrest.Matcher;
@@ -94,10 +95,18 @@ public class ClothesPlannerInstrumentedTest {
     @Test
     public void navigateBetweenActivitiesTest() throws Exception {
         //Click My Wardrobe button
+        onView(withId(R.id.WardrobeButton)).perform(click());
+
+        //Click on back button
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+
+        //Click Weekly Plan button
         onView(withId(R.id.WeeklyPlanButton)).perform(click());
 
         //Click on back button
-
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
     }
 
 
@@ -170,6 +179,13 @@ public class ClothesPlannerInstrumentedTest {
 
         assertNull(secondInput);
     }
+
+    /*
+    @Test
+    public void getDailyPlanTest() throws Exception {
+
+    }
+    */
 
     private String readLineFromWardrobeFile() throws IOException {
         Context appContext = InstrumentationRegistry.getTargetContext();
