@@ -3,8 +3,6 @@ package com.example.jonatan.clothesplanner.wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItem;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,15 +35,20 @@ public class Wardrobe implements IWardrobe {
 
 
     @Override
-    public void addWardrobeItem(String itemString, String itemTypeString) {
+    public IWardrobeItem addWardrobeItem(String itemString, String itemTypeString) {
+        IWardrobeItem itemToAdd = null;
+
         if (itemTypeString.compareTo(SHIRT_STRING) == 0)
         {
-            addWardrobeItem(new Shirt(itemString));
+            itemToAdd = new Shirt(itemString);
         }
         else if (itemTypeString.compareTo(TROUSERS_STRING) == 0)
         {
-            addWardrobeItem(new Trousers(itemString));
+            itemToAdd = new Trousers(itemString);
         }
+
+        addWardrobeItem(itemToAdd);
+        return itemToAdd;
     }
 
     @Override
@@ -63,7 +66,9 @@ public class Wardrobe implements IWardrobe {
     }
 
     @Override
-    public List<Trousers> getTrousers() { return trousersList; }
+    public List<Trousers> getTrousers() {
+        return trousersList;
+    }
 
     @Override
     public void clear() {

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.RemoveButtonOnClickListener;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -67,7 +68,7 @@ public class WardrobeActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.editText_add_item);
         Spinner wardrobeSpinner = (Spinner) findViewById(R.id.wardrobe_spinner);
         String itemTypeString = (String) wardrobeSpinner.getSelectedItem();
-        wardrobe.addWardrobeItem(editText.getText().toString(), itemTypeString);
+        IWardrobeItem addedWardrobeItem = wardrobe.addWardrobeItem(editText.getText().toString(), itemTypeString);
 
         try {
             fileOutputStream = openFileOutput(getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);
@@ -78,7 +79,7 @@ public class WardrobeActivity extends AppCompatActivity {
         }
 
         LinearLayout wardrobeItemViewGroup = new LinearLayout(this);
-        wardrobeItemViewGroup.addView(createNewTextView(editText.getText().toString()));
+        wardrobeItemViewGroup.addView(addedWardrobeItem.getView(this));
         wardrobeItemViewGroup.addView(createNewRemoveButton());
         wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
         editText.setText("");

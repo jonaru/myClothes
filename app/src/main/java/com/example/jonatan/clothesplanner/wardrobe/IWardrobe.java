@@ -19,7 +19,7 @@ public interface IWardrobe {
 
     IWardrobeItem findWardrobeItem(@SuppressWarnings("SameParameterValue") String wardrobeItemString);
 
-    void addWardrobeItem(String itemString, String itemTypeString);
+    IWardrobeItem addWardrobeItem(String itemString, String itemTypeString);
 
     void addWardrobeItem(IWardrobeItem wardrobeItem);
 
