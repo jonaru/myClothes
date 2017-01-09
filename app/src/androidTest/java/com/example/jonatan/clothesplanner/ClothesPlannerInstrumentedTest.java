@@ -1,20 +1,17 @@
 package com.example.jonatan.clothesplanner;
 
 import android.content.Context;
-import android.os.Environment;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
 
 import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,7 +46,8 @@ import static org.junit.Assert.*;
 public class ClothesPlannerInstrumentedTest {
 
     static private String wardrobeItemStringToBeWrittenBeforeStart = "jeans";
-    static private String wardrobeItemStringToBeAdded = "khakis";
+    static private String KHAKIS = "khakis";
+    static private String BLUE_SHIRT = "blue shirt";
     private FileInputStream fileInputStream;
 
     @Rule
@@ -97,6 +95,15 @@ public class ClothesPlannerInstrumentedTest {
         //Click My Wardrobe button
         onView(withId(R.id.WardrobeButton)).perform(click());
 
+        // Add wardrobe items
+        onView(withId(R.id.editText_add_item))
+                .perform(typeText(KHAKIS), closeSoftKeyboard());
+        onView(withId(R.id.button)).perform(click());
+
+        onView(withId(R.id.editText_add_item))
+                .perform(typeText(BLUE_SHIRT), closeSoftKeyboard());
+        onView(withId(R.id.button)).perform(click());
+
         //Click on back button
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
@@ -104,6 +111,10 @@ public class ClothesPlannerInstrumentedTest {
         //Click Weekly Plan button
         onView(withId(R.id.WeeklyPlanButton)).perform(click());
 
+        // Check that item has been added to the wardrobe linear layout
+  /*      onView(withId(R.id.weekly_plan_layout))
+                .check(matches(hasDescendant(withText(KHAKIS))));
+*/
         //Click on back button
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
@@ -144,18 +155,20 @@ public class ClothesPlannerInstrumentedTest {
 
         // Type text and then press the button.
         onView(withId(R.id.editText_add_item))
-                .perform(typeText(wardrobeItemStringToBeAdded), closeSoftKeyboard());
-
+                .perform(typeText(KHAKIS), closeSoftKeyboard());
         onView(withId(R.id.button)).perform(click());
+
+        //Check that the editText field has been cleared
+        onView(withId(R.id.editText_add_item)).check(matches(withText("")));
 
         // Check that item has been added to the wardrobe linear layout
         onView(withId(R.id.wardrobe_layout))
-                .check(matches(hasDescendant(withText(wardrobeItemStringToBeAdded))));
+                .check(matches(hasDescendant(withText(KHAKIS))));
 
         //Click remove button and check that the item does not exist anymore
-        clickRemove(wardrobeItemStringToBeAdded);
+        clickRemove(KHAKIS);
 
-        onView(allOf(withParent(withId(R.id.wardrobe_layout)), withText(wardrobeItemStringToBeAdded))).check(doesNotExist());
+        onView(allOf(withParent(withId(R.id.wardrobe_layout)), withText(KHAKIS))).check(doesNotExist());
     }
 
     @Test
@@ -165,27 +178,20 @@ public class ClothesPlannerInstrumentedTest {
 
         // Type text and then press the button.
         onView(withId(R.id.editText_add_item))
-                .perform(typeText(wardrobeItemStringToBeAdded), closeSoftKeyboard());
+                .perform(typeText(KHAKIS), closeSoftKeyboard());
 
         onView(withId(R.id.button)).perform(click());
 
         // Check that the item was written to file
         String inputString = readLineFromWardrobeFile();
-        assertEquals(inputString, wardrobeItemStringToBeAdded);
+        assertEquals(inputString, KHAKIS);
 
         //Click remove and check that item is removed from file
-        clickRemove(wardrobeItemStringToBeAdded);
+        clickRemove(KHAKIS);
         String secondInput = readLineFromWardrobeFile();
 
         assertNull(secondInput);
     }
-
-    /*
-    @Test
-    public void getDailyPlanTest() throws Exception {
-
-    }
-    */
 
     private String readLineFromWardrobeFile() throws IOException {
         Context appContext = InstrumentationRegistry.getTargetContext();

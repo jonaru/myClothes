@@ -75,6 +75,7 @@ public class WardrobeActivity extends AppCompatActivity {
         wardrobeItemViewGroup.addView(createNewTextView(editText.getText().toString()));
         wardrobeItemViewGroup.addView(createNewRemoveButton());
         wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
+        editText.setText("");
     }
 
     private View createNewRemoveButton() {

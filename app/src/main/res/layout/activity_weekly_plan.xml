@@ -10,4 +10,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.jonatan.clothesplanner.WeeklyPlanActivity">
 
+    <LinearLayout
+        android:id="@+id/weekly_plan_layout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/wardrobeTextView">
+    </LinearLayout>
+
 </RelativeLayout>
