@@ -36,27 +36,8 @@ public class WardrobeActivity extends AppCompatActivity {
         wardrobeItemsLinearLayout = (LinearLayout) findViewById(R.id.wardrobe_layout);
         wardrobe = Wardrobe.getInstance();
 
-        FileInputStream fileInputStream = null;
         try {
-            fileInputStream = openFileInput(getResources().getString(R.string.wardrobe_view));
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-
-            String currentLine;
-
-            while((currentLine = reader.readLine()) != null) {
-                //TODO: refactor here
-                // trim newline when comparing with lineToRemove
-                String trimmedLine = currentLine.trim();
-                IWardrobeItem addedWardrobeItem = wardrobe.addWardrobeItem(trimmedLine, getResources().getString(R.string.shirt));
-                LinearLayout wardrobeItemViewGroup = new LinearLayout(this);
-                wardrobeItemViewGroup.addView(addedWardrobeItem.getView(this));
-                //wardrobeItemViewGroup.addView(createNewTextView(trimmedLine));
-                wardrobeItemViewGroup.addView(createNewRemoveButton());
-                wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
-            }
-
-            reader.close();
+            readWardrobeFromFile();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -86,6 +67,27 @@ public class WardrobeActivity extends AppCompatActivity {
         wardrobeItemViewGroup.addView(createNewRemoveButton());
         wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
         editText.setText("");
+    }
+
+    private void readWardrobeFromFile() throws IOException {
+        FileInputStream fileInputStream = null;
+
+        fileInputStream = openFileInput(getResources().getString(R.string.wardrobe_view));
+        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+        BufferedReader reader = new BufferedReader(inputStreamReader);
+
+        String currentLine;
+
+        while((currentLine = reader.readLine()) != null) {
+            String trimmedLine = currentLine.trim();
+            IWardrobeItem addedWardrobeItem = wardrobe.addWardrobeItem(trimmedLine, getResources().getString(R.string.shirt));
+            LinearLayout wardrobeItemViewGroup = new LinearLayout(this);
+            wardrobeItemViewGroup.addView(addedWardrobeItem.getView(this));
+            wardrobeItemViewGroup.addView(createNewRemoveButton());
+            wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
+        }
+
+        reader.close();
     }
 
     private View createNewRemoveButton() {
