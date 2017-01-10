@@ -79,6 +79,28 @@ public class Wardrobe implements IWardrobe {
     }
 
     @Override
+    public boolean removeWardrobeItem(String wardrobeItemString) {
+        for (IWardrobeItem item : shirtList)
+        {
+            if (item.getWardrobeItemString().compareTo(wardrobeItemString) == 0)
+            {
+                shirtList.remove(item);
+                return true;
+            }
+        }
+
+        for (IWardrobeItem item : trousersList)
+        {
+            if (item.getWardrobeItemString().compareTo(wardrobeItemString) == 0)
+            {
+                trousersList.remove(item);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public IWardrobeItem findWardrobeItem(String wardrobeItemString) {
         for (IWardrobeItem item : shirtList)
         {

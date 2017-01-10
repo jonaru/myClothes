@@ -28,4 +28,6 @@ public interface IWardrobe {
     List<Trousers> getTrousers();
 
     void clear();
+
+    boolean removeWardrobeItem(String wardrobeItemString);
 }

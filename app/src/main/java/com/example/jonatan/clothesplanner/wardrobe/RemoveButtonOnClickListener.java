@@ -33,13 +33,19 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        //Remove from view
         ViewGroup parentView = (ViewGroup) view.getParent();
         TextView textView = (TextView) parentView.getChildAt(0);
+        ViewGroup grandparentView = (ViewGroup) parentView.getParent();
+        grandparentView.removeView(parentView);
+
+        //Remove from file
         String itemString = textView.getText().toString();
         removeWardrobeItemFromFile(itemString);
 
-        ViewGroup grandparentView = (ViewGroup) parentView.getParent();
-        grandparentView.removeView(parentView);
+        //Remove from Wardrobe
+        IWardrobe wardrobe = Wardrobe.getInstance();
+        wardrobe.removeWardrobeItem(itemString);
     }
 
     //Need to clean up technical debt here
