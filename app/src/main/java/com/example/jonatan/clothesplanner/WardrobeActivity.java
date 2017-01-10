@@ -61,7 +61,7 @@ public class WardrobeActivity extends AppCompatActivity {
         //writeToWardrobeFile(itemText, itemTypeString);
         try {
             fileOutputStream = openFileOutput(getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);
-            fileOutputStream.write(editText.getText().toString().getBytes());
+            fileOutputStream.write(itemText.getBytes());
             fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
