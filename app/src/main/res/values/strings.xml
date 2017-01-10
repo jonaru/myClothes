@@ -9,6 +9,8 @@
     <string name="remove">remove</string>
     <string name="wardrobe_view">wardrobeView</string>
     <string name="weekly_plan">Weekly Plan</string>
+    <string name="trousers">Trousers</string>
+    <string name="shirt">Shirt</string>
 
     <string-array name="wardrobe_array">
         <item>Trousers</item>

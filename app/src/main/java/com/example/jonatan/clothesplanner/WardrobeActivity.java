@@ -45,11 +45,13 @@ public class WardrobeActivity extends AppCompatActivity {
             String currentLine;
 
             while((currentLine = reader.readLine()) != null) {
-                //TODO: refactor here. Need to add WardrobeItem, and break out duplicated code
+                //TODO: refactor here
                 // trim newline when comparing with lineToRemove
                 String trimmedLine = currentLine.trim();
+                IWardrobeItem addedWardrobeItem = wardrobe.addWardrobeItem(trimmedLine, getResources().getString(R.string.shirt));
                 LinearLayout wardrobeItemViewGroup = new LinearLayout(this);
-                wardrobeItemViewGroup.addView(createNewTextView(trimmedLine));
+                wardrobeItemViewGroup.addView(addedWardrobeItem.getView(this));
+                //wardrobeItemViewGroup.addView(createNewTextView(trimmedLine));
                 wardrobeItemViewGroup.addView(createNewRemoveButton());
                 wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
             }
@@ -96,16 +98,5 @@ public class WardrobeActivity extends AppCompatActivity {
         removeButton.setGravity(View.FOCUS_RIGHT);
         removeButton.setOnClickListener(new RemoveButtonOnClickListener(this));
         return removeButton;
-    }
-
-    //TODO: Remove this shit and all references to it.
-    private TextView createNewTextView(String text) {
-        final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        final TextView textView = new TextView(this);
-        textView.setLayoutParams(layoutParams);
-        textView.setText(text);
-        return textView;
     }
 }
