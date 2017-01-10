@@ -55,10 +55,7 @@ public class WardrobeActivity extends AppCompatActivity {
         String itemText = editText.getText().toString();
 
         IWardrobeItem addedWardrobeItem = wardrobe.addWardrobeItem(itemText, itemTypeString);
-        LinearLayout wardrobeItemViewGroup = new LinearLayout(this);
-        wardrobeItemViewGroup.addView(addedWardrobeItem.getView(this));
-        wardrobeItemViewGroup.addView(createNewRemoveButton());
-        wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
+        addWardrobeItemToView(addedWardrobeItem);
         editText.setText("");
 
         try {
@@ -89,13 +86,17 @@ public class WardrobeActivity extends AppCompatActivity {
         while((currentLine = reader.readLine()) != null) {
             String trimmedLine = currentLine.trim();
             IWardrobeItem addedWardrobeItem = wardrobe.addWardrobeItem(trimmedLine, getResources().getString(R.string.shirt));
-            LinearLayout wardrobeItemViewGroup = new LinearLayout(this);
-            wardrobeItemViewGroup.addView(addedWardrobeItem.getView(this));
-            wardrobeItemViewGroup.addView(createNewRemoveButton());
-            wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
+            addWardrobeItemToView(addedWardrobeItem);
         }
 
         reader.close();
+    }
+
+    private void addWardrobeItemToView(IWardrobeItem addedWardrobeItem) {
+        LinearLayout wardrobeItemViewGroup = new LinearLayout(this);
+        wardrobeItemViewGroup.addView(addedWardrobeItem.getView(this));
+        wardrobeItemViewGroup.addView(createNewRemoveButton());
+        wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
     }
 
     private View createNewRemoveButton() {
