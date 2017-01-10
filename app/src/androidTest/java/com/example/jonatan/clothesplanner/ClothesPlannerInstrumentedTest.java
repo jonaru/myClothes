@@ -9,6 +9,9 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
+import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
+
 import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
@@ -54,25 +57,8 @@ public class ClothesPlannerInstrumentedTest {
     private FileInputStream fileInputStream;
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
-            MainActivity.class);
-
-    /*
-    public void ClothesPlannerInstrumentedTest()
-    {
-        Context appContext = InstrumentationRegistry.getTargetContext();
-        FileOutputStream fileOutputStream;
-        try {
-            fileOutputStream = appContext.openFileOutput(appContext.getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);
-            fileOutputStream.write(wardrobeItemStringToBeWrittenBeforeStart.getBytes());
-            fileOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    */
-
-
+    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
+    
     @Before
     public void populateWardrobeFile() {
         Context appContext = InstrumentationRegistry.getTargetContext();
@@ -88,8 +74,8 @@ public class ClothesPlannerInstrumentedTest {
 
     @After
     public void saveInstanceState() {
-        Context appContext = InstrumentationRegistry.getTargetContext();
-
+        IWardrobe wardrobe = Wardrobe.getInstance();
+        wardrobe.clear();
     }
 
 
