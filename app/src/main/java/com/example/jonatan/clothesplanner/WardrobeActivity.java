@@ -26,7 +26,6 @@ public class WardrobeActivity extends AppCompatActivity {
 
     private IWardrobe wardrobe;
     private LinearLayout wardrobeItemsLinearLayout;
-    private FileOutputStream fileOutputStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,22 +55,26 @@ public class WardrobeActivity extends AppCompatActivity {
         String itemText = editText.getText().toString();
 
         IWardrobeItem addedWardrobeItem = wardrobe.addWardrobeItem(itemText, itemTypeString);
-
-
-        //writeToWardrobeFile(itemText, itemTypeString);
-        try {
-            fileOutputStream = openFileOutput(getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);
-            fileOutputStream.write(itemText.getBytes());
-            fileOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         LinearLayout wardrobeItemViewGroup = new LinearLayout(this);
         wardrobeItemViewGroup.addView(addedWardrobeItem.getView(this));
         wardrobeItemViewGroup.addView(createNewRemoveButton());
         wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
         editText.setText("");
+
+        try {
+            writeToWardrobeFile(itemText, itemTypeString);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeToWardrobeFile(String itemText, String itemTypeString) throws IOException {
+        FileOutputStream fileOutputStream;
+        fileOutputStream = openFileOutput(getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);
+        fileOutputStream.write(itemText.getBytes());
+        fileOutputStream.close();
     }
 
     private void readWardrobeFromFile() throws IOException {
