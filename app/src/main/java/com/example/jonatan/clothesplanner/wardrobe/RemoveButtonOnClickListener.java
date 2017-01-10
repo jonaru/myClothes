@@ -35,16 +35,17 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
     public void onClick(View view) {
         ViewGroup parentView = (ViewGroup) view.getParent();
         TextView textView = (TextView) parentView.getChildAt(0);
-        removeWardrobeItemFromFile(textView);
+        String itemString = textView.getText().toString();
+        removeWardrobeItemFromFile(itemString);
 
         ViewGroup grandparentView = (ViewGroup) parentView.getParent();
         grandparentView.removeView(parentView);
     }
 
     //Need to clean up technical debt here
-    private void removeWardrobeItemFromFile(TextView textView) {
+    private void removeWardrobeItemFromFile(String itemString) {
         try {
-            removeLineFromFile(myActivity.getResources().getString(R.string.wardrobe_view), textView.getText().toString());
+            removeLineFromFile(itemString);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -52,7 +53,8 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
         }
     }
 
-    private boolean removeLineFromFile(String wardrobeFileString, String lineToRemove) throws IOException {
+    private boolean removeLineFromFile(String lineToRemove) throws IOException {
+        String wardrobeFileString = myActivity.getResources().getString(R.string.wardrobe_view);
         FileInputStream fileInputStream = myActivity.openFileInput(wardrobeFileString);
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
         BufferedReader reader = new BufferedReader(inputStreamReader);
