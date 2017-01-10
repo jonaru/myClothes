@@ -49,11 +49,16 @@ public class WardrobeActivity extends AppCompatActivity {
         if (wardrobe == null) {
             throw new WardrobeException();
         }
+
         EditText editText = (EditText) findViewById(R.id.editText_add_item);
         Spinner wardrobeSpinner = (Spinner) findViewById(R.id.wardrobe_spinner);
         String itemTypeString = (String) wardrobeSpinner.getSelectedItem();
-        IWardrobeItem addedWardrobeItem = wardrobe.addWardrobeItem(editText.getText().toString(), itemTypeString);
+        String itemText = editText.getText().toString();
 
+        IWardrobeItem addedWardrobeItem = wardrobe.addWardrobeItem(itemText, itemTypeString);
+
+
+        //writeToWardrobeFile(itemText, itemTypeString);
         try {
             fileOutputStream = openFileOutput(getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);
             fileOutputStream.write(editText.getText().toString().getBytes());
