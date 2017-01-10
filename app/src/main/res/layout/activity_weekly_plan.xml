@@ -14,7 +14,89 @@
         android:id="@+id/weekly_plan_layout"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:id="@+id/mondayViewGroup"
+            android:visibility="invisible"
+            android:layout_weight="0.01">
+
+            <TextView
+                android:text="Monday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mondayText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:id="@+id/tuesdayViewGroup"
+            android:weightSum="1"
+            android:visibility="invisible"
+            android:layout_weight="0.03">
+
+            <TextView
+                android:text="Tuesday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tuesdayText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:id="@+id/wednesdayViewGroup"
+            android:weightSum="1"
+            android:visibility="invisible">
+
+            <TextView
+                android:text="Wednesday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/wednesdayText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:id="@+id/thursdayViewGroup"
+            android:weightSum="1"
+            android:visibility="invisible">
+
+            <TextView
+                android:text="Thursday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/thursdayText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:id="@+id/fridayViewGroup"
+            android:weightSum="1"
+            android:visibility="invisible">
+
+            <TextView
+                android:text="Friday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fridayText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

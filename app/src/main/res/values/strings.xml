@@ -12,6 +12,8 @@
     <string name="trousers">Trousers</string>
     <string name="shirt">Shirt</string>
 
+    <string name="monday">Monday</string>
+
     <string-array name="wardrobe_array">
         <item>Trousers</item>
         <item>Shirt</item>

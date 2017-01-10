@@ -2,6 +2,7 @@ package com.example.jonatan.clothesplanner;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
@@ -9,6 +10,7 @@ import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WeeklyPlanActivity extends AppCompatActivity {
@@ -25,13 +27,22 @@ public class WeeklyPlanActivity extends AppCompatActivity {
         List<Trousers> trousers = wardrobe.getTrousers();
         List<Shirt> shirts = wardrobe.getShirts();
 
+        List<LinearLayout> dailyPlans = new ArrayList<>();
+        dailyPlans.add((LinearLayout) findViewById(R.id.mondayViewGroup));
+        dailyPlans.add((LinearLayout) findViewById(R.id.tuesdayViewGroup));
+        dailyPlans.add((LinearLayout) findViewById(R.id.wednesdayViewGroup));
+        dailyPlans.add((LinearLayout) findViewById(R.id.thursdayViewGroup));
+        dailyPlans.add((LinearLayout) findViewById(R.id.fridayViewGroup));
+
         for (int i = 0; i < trousers.size(); i++)
         {
-           weeklyPlanLinearLayout.addView(trousers.get(i).getView(this));
+            dailyPlans.get(i).addView(trousers.get(i).getView(this));
+            dailyPlans.get(i).setVisibility(View.VISIBLE);
         }
         for (int i = 0; i < shirts.size(); i++)
         {
-            weeklyPlanLinearLayout.addView(shirts.get(i).getView(this));
+            dailyPlans.get(i).addView(shirts.get(i).getView(this));
+            dailyPlans.get(i).setVisibility(View.VISIBLE);
         }
     }
 }

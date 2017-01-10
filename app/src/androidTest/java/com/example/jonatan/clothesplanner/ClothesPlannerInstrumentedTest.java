@@ -51,6 +51,7 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class ClothesPlannerInstrumentedTest {
 
+    private static final String MONDAY = "Monday";
     static private String wardrobeItemStringToBeWrittenBeforeStart = "jeans";
     static private String KHAKIS = "khakis";
     static private String BLUE_SHIRT = "blue shirt";
@@ -58,7 +59,7 @@ public class ClothesPlannerInstrumentedTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
-    
+
     @Before
     public void populateWardrobeFile() {
         Context appContext = InstrumentationRegistry.getTargetContext();
@@ -107,9 +108,14 @@ public class ClothesPlannerInstrumentedTest {
 
         // Check that item has been added to the wardrobe linear layout
         onView(withId(R.id.weekly_plan_layout))
+                .check(matches(hasDescendant(hasDescendant(withText(MONDAY)))));
+
+        /*
+        onView(withId(R.id.monday))
                 .check(matches(hasDescendant(withText(KHAKIS))));
-        onView(withId(R.id.weekly_plan_layout))
+        onView(withId(R.id.monday))
                 .check(matches(hasDescendant(withText(BLUE_SHIRT))));
+        */
 
         //Click on back button
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
