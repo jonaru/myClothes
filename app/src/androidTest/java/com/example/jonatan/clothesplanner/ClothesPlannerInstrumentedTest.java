@@ -108,11 +108,9 @@ public class ClothesPlannerInstrumentedTest {
 
         // Check that item has been added to the wardrobe linear layout
         onView(withId(R.id.weekly_plan_layout))
-                .check(matches(hasDescendant(hasDescendant(withText(MONDAY)))));
+                .check(matches(hasDescendant(allOf(hasDescendant(withText(MONDAY)), hasDescendant(withText(KHAKIS))))));
 
         /*
-        onView(withId(R.id.monday))
-                .check(matches(hasDescendant(withText(KHAKIS))));
         onView(withId(R.id.monday))
                 .check(matches(hasDescendant(withText(BLUE_SHIRT))));
         */
