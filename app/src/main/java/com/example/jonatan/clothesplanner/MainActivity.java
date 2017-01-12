@@ -10,10 +10,15 @@ import android.widget.LinearLayout;
 
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,9 +26,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Initialize Wardrobe
-        Wardrobe.initInstance();
     }
 
     @Override
@@ -32,17 +34,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
+    protected void onResume() { super.onResume(); }
 
-    public void goToWardrobe(View view) {
-        Intent intent = new Intent(this, WardrobeActivity.class);
-        startActivity(intent);
-    }
-
-    public void goToWeeklyPlan(View view) {
-        Intent intent = new Intent(this, WeeklyPlanActivity.class);
+    public void goToHomeScreen(View view) {
+        Intent intent = new Intent(this, HomeScreenActivity.class);
         startActivity(intent);
     }
 }

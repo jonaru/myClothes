@@ -39,30 +39,7 @@ public class WardrobeActivity extends AppCompatActivity {
 
         wardrobeItemsLinearLayout = (LinearLayout) findViewById(R.id.wardrobe_layout);
         wardrobe = Wardrobe.getInstance();
-        //addItemsFromWardrobe();
-
-        try {
-            readWardrobeFromFile();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void addItemsFromWardrobe() {
-        List<Shirt> shirtList = wardrobe.getShirts();
-        List<Trousers> trousersList = wardrobe.getTrousers();
-
-        for (IWardrobeItem shirt : shirtList)
-        {
-            //add shirt to view
-        }
-
-        for (IWardrobeItem trousers : trousersList)
-        {
-            //add trousers to view
-        }
+        addItemsFromWardrobe();
     }
 
     public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) throws WardrobeException {
@@ -89,28 +66,34 @@ public class WardrobeActivity extends AppCompatActivity {
     }
 
     private void writeToWardrobeFile(String itemText, String itemTypeString) throws IOException {
-        FileOutputStream fileOutputStream;
-        fileOutputStream = openFileOutput(getResources().getString(R.string.wardrobe_view), Context.MODE_PRIVATE);
+        FileOutputStream fileOutputStream = null;
+
+        if (itemTypeString.compareTo(getResources().getString(R.string.shirt)) == 0)
+        {
+            fileOutputStream = openFileOutput(getResources().getString(R.string.saved_shirts), Context.MODE_PRIVATE);
+        }
+        else if (itemTypeString.compareTo(getResources().getString(R.string.trousers)) == 0)
+        {
+            fileOutputStream = openFileOutput(getResources().getString(R.string.saved_trousers), Context.MODE_PRIVATE);
+        }
+
         fileOutputStream.write(itemText.getBytes());
         fileOutputStream.close();
     }
 
-    private void readWardrobeFromFile() throws IOException {
-        FileInputStream fileInputStream = null;
+    private void addItemsFromWardrobe() {
+        List<Shirt> shirtList = wardrobe.getShirts();
+        List<Trousers> trousersList = wardrobe.getTrousers();
 
-        fileInputStream = openFileInput(getResources().getString(R.string.wardrobe_view));
-        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-        BufferedReader reader = new BufferedReader(inputStreamReader);
-
-        String currentLine;
-
-        while((currentLine = reader.readLine()) != null) {
-            String trimmedLine = currentLine.trim();
-            IWardrobeItem addedWardrobeItem = wardrobe.addWardrobeItem(trimmedLine, getResources().getString(R.string.shirt));
-            addWardrobeItemToView(addedWardrobeItem);
+        for (IWardrobeItem shirt : shirtList)
+        {
+            addWardrobeItemToView(shirt);
         }
 
-        reader.close();
+        for (IWardrobeItem trousers : trousersList)
+        {
+            addWardrobeItemToView(trousers);
+        }
     }
 
     private void addWardrobeItemToView(IWardrobeItem addedWardrobeItem) {

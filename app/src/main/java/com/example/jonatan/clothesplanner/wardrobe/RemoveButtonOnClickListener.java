@@ -40,18 +40,31 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
         grandparentView.removeView(parentView);
 
         //Remove from file
+        String wardrobeItemFile = getWardrobeItemFile(grandparentView);
         String itemString = textView.getText().toString();
-        removeWardrobeItemFromFile(itemString);
+        removeWardrobeItemFromFile(itemString, wardrobeItemFile);
 
         //Remove from Wardrobe
         IWardrobe wardrobe = Wardrobe.getInstance();
         wardrobe.removeWardrobeItem(itemString);
     }
 
+    private String getWardrobeItemFile(ViewGroup grandparentView) {
+        if (grandparentView.getId() == R.id.shirt_layout)
+        {
+            return grandparentView.getResources().getString(R.string.saved_shirts);
+        }
+        else if (grandparentView.getId() == R.id.trousers_layout)
+        {
+            return grandparentView.getResources().getString(R.string.saved_trousers);
+        }
+        return null;
+    }
+
     //Need to clean up technical debt here
-    private void removeWardrobeItemFromFile(String itemString) {
+    private void removeWardrobeItemFromFile(String itemString, String wardrobeItemFile) {
         try {
-            removeLineFromFile(itemString);
+            removeLineFromFile(itemString, wardrobeItemFile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -59,9 +72,9 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
         }
     }
 
-    private boolean removeLineFromFile(String lineToRemove) throws IOException {
-        String wardrobeFileString = myActivity.getResources().getString(R.string.wardrobe_view);
-        FileInputStream fileInputStream = myActivity.openFileInput(wardrobeFileString);
+    private boolean removeLineFromFile(String lineToRemove, String wardrobeItemFile) throws IOException {
+        //String wardrobeFileString = myActivity.getResources().getString(R.string.wardrobe_view);
+        FileInputStream fileInputStream = myActivity.openFileInput(wardrobeItemFile);
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
         BufferedReader reader = new BufferedReader(inputStreamReader);
 
@@ -82,7 +95,7 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
         writer.close();
         reader.close();
 
-        File inputFile = new File(myActivity.getFilesDir()+"/"+wardrobeFileString);
+        File inputFile = new File(myActivity.getFilesDir()+"/"+wardrobeItemFile);
         File tempFile = new File(myActivity.getFilesDir()+"/"+myTempFileString);
         return tempFile.renameTo(inputFile);
     }
