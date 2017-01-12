@@ -14,6 +14,9 @@ import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.RemoveButtonOnClickListener;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -21,6 +24,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WardrobeActivity extends AppCompatActivity {
 
@@ -34,6 +39,7 @@ public class WardrobeActivity extends AppCompatActivity {
 
         wardrobeItemsLinearLayout = (LinearLayout) findViewById(R.id.wardrobe_layout);
         wardrobe = Wardrobe.getInstance();
+        //addItemsFromWardrobe();
 
         try {
             readWardrobeFromFile();
@@ -41,6 +47,21 @@ public class WardrobeActivity extends AppCompatActivity {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void addItemsFromWardrobe() {
+        List<Shirt> shirtList = wardrobe.getShirts();
+        List<Trousers> trousersList = wardrobe.getTrousers();
+
+        for (IWardrobeItem shirt : shirtList)
+        {
+            //add shirt to view
+        }
+
+        for (IWardrobeItem trousers : trousersList)
+        {
+            //add trousers to view
         }
     }
 
@@ -96,7 +117,17 @@ public class WardrobeActivity extends AppCompatActivity {
         LinearLayout wardrobeItemViewGroup = new LinearLayout(this);
         wardrobeItemViewGroup.addView(addedWardrobeItem.getView(this));
         wardrobeItemViewGroup.addView(createNewRemoveButton());
-        wardrobeItemsLinearLayout.addView(wardrobeItemViewGroup);
+
+        if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.SHIRT)
+        {
+            LinearLayout shirtView = (LinearLayout) findViewById(R.id.shirt_layout);
+            shirtView.addView(wardrobeItemViewGroup);
+        }
+        else if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.TROUSERS)
+        {
+            LinearLayout trousersView = (LinearLayout) findViewById(R.id.trousers_layout);
+            trousersView.addView(wardrobeItemViewGroup);
+        }
     }
 
     private View createNewRemoveButton() {

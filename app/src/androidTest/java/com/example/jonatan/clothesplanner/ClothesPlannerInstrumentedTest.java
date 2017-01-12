@@ -153,22 +153,24 @@ public class ClothesPlannerInstrumentedTest {
         //Click My Wardrobe button
         onView(withId(R.id.WardrobeButton)).perform(click());
 
-        // Type text and then press the button.
-        onView(withId(R.id.editText_add_item))
-                .perform(typeText(KHAKIS), closeSoftKeyboard());
+        // Add khakis items
+        onView(withId(R.id.editText_add_item)).perform(typeText(KHAKIS), closeSoftKeyboard());
+        //select trousers from the drop-down menu (spinner)
+        onView(withId(R.id.wardrobe_spinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Trousers"))).perform(click());
         onView(withId(R.id.button)).perform(click());
 
         //Check that the editText field has been cleared
         onView(withId(R.id.editText_add_item)).check(matches(withText("")));
 
         // Check that item has been added to the wardrobe linear layout
-        onView(withId(R.id.wardrobe_layout))
+        onView(withId(R.id.trousers_layout))
                 .check(matches(hasDescendant(withText(KHAKIS))));
 
         //Click remove button and check that the item does not exist anymore
         clickRemove(KHAKIS);
 
-        onView(allOf(withParent(withId(R.id.wardrobe_layout)), withText(KHAKIS))).check(doesNotExist());
+        onView(allOf(withParent(withId(R.id.trousers_layout)), withText(KHAKIS))).check(doesNotExist());
     }
 
     @Test
