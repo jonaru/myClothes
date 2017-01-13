@@ -1,6 +1,7 @@
 package com.example.jonatan.clothesplanner;
 
 import android.content.Context;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -101,13 +102,13 @@ public class WardrobeActivity extends AppCompatActivity {
 
         if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.SHIRT)
         {
-            LinearLayout shirtView = (LinearLayout) findViewById(R.id.shirt_layout);
-            shirtView.addView(wardrobeItemViewGroup);
+            ViewPager shirtPager = (ViewPager) findViewById(R.id.shirt_layout);
+            shirtPager.addView(wardrobeItemViewGroup);
         }
         else if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.TROUSERS)
         {
-            LinearLayout trousersView = (LinearLayout) findViewById(R.id.trousers_layout);
-            trousersView.addView(wardrobeItemViewGroup);
+            ViewPager trousersPager = (ViewPager) findViewById(R.id.trousers_layout);
+            trousersPager.addView(wardrobeItemViewGroup);
         }
     }
 
