@@ -126,11 +126,6 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.weekly_plan_layout))
                 .check(matches(hasDescendant(allOf(hasDescendant(withText(TUESDAY)), hasDescendant(withText(KHAKIS))))));
 
-        /*
-        onView(withId(R.id.monday))
-                .check(matches(hasDescendant(withText(BLUE_SHIRT))));
-        */
-
         //Click on back button
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));

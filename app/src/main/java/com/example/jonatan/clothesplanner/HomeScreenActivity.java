@@ -29,17 +29,17 @@ public class HomeScreenActivity extends AppCompatActivity {
 
         try {
             readWardrobeFromFile(WardrobeItemType.SHIRT);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (WardrobeException e) {
             e.printStackTrace();
         }
 
         try {
             readWardrobeFromFile(WardrobeItemType.TROUSERS);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (WardrobeException e) {
             e.printStackTrace();
         }
     }
@@ -54,28 +54,8 @@ public class HomeScreenActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void readWardrobeFromFile(WardrobeItemType itemType) throws IOException {
-        FileInputStream fileInputStream = null;
-
-        if (itemType  == WardrobeItemType.SHIRT)
-        {
-            try {
-                fileInputStream = openFileInput(getResources().getString(R.string.saved_shirts));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                throw new IOException();
-            }
-        }
-        else if (itemType  == WardrobeItemType.TROUSERS)
-        {
-            try {
-                fileInputStream = openFileInput(getResources().getString(R.string.saved_trousers));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                throw new IOException();
-            }
-        }
-
+    private void readWardrobeFromFile(WardrobeItemType itemType) throws IOException, WardrobeException {
+        FileInputStream fileInputStream = openWardrobeFileInputStream(itemType);
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
         BufferedReader reader = new BufferedReader(inputStreamReader);
 
@@ -95,5 +75,27 @@ public class HomeScreenActivity extends AppCompatActivity {
         }
 
         reader.close();
+    }
+
+    private FileInputStream openWardrobeFileInputStream(WardrobeItemType itemType) throws WardrobeException {
+        if (itemType  == WardrobeItemType.SHIRT)
+        {
+            try {
+                return openFileInput(getResources().getString(R.string.saved_shirts));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                throw new WardrobeException();
+            }
+        }
+        else if (itemType  == WardrobeItemType.TROUSERS)
+        {
+            try {
+                return openFileInput(getResources().getString(R.string.saved_trousers));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                throw new WardrobeException();
+            }
+        }
+        return null;
     }
 }

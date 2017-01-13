@@ -30,14 +30,12 @@ import java.util.List;
 public class WardrobeActivity extends AppCompatActivity {
 
     private IWardrobe wardrobe;
-    private LinearLayout wardrobeItemsLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wardrobe);
 
-        wardrobeItemsLinearLayout = (LinearLayout) findViewById(R.id.wardrobe_layout);
         wardrobe = Wardrobe.getInstance();
         addItemsFromWardrobe();
     }
