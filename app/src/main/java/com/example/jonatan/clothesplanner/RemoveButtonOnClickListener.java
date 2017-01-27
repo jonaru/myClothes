@@ -1,4 +1,4 @@
-package com.example.jonatan.clothesplanner.wardrobe;
+package com.example.jonatan.clothesplanner;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.example.jonatan.clothesplanner.R;
 import com.example.jonatan.clothesplanner.WardrobePagerAdapter;
+import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
+import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

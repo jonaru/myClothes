@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
-import com.example.jonatan.clothesplanner.wardrobe.RemoveButtonOnClickListener;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
