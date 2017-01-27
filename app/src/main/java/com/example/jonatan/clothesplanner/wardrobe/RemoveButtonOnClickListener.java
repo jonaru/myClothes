@@ -49,7 +49,11 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
         //Remove from file
         String wardrobeItemFile = getWardrobeItemFile(grandparentView);
         String itemString = textView.getText().toString();
-        removeWardrobeItemFromFile(itemString, wardrobeItemFile);
+        try {
+            removeWardrobeItemFromFile(itemString, wardrobeItemFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //Remove from Wardrobe
         IWardrobe wardrobe = Wardrobe.getInstance();
@@ -68,19 +72,8 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
         return null;
     }
 
-    //Need to clean up technical debt here
-    private void removeWardrobeItemFromFile(String itemString, String wardrobeItemFile) {
-        try {
-            removeLineFromFile(itemString, wardrobeItemFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private boolean removeLineFromFile(String lineToRemove, String wardrobeItemFile) throws IOException {
-        //String wardrobeFileString = myActivity.getResources().getString(R.string.wardrobe_view);
+    //This should be handled by Wardrobe through a FileHandlerHelper class
+    private boolean removeWardrobeItemFromFile(String lineToRemove, String wardrobeItemFile) throws IOException {
         FileInputStream fileInputStream = myActivity.openFileInput(wardrobeItemFile);
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
         BufferedReader reader = new BufferedReader(inputStreamReader);

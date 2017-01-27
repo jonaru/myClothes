@@ -76,6 +76,7 @@ public class WardrobeActivity extends Activity {
         }
     }
 
+    //This should be handled by Wardrobe through a FileHandlerHelper class
     private void writeToWardrobeFile(String itemText, String itemTypeString) throws IOException {
         FileOutputStream fileOutputStream = null;
 
