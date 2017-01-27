@@ -33,7 +33,7 @@ import static junit.framework.Assert.assertTrue;
  */
 
 @RunWith(MockitoJUnitRunner.class)
-public class ClothesPlannerUnitTest {
+public class WardrobeUnitTest {
 
     private static final String BLUE_SHIRT = "blue shirt";
     private static final String WHITE_SHIRT = "white shirt";
