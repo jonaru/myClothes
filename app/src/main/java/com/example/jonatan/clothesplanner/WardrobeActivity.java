@@ -2,15 +2,11 @@ package com.example.jonatan.clothesplanner;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -114,15 +110,18 @@ public class WardrobeActivity extends Activity {
     private void addWardrobeItemToPager(IWardrobeItem addedWardrobeItem) {
         LinearLayout wardrobeItemViewGroup = new LinearLayout(this);
         wardrobeItemViewGroup.addView(addedWardrobeItem.getView(this));
-        wardrobeItemViewGroup.addView(createNewRemoveButton());
+        Button removeButton = (Button) createNewRemoveButton();
+        wardrobeItemViewGroup.addView(removeButton);
 
         if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.SHIRT)
         {
+            removeButton.setOnClickListener(new RemoveButtonOnClickListener(this, shirtAdapter, shirtViewPager));
             int pageIndex = shirtAdapter.addView(wardrobeItemViewGroup);
             shirtViewPager.setCurrentItem(pageIndex, true);
         }
         else if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.TROUSERS)
         {
+            removeButton.setOnClickListener(new RemoveButtonOnClickListener(this, trousersAdapter, trousersViewPager));
             int pageIndex = trousersAdapter.addView(wardrobeItemViewGroup);
             trousersViewPager.setCurrentItem(pageIndex, true);
         }
@@ -136,7 +135,6 @@ public class WardrobeActivity extends Activity {
         removeButton.setLayoutParams(layoutParams);
         removeButton.setText(R.string.remove);
         removeButton.setGravity(View.FOCUS_RIGHT);
-        removeButton.setOnClickListener(new RemoveButtonOnClickListener(this));
         return removeButton;
     }
 }
