@@ -45,22 +45,12 @@ public class WardrobeActivity extends Activity {
         if (shirtViewPager != null) {
             shirtAdapter = new WardrobePagerAdapter();
             shirtViewPager.setAdapter(shirtAdapter);
-
-            // Create an initial view to display; must be a subclass of FrameLayout.
-            /*
-            LayoutInflater inflater = this.getLayoutInflater();
-            FrameLayout v0 = (FrameLayout) inflater.inflate (R.layout.activity_wardrobe, null);
-            shirtAdapter.addView (v0, 0);
-            */
         }
 
         trousersViewPager = (ViewPager) findViewById(R.id.trousers_pager);
         if (trousersViewPager != null) {
             trousersAdapter = new WardrobePagerAdapter();
             trousersViewPager.setAdapter(trousersAdapter);
-
-
-            //trousersAdapter.addView (v0, 0);
         }
 
         wardrobe = Wardrobe.getInstance();
@@ -128,13 +118,11 @@ public class WardrobeActivity extends Activity {
 
         if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.SHIRT)
         {
-            //ViewPager shirtPager = (ViewPager) findViewById(R.id.shirt_pager);
             int pageIndex = shirtAdapter.addView(wardrobeItemViewGroup);
             shirtViewPager.setCurrentItem(pageIndex, true);
         }
         else if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.TROUSERS)
         {
-            //ViewPager trousersPager = (ViewPager) findViewById(R.id.trousers_pager);
             int pageIndex = trousersAdapter.addView(wardrobeItemViewGroup);
             trousersViewPager.setCurrentItem(pageIndex, true);
         }
