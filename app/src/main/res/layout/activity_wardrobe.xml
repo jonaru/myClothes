@@ -56,7 +56,7 @@
             android:layout_marginTop="28dp" />
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/shirt_layout"
+            android:id="@+id/shirt_pager"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:orientation="vertical">
@@ -73,7 +73,7 @@
             android:layout_marginTop="28dp" />
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/sweater_layout"
+            android:id="@+id/sweater_pager"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:orientation="vertical">
@@ -90,7 +90,7 @@
             android:layout_marginTop="28dp" />
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/trousers_layout"
+            android:id="@+id/trousers_pager"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:orientation="horizontal">

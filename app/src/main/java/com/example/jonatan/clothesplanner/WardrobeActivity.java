@@ -1,15 +1,18 @@
 package com.example.jonatan.clothesplanner;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.RemoveButtonOnClickListener;
@@ -19,23 +22,46 @@ import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
-public class WardrobeActivity extends AppCompatActivity {
+public class WardrobeActivity extends Activity {
 
     private IWardrobe wardrobe;
+    ViewPager shirtViewPager;
+    ViewPager trousersViewPager;
+
+    WardrobePagerAdapter shirtAdapter;
+    WardrobePagerAdapter trousersAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wardrobe);
+
+        shirtViewPager = (ViewPager) findViewById(R.id.shirt_pager);
+        if (shirtViewPager != null) {
+            shirtAdapter = new WardrobePagerAdapter();
+            shirtViewPager.setAdapter(shirtAdapter);
+
+            // Create an initial view to display; must be a subclass of FrameLayout.
+            /*
+            LayoutInflater inflater = this.getLayoutInflater();
+            FrameLayout v0 = (FrameLayout) inflater.inflate (R.layout.activity_wardrobe, null);
+            shirtAdapter.addView (v0, 0);
+            */
+        }
+
+        trousersViewPager = (ViewPager) findViewById(R.id.trousers_pager);
+        if (trousersViewPager != null) {
+            trousersAdapter = new WardrobePagerAdapter();
+            trousersViewPager.setAdapter(trousersAdapter);
+
+
+            //trousersAdapter.addView (v0, 0);
+        }
 
         wardrobe = Wardrobe.getInstance();
         addItemsFromWardrobe();
@@ -52,7 +78,7 @@ public class WardrobeActivity extends AppCompatActivity {
         String itemText = editText.getText().toString();
 
         IWardrobeItem addedWardrobeItem = wardrobe.addWardrobeItem(itemText, itemTypeString);
-        addWardrobeItemToView(addedWardrobeItem);
+        addWardrobeItemToPager(addedWardrobeItem);
         editText.setText("");
 
         try {
@@ -86,29 +112,31 @@ public class WardrobeActivity extends AppCompatActivity {
 
         for (IWardrobeItem shirt : shirtList)
         {
-            addWardrobeItemToView(shirt);
+            addWardrobeItemToPager(shirt);
         }
 
         for (IWardrobeItem trousers : trousersList)
         {
-            addWardrobeItemToView(trousers);
+            addWardrobeItemToPager(trousers);
         }
     }
 
-    private void addWardrobeItemToView(IWardrobeItem addedWardrobeItem) {
+    private void addWardrobeItemToPager(IWardrobeItem addedWardrobeItem) {
         LinearLayout wardrobeItemViewGroup = new LinearLayout(this);
         wardrobeItemViewGroup.addView(addedWardrobeItem.getView(this));
         wardrobeItemViewGroup.addView(createNewRemoveButton());
 
         if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.SHIRT)
         {
-            ViewPager shirtPager = (ViewPager) findViewById(R.id.shirt_layout);
-            shirtPager.addView(wardrobeItemViewGroup);
+            //ViewPager shirtPager = (ViewPager) findViewById(R.id.shirt_pager);
+            int pageIndex = shirtAdapter.addView(wardrobeItemViewGroup);
+            shirtViewPager.setCurrentItem(pageIndex, true);
         }
         else if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.TROUSERS)
         {
-            ViewPager trousersPager = (ViewPager) findViewById(R.id.trousers_layout);
-            trousersPager.addView(wardrobeItemViewGroup);
+            //ViewPager trousersPager = (ViewPager) findViewById(R.id.trousers_pager);
+            int pageIndex = trousersAdapter.addView(wardrobeItemViewGroup);
+            trousersViewPager.setCurrentItem(pageIndex, true);
         }
     }
 

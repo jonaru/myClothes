@@ -141,12 +141,12 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.WardrobeButton)).perform(click());
 
         // Check that item has been added to the wardrobe linear layout
-        onView(withId(R.id.trousers_layout))
+        onView(withId(R.id.trousers_pager))
                 .check(matches(hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart))));
 
         //Click remove button and check that the item does not exist anymore
         clickRemove(wardrobeItemStringToBeWrittenBeforeStart);
-        onView(allOf(withParent(withId(R.id.trousers_layout)), withText(wardrobeItemStringToBeWrittenBeforeStart))).check(doesNotExist());
+        onView(allOf(withParent(withId(R.id.trousers_pager)), withText(wardrobeItemStringToBeWrittenBeforeStart))).check(doesNotExist());
 
         //Check that file has been cleared
         Context appContext = InstrumentationRegistry.getTargetContext();
@@ -182,13 +182,13 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.editText_add_item)).check(matches(withText("")));
 
         // Check that item has been added to the wardrobe linear layout
-        onView(withId(R.id.trousers_layout))
+        onView(withId(R.id.trousers_pager))
                 .check(matches(hasDescendant(withText(KHAKIS))));
 
         //Click remove button and check that the item does not exist anymore
         clickRemove(KHAKIS);
 
-        onView(allOf(withParent(withId(R.id.trousers_layout)), withText(KHAKIS))).check(doesNotExist());
+        onView(allOf(withParent(withId(R.id.trousers_pager)), withText(KHAKIS))).check(doesNotExist());
     }
 
     @Test

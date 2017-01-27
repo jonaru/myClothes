@@ -1,5 +1,6 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -23,9 +24,9 @@ import java.io.OutputStreamWriter;
  */
 
 public class RemoveButtonOnClickListener implements View.OnClickListener {
-    private final AppCompatActivity myActivity;
+    private final Activity myActivity;
 
-    public RemoveButtonOnClickListener(AppCompatActivity inputMainActivity){
+    public RemoveButtonOnClickListener(Activity inputMainActivity){
         super();
 
         myActivity = inputMainActivity;
@@ -50,11 +51,11 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
     }
 
     private String getWardrobeItemFile(ViewGroup grandparentView) {
-        if (grandparentView.getId() == R.id.shirt_layout)
+        if (grandparentView.getId() == R.id.shirt_pager)
         {
             return grandparentView.getResources().getString(R.string.saved_shirts);
         }
-        else if (grandparentView.getId() == R.id.trousers_layout)
+        else if (grandparentView.getId() == R.id.trousers_pager)
         {
             return grandparentView.getResources().getString(R.string.saved_trousers);
         }
