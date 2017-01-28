@@ -1,6 +1,5 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.example.jonatan.clothesplanner.R;
@@ -10,6 +9,7 @@ import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -24,13 +24,12 @@ public class FileHandlingHelper implements IFileHandlingHelper {
     public FileHandlingHelper(Context context)
     {
         myContext = context;
-        Wardrobe.initInstance();
     }
 
     @Override
-    public void loadWardrobe() {
+    public void loadWardrobe(IWardrobe wardrobe) {
         try {
-            readWardrobeFromFile(WardrobeItemType.SHIRT);
+            readWardrobeFromFile(WardrobeItemType.SHIRT, wardrobe);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (WardrobeException e) {
@@ -38,7 +37,7 @@ public class FileHandlingHelper implements IFileHandlingHelper {
         }
 
         try {
-            readWardrobeFromFile(WardrobeItemType.TROUSERS);
+            readWardrobeFromFile(WardrobeItemType.TROUSERS, wardrobe);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (WardrobeException e) {
@@ -46,12 +45,11 @@ public class FileHandlingHelper implements IFileHandlingHelper {
         }
     }
 
-    private void readWardrobeFromFile(WardrobeItemType itemType) throws IOException, WardrobeException {
+    private void readWardrobeFromFile(WardrobeItemType itemType, IWardrobe wardrobe) throws IOException, WardrobeException {
         FileInputStream fileInputStream = openWardrobeFileInputStream(itemType);
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
         BufferedReader reader = new BufferedReader(inputStreamReader);
 
-        IWardrobe wardrobe = Wardrobe.getInstance();
         String currentLine;
 
         while((currentLine = reader.readLine()) != null) {
@@ -89,5 +87,21 @@ public class FileHandlingHelper implements IFileHandlingHelper {
             }
         }
         return null;
+    }
+
+    public void writeToWardrobeFile(String itemText, String itemTypeString) throws IOException {
+        FileOutputStream fileOutputStream = null;
+
+        if (itemTypeString.compareTo(myContext.getResources().getString(R.string.shirt)) == 0)
+        {
+            fileOutputStream = myContext.openFileOutput(myContext.getResources().getString(R.string.saved_shirts), Context.MODE_PRIVATE);
+        }
+        else if (itemTypeString.compareTo(myContext.getResources().getString(R.string.trousers)) == 0)
+        {
+            fileOutputStream = myContext.openFileOutput(myContext.getResources().getString(R.string.saved_trousers), Context.MODE_PRIVATE);
+        }
+
+        fileOutputStream.write(itemText.getBytes());
+        fileOutputStream.close();
     }
 }

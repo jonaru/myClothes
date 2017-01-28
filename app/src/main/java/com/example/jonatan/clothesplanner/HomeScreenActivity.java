@@ -17,9 +17,8 @@ public class HomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
 
         //Initialize Wardrobe
-        Wardrobe.initInstance();
-        IFileHandlingHelper fileHandlingHelper = new FileHandlingHelper(getApplicationContext());
-        fileHandlingHelper.loadWardrobe();
+        Wardrobe.initInstance(this);
+        Wardrobe.getInstance().loadWardrobe();
     }
 
     public void goToWardrobe(View view) {

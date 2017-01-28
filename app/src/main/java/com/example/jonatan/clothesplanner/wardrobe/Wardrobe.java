@@ -6,6 +6,8 @@ import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,15 +21,17 @@ public class Wardrobe implements IWardrobe {
     private final ArrayList<Shirt> shirtList = new ArrayList<>();
     private final ArrayList<Trousers> trousersList = new ArrayList<>();
     private static Wardrobe instance;
+    private IFileHandlingHelper fileHandlingHelper;
 
-    private Wardrobe()
+    private Wardrobe(Context context)
     {
+        fileHandlingHelper = new FileHandlingHelper(context);
     }
 
-    public static void initInstance() {
+    public static void initInstance(Context context) {
         if (instance == null)
         {
-            instance = new Wardrobe();
+            instance = new Wardrobe(context);
         }
     }
 
@@ -39,7 +43,6 @@ public class Wardrobe implements IWardrobe {
     @Override
     public IWardrobeItem addWardrobeItem(String itemString, String itemTypeString) {
         IWardrobeItem itemToAdd = null;
-
         if (itemTypeString.compareTo(SHIRT_STRING) == 0)
         {
             itemToAdd = new Shirt(itemString);
@@ -48,8 +51,16 @@ public class Wardrobe implements IWardrobe {
         {
             itemToAdd = new Trousers(itemString);
         }
-
         addWardrobeItem(itemToAdd);
+
+        try {
+            fileHandlingHelper.writeToWardrobeFile(itemString, itemTypeString);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return itemToAdd;
     }
 
@@ -100,6 +111,11 @@ public class Wardrobe implements IWardrobe {
             }
         }
         return false;
+    }
+
+    @Override
+    public void loadWardrobe() {
+        fileHandlingHelper.loadWardrobe(this);
     }
 
     @Override

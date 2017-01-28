@@ -1,5 +1,6 @@
 package com.example.jonatan.clothesplanner;
 
+import android.content.Context;
 import android.view.View;
 
 import com.example.jonatan.clothesplanner.wardrobe.FileHandlingHelper;
@@ -16,6 +17,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -47,13 +49,22 @@ public class WardrobeUnitTest {
     private static final String SHIRT_STRING = "Shirt";
 
     @Mock
-    static IFileHandlingHelper mFileHandlingHelper;
+    Context mContext;
+
+    @Mock
+    IWardrobe mWardrobe;
+
+    @Mock
+    IFileHandlingHelper mFileHandlingHelper;
+
+    @InjectMocks
+    Wardrobe wardrobe;
 
     @Before
     public void initSingletons() {
         MockitoAnnotations.initMocks(this);
-        doNothing().when(mFileHandlingHelper).loadWardrobe();
-        Wardrobe.initInstance();
+        doNothing().when(mFileHandlingHelper).loadWardrobe(mWardrobe);
+        Wardrobe.initInstance(mContext);
     }
 
     @After
@@ -85,8 +96,8 @@ public class WardrobeUnitTest {
 
     @Test
     public void testAddWardrobeItemByString() throws Exception {
-        IWardrobe wardrobe = Wardrobe.getInstance();
         IWardrobeItem shirt = new Shirt(BLUE_SHIRT);
+        doNothing().when(mFileHandlingHelper).writeToWardrobeFile(BLUE_SHIRT, SHIRT_STRING);
         wardrobe.addWardrobeItem(BLUE_SHIRT, SHIRT_STRING);
 
         assertEquals(BLUE_SHIRT, wardrobe.findWardrobeItem(BLUE_SHIRT).getWardrobeItemString());

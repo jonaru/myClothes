@@ -30,4 +30,6 @@ public interface IWardrobe {
     void clear();
 
     boolean removeWardrobeItem(String wardrobeItemString);
+
+    void loadWardrobe();
 }

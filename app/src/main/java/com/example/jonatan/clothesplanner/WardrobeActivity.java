@@ -65,31 +65,6 @@ public class WardrobeActivity extends Activity {
         IWardrobeItem addedWardrobeItem = wardrobe.addWardrobeItem(itemText, itemTypeString);
         addWardrobeItemToPager(addedWardrobeItem);
         editText.setText("");
-
-        try {
-            writeToWardrobeFile(itemText, itemTypeString);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //This should be handled by Wardrobe through a FileHandlerHelper class
-    private void writeToWardrobeFile(String itemText, String itemTypeString) throws IOException {
-        FileOutputStream fileOutputStream = null;
-
-        if (itemTypeString.compareTo(getResources().getString(R.string.shirt)) == 0)
-        {
-            fileOutputStream = openFileOutput(getResources().getString(R.string.saved_shirts), Context.MODE_PRIVATE);
-        }
-        else if (itemTypeString.compareTo(getResources().getString(R.string.trousers)) == 0)
-        {
-            fileOutputStream = openFileOutput(getResources().getString(R.string.saved_trousers), Context.MODE_PRIVATE);
-        }
-
-        fileOutputStream.write(itemText.getBytes());
-        fileOutputStream.close();
     }
 
     private void addItemsFromWardrobe() {
