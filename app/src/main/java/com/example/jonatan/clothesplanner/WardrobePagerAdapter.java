@@ -135,18 +135,4 @@ public class WardrobePagerAdapter extends PagerAdapter {
     {
         return views.get (position);
     }
-
-
-
-    /*
-    @Override
-    public Fragment getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public int getCount() {
-        return 0;
-    }
-    */
 }

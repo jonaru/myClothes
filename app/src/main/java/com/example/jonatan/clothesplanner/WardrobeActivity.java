@@ -97,13 +97,13 @@ public class WardrobeActivity extends Activity {
 
         if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.SHIRT)
         {
-            removeButton.setOnClickListener(new RemoveButtonOnClickListener(this, shirtAdapter, shirtViewPager));
+            removeButton.setOnClickListener(new RemoveButtonOnClickListener(shirtAdapter, shirtViewPager));
             int pageIndex = shirtAdapter.addView(wardrobeItemViewGroup);
             shirtViewPager.setCurrentItem(pageIndex, true);
         }
         else if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.TROUSERS)
         {
-            removeButton.setOnClickListener(new RemoveButtonOnClickListener(this, trousersAdapter, trousersViewPager));
+            removeButton.setOnClickListener(new RemoveButtonOnClickListener(trousersAdapter, trousersViewPager));
             int pageIndex = trousersAdapter.addView(wardrobeItemViewGroup);
             trousersViewPager.setCurrentItem(pageIndex, true);
         }

@@ -28,14 +28,12 @@ import java.io.OutputStreamWriter;
  */
 
 public class RemoveButtonOnClickListener implements View.OnClickListener {
-    private final Activity myActivity;
     private final WardrobePagerAdapter myPagerAdapter;
     private final ViewPager myViewPager;
 
-    public RemoveButtonOnClickListener(Activity inputMainActivity, WardrobePagerAdapter pagerAdapter, ViewPager viewPager){
+    public RemoveButtonOnClickListener(WardrobePagerAdapter pagerAdapter, ViewPager viewPager){
         super();
 
-        myActivity = inputMainActivity;
         myPagerAdapter = pagerAdapter;
         myViewPager = viewPager;
     }
