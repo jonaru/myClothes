@@ -23,13 +23,15 @@ public interface IWardrobe {
 
     void addWardrobeItem(IWardrobeItem wardrobeItem);
 
-    List<Shirt> getShirts();
+    List<IWardrobeItem> getShirts();
 
-    List<Trousers> getTrousers();
+    List<IWardrobeItem> getTrousers();
 
     void clear();
 
     boolean removeWardrobeItem(String wardrobeItemString);
 
     void loadWardrobe();
+
+    void storeWardrobe();
 }

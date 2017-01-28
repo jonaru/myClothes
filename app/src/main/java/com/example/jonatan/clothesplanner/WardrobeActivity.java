@@ -52,6 +52,13 @@ public class WardrobeActivity extends Activity {
         addItemsFromWardrobe();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        Wardrobe.getInstance().storeWardrobe();
+    }
+
     public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) throws WardrobeException {
         if (wardrobe == null) {
             throw new WardrobeException();
@@ -68,8 +75,8 @@ public class WardrobeActivity extends Activity {
     }
 
     private void addItemsFromWardrobe() {
-        List<Shirt> shirtList = wardrobe.getShirts();
-        List<Trousers> trousersList = wardrobe.getTrousers();
+        List<IWardrobeItem> shirtList = wardrobe.getShirts();
+        List<IWardrobeItem> trousersList = wardrobe.getTrousers();
 
         for (IWardrobeItem shirt : shirtList)
         {

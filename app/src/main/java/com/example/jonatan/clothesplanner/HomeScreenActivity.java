@@ -21,6 +21,11 @@ public class HomeScreenActivity extends AppCompatActivity {
         Wardrobe.getInstance().loadWardrobe();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     public void goToWardrobe(View view) {
         Intent intent = new Intent(this, WardrobeActivity.class);
         startActivity(intent);

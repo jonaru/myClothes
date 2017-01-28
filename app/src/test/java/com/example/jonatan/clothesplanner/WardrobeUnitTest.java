@@ -111,7 +111,7 @@ public class WardrobeUnitTest {
         wardrobe.addWardrobeItem(blueShirt);
         wardrobe.addWardrobeItem(whiteShirt);
 
-        List<Shirt> shirts = wardrobe.getShirts();
+        List<IWardrobeItem> shirts = wardrobe.getShirts();
         assertTrue(shirts.contains(blueShirt));
     }
 
@@ -123,7 +123,7 @@ public class WardrobeUnitTest {
         wardrobe.addWardrobeItem(khakis);
         wardrobe.addWardrobeItem(jeans);
 
-        List<Trousers> trousers = wardrobe.getTrousers();
+        List<IWardrobeItem> trousers = wardrobe.getTrousers();
         assertTrue(trousers.contains(khakis));
         assertTrue(trousers.contains(jeans));
     }

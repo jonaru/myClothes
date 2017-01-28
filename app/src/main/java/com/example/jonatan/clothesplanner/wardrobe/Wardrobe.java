@@ -18,8 +18,8 @@ public class Wardrobe implements IWardrobe {
     private static final String SHIRT_STRING = "Shirt";
     private static final String TROUSERS_STRING = "Trousers";
     private final List<IWardrobeItem> wardrobeItemList = new ArrayList<>();
-    private final ArrayList<Shirt> shirtList = new ArrayList<>();
-    private final ArrayList<Trousers> trousersList = new ArrayList<>();
+    private final ArrayList<IWardrobeItem> shirtList = new ArrayList<>();
+    private final ArrayList<IWardrobeItem> trousersList = new ArrayList<>();
     private static Wardrobe instance;
     private IFileHandlingHelper fileHandlingHelper;
 
@@ -53,6 +53,7 @@ public class Wardrobe implements IWardrobe {
         }
         addWardrobeItem(itemToAdd);
 
+        /*
         try {
             fileHandlingHelper.writeToWardrobeFile(itemString, itemTypeString);
         } catch (FileNotFoundException e) {
@@ -60,6 +61,7 @@ public class Wardrobe implements IWardrobe {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
 
         return itemToAdd;
     }
@@ -74,12 +76,12 @@ public class Wardrobe implements IWardrobe {
     }
 
     @Override
-    public List<Shirt> getShirts() {
+    public List<IWardrobeItem> getShirts() {
         return shirtList;
     }
 
     @Override
-    public List<Trousers> getTrousers() {
+    public List<IWardrobeItem> getTrousers() {
         return trousersList;
     }
 
@@ -87,8 +89,6 @@ public class Wardrobe implements IWardrobe {
     public void clear() {
         shirtList.clear();
         trousersList.clear();
-
-        //TODO: Clear file storage too?
     }
 
     @Override
@@ -115,7 +115,13 @@ public class Wardrobe implements IWardrobe {
 
     @Override
     public void loadWardrobe() {
+        clear();
         fileHandlingHelper.loadWardrobe(this);
+    }
+
+    @Override
+    public void storeWardrobe() {
+        fileHandlingHelper.storeWardrobe(this);
     }
 
     @Override

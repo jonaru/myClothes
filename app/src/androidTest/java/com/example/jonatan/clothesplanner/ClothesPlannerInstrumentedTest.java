@@ -148,6 +148,15 @@ public class ClothesPlannerInstrumentedTest {
         clickRemove(wardrobeItemStringToBeWrittenBeforeStart);
         onView(allOf(withParent(withId(R.id.trousers_pager)), withText(wardrobeItemStringToBeWrittenBeforeStart))).check(doesNotExist());
 
+
+        //Click on back button
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+
+        //Click on back button
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+
         //Check that file has been cleared
         Context appContext = InstrumentationRegistry.getTargetContext();
         String wardrobeFileString = readLineFromWardrobeFile(appContext.getResources().getString(R.string.saved_trousers));
@@ -199,7 +208,11 @@ public class ClothesPlannerInstrumentedTest {
         //Click My Wardrobe button
         onView(withId(R.id.WardrobeButton)).perform(click());
 
-        // Type text and then press the button.
+        //Click remove button on the jeans
+        clickRemove(wardrobeItemStringToBeWrittenBeforeStart);
+        onView(allOf(withParent(withId(R.id.trousers_pager)), withText(wardrobeItemStringToBeWrittenBeforeStart))).check(doesNotExist());
+
+        // Type text and then press the button to add khakis.
         onView(withId(R.id.editText_add_item))
                 .perform(typeText(KHAKIS), closeSoftKeyboard());
         //select trousers from the drop-down menu (spinner)
@@ -207,15 +220,34 @@ public class ClothesPlannerInstrumentedTest {
         onData(allOf(is(instanceOf(String.class)), is("Trousers"))).perform(click());
         onView(withId(R.id.button)).perform(click());
 
+        //Click on back button
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+
+        //Click on back button
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+
         // Check that the item was written to file
         Context appContext = InstrumentationRegistry.getTargetContext();
         String inputString = readLineFromWardrobeFile(appContext.getResources().getString(R.string.saved_trousers));
         assertEquals(inputString, KHAKIS);
 
+        //Click My Wardrobe button
+        onView(withId(R.id.WardrobeButton)).perform(click());
+
         //Click remove and check that item is removed from file
         clickRemove(KHAKIS);
-        String secondInput = readLineFromWardrobeFile(appContext.getResources().getString(R.string.saved_trousers));
 
+        //Click on back button
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+
+        //Click on back button
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+
+        String secondInput = readLineFromWardrobeFile(appContext.getResources().getString(R.string.saved_trousers));
         assertNull(secondInput);
     }
 

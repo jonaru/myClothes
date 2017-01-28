@@ -4,14 +4,21 @@ import android.content.Context;
 
 import com.example.jonatan.clothesplanner.R;
 import com.example.jonatan.clothesplanner.WardrobeException;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jonatan on 2017-01-28.
@@ -87,6 +94,34 @@ public class FileHandlingHelper implements IFileHandlingHelper {
             }
         }
         return null;
+    }
+
+    @Override
+    public void storeWardrobe(IWardrobe wardrobe) {
+        try {
+            storeToFile(wardrobe.getShirts(), myContext.getResources().getString(R.string.saved_shirts));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            storeToFile(wardrobe.getTrousers(), myContext.getResources().getString(R.string.saved_trousers));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void storeToFile(List<IWardrobeItem> wardrobeItemList, String fileString) throws IOException {
+        myContext.deleteFile(fileString);
+        FileOutputStream fileOutputStream = myContext.openFileOutput(fileString, Context.MODE_PRIVATE);
+
+        for (IWardrobeItem item : wardrobeItemList)
+        {
+            fileOutputStream.write(item.getWardrobeItemString().getBytes());
+            fileOutputStream.write(System.getProperty("line.separator").getBytes());
+        }
+
+        fileOutputStream.close();
     }
 
     public void writeToWardrobeFile(String itemText, String itemTypeString) throws IOException {

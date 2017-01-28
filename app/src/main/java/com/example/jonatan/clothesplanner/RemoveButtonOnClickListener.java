@@ -45,10 +45,12 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
         //Remove from view
         ViewGroup parentView = (ViewGroup) view.getParent();
         TextView textView = (TextView) parentView.getChildAt(0);
-        ViewGroup grandparentView = (ViewGroup) parentView.getParent();
+        //ViewGroup grandparentView = (ViewGroup) parentView.getParent();
         myPagerAdapter.removeView(myViewPager, parentView);
+        String itemString = textView.getText().toString();
 
         //Remove from file
+        /*
         String wardrobeItemFile = getWardrobeItemFile(grandparentView);
         String itemString = textView.getText().toString();
         try {
@@ -56,6 +58,7 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
 
         //Remove from Wardrobe
         IWardrobe wardrobe = Wardrobe.getInstance();
@@ -75,6 +78,7 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
     }
 
     //This should be handled by Wardrobe through a FileHandlerHelper class
+    /*
     private boolean removeWardrobeItemFromFile(String lineToRemove, String wardrobeItemFile) throws IOException {
         FileInputStream fileInputStream = myActivity.openFileInput(wardrobeItemFile);
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -101,4 +105,5 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
         File tempFile = new File(myActivity.getFilesDir()+"/"+myTempFileString);
         return tempFile.renameTo(inputFile);
     }
+    */
 }

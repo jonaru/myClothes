@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
 
@@ -24,8 +25,8 @@ public class WeeklyPlanActivity extends AppCompatActivity {
 
         wardrobe = Wardrobe.getInstance();
         LinearLayout weeklyPlanLinearLayout = (LinearLayout) findViewById(R.id.weekly_plan_layout);
-        List<Trousers> trousers = wardrobe.getTrousers();
-        List<Shirt> shirts = wardrobe.getShirts();
+        List<IWardrobeItem> trousers = wardrobe.getTrousers();
+        List<IWardrobeItem> shirts = wardrobe.getShirts();
 
         List<LinearLayout> dailyPlans = new ArrayList<>();
         dailyPlans.add((LinearLayout) findViewById(R.id.mondayViewGroup));

@@ -1,5 +1,6 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -10,4 +11,6 @@ public interface IFileHandlingHelper {
     public void loadWardrobe(IWardrobe wardrobe);
 
     public void writeToWardrobeFile(String itemText, String itemTypeString) throws IOException;
+
+    void storeWardrobe(IWardrobe wardrobe);
 }
