@@ -1,5 +1,7 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
+import android.content.Context;
+
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
@@ -18,7 +20,7 @@ public class Wardrobe implements IWardrobe {
     private final ArrayList<Trousers> trousersList = new ArrayList<>();
     private static Wardrobe instance;
 
-    private Wardrobe ()
+    private Wardrobe()
     {
     }
 

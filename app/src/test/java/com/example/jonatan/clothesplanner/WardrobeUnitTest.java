@@ -2,12 +2,13 @@ package com.example.jonatan.clothesplanner;
 
 import android.view.View;
 
+import com.example.jonatan.clothesplanner.wardrobe.FileHandlingHelper;
+import com.example.jonatan.clothesplanner.wardrobe.IFileHandlingHelper;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
 
 import org.junit.After;
@@ -16,15 +17,19 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType.SHIRT;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -42,10 +47,12 @@ public class WardrobeUnitTest {
     private static final String SHIRT_STRING = "Shirt";
 
     @Mock
-    View mMockView;
+    static IFileHandlingHelper mFileHandlingHelper;
 
-    @BeforeClass
-    public static void initSingletons() {
+    @Before
+    public void initSingletons() {
+        MockitoAnnotations.initMocks(this);
+        doNothing().when(mFileHandlingHelper).loadWardrobe();
         Wardrobe.initInstance();
     }
 
@@ -115,9 +122,4 @@ public class WardrobeUnitTest {
         Wardrobe wardrobe = Wardrobe.getInstance();
         assertNotNull(wardrobe);
     }
-
-        /*
-        when(mMockView.getString(R.string.hello_word))
-                .thenReturn(FAKE_STRING);
-        */
 }
