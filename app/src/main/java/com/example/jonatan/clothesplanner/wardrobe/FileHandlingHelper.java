@@ -5,19 +5,12 @@ import android.content.Context;
 import com.example.jonatan.clothesplanner.R;
 import com.example.jonatan.clothesplanner.WardrobeException;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItem;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +29,7 @@ public class FileHandlingHelper implements IFileHandlingHelper {
     @Override
     public void loadWardrobe(IWardrobe wardrobe) {
         try {
-            readWardrobeFromFile(WardrobeItemType.SHIRT, wardrobe);
+            readWardrobeFromFile(myContext.getResources().getString(R.string.saved_shirts), myContext.getResources().getString(R.string.shirt), wardrobe);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (WardrobeException e) {
@@ -44,7 +37,7 @@ public class FileHandlingHelper implements IFileHandlingHelper {
         }
 
         try {
-            readWardrobeFromFile(WardrobeItemType.TROUSERS, wardrobe);
+            readWardrobeFromFile(myContext.getResources().getString(R.string.saved_trousers), myContext.getResources().getString(R.string.trousers), wardrobe);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (WardrobeException e) {
@@ -52,8 +45,8 @@ public class FileHandlingHelper implements IFileHandlingHelper {
         }
     }
 
-    private void readWardrobeFromFile(WardrobeItemType itemType, IWardrobe wardrobe) throws IOException, WardrobeException {
-        FileInputStream fileInputStream = openWardrobeFileInputStream(itemType);
+    private void readWardrobeFromFile(String fileString, String itemTypeString, IWardrobe wardrobe) throws IOException, WardrobeException {
+        FileInputStream fileInputStream = myContext.openFileInput(fileString);
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
         BufferedReader reader = new BufferedReader(inputStreamReader);
 
@@ -61,39 +54,10 @@ public class FileHandlingHelper implements IFileHandlingHelper {
 
         while((currentLine = reader.readLine()) != null) {
             String trimmedLine = currentLine.trim();
-            if (itemType  == WardrobeItemType.SHIRT)
-            {
-                wardrobe.addWardrobeItem(trimmedLine, myContext.getResources().getString(R.string.shirt));
-            }
-            else if (itemType  == WardrobeItemType.TROUSERS)
-            {
-                wardrobe.addWardrobeItem(trimmedLine, myContext.getResources().getString(R.string.trousers));
-            }
+            wardrobe.addWardrobeItem(trimmedLine, itemTypeString);
         }
 
         reader.close();
-    }
-
-    private FileInputStream openWardrobeFileInputStream(WardrobeItemType itemType) throws WardrobeException {
-        if (itemType  == WardrobeItemType.SHIRT)
-        {
-            try {
-                return myContext.openFileInput(myContext.getResources().getString(R.string.saved_shirts));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                throw new WardrobeException();
-            }
-        }
-        else if (itemType  == WardrobeItemType.TROUSERS)
-        {
-            try {
-                return myContext.openFileInput(myContext.getResources().getString(R.string.saved_trousers));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                throw new WardrobeException();
-            }
-        }
-        return null;
     }
 
     @Override
@@ -108,7 +72,6 @@ public class FileHandlingHelper implements IFileHandlingHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private void storeToFile(List<IWardrobeItem> wardrobeItemList, String fileString) throws IOException {
@@ -124,7 +87,8 @@ public class FileHandlingHelper implements IFileHandlingHelper {
         fileOutputStream.close();
     }
 
-    public void writeToWardrobeFile(String itemText, String itemTypeString) throws IOException {
+    /*
+    private void writeToWardrobeFile(String itemText, String itemTypeString) throws IOException {
         FileOutputStream fileOutputStream = null;
 
         if (itemTypeString.compareTo(myContext.getResources().getString(R.string.shirt)) == 0)
@@ -139,4 +103,32 @@ public class FileHandlingHelper implements IFileHandlingHelper {
         fileOutputStream.write(itemText.getBytes());
         fileOutputStream.close();
     }
+
+    private boolean removeWardrobeItemFromFile(String lineToRemove, String wardrobeItemFile) throws IOException {
+        FileInputStream fileInputStream = myActivity.openFileInput(wardrobeItemFile);
+        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+        BufferedReader reader = new BufferedReader(inputStreamReader);
+
+        final String myTempFileString = "myTempFile.txt";
+        FileOutputStream fileOutputStream = myActivity.openFileOutput(myTempFileString, Context.MODE_PRIVATE);
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+        BufferedWriter writer = new BufferedWriter(outputStreamWriter);
+
+        String currentLine;
+
+        while((currentLine = reader.readLine()) != null) {
+            // trim newline when comparing with lineToRemove
+            String trimmedLine = currentLine.trim();
+            if(trimmedLine.equals(lineToRemove)) continue;
+            writer.write(currentLine + System.getProperty("line.separator"));
+        }
+
+        writer.close();
+        reader.close();
+
+        File inputFile = new File(myActivity.getFilesDir()+"/"+wardrobeItemFile);
+        File tempFile = new File(myActivity.getFilesDir()+"/"+myTempFileString);
+        return tempFile.renameTo(inputFile);
+    }
+    */
 }

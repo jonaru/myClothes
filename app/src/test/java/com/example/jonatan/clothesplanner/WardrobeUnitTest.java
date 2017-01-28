@@ -97,7 +97,7 @@ public class WardrobeUnitTest {
     @Test
     public void testAddWardrobeItemByString() throws Exception {
         IWardrobeItem shirt = new Shirt(BLUE_SHIRT);
-        doNothing().when(mFileHandlingHelper).writeToWardrobeFile(BLUE_SHIRT, SHIRT_STRING);
+        //doNothing().when(mFileHandlingHelper).writeToWardrobeFile(BLUE_SHIRT, SHIRT_STRING);
         wardrobe.addWardrobeItem(BLUE_SHIRT, SHIRT_STRING);
 
         assertEquals(BLUE_SHIRT, wardrobe.findWardrobeItem(BLUE_SHIRT).getWardrobeItemString());

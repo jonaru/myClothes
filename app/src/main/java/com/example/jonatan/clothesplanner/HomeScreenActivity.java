@@ -17,7 +17,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
 
         //Initialize Wardrobe
-        Wardrobe.initInstance(this);
+        Wardrobe.initInstance(getApplicationContext());
         Wardrobe.getInstance().loadWardrobe();
     }
 

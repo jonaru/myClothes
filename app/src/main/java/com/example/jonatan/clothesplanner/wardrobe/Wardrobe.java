@@ -6,8 +6,6 @@ import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,16 +50,6 @@ public class Wardrobe implements IWardrobe {
             itemToAdd = new Trousers(itemString);
         }
         addWardrobeItem(itemToAdd);
-
-        /*
-        try {
-            fileHandlingHelper.writeToWardrobeFile(itemString, itemTypeString);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
 
         return itemToAdd;
     }

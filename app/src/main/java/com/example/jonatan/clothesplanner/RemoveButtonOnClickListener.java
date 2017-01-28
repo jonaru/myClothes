@@ -45,65 +45,11 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
         //Remove from view
         ViewGroup parentView = (ViewGroup) view.getParent();
         TextView textView = (TextView) parentView.getChildAt(0);
-        //ViewGroup grandparentView = (ViewGroup) parentView.getParent();
+        String itemString = textView.getText().toString();
         myPagerAdapter.removeView(myViewPager, parentView);
-        String itemString = textView.getText().toString();
-
-        //Remove from file
-        /*
-        String wardrobeItemFile = getWardrobeItemFile(grandparentView);
-        String itemString = textView.getText().toString();
-        try {
-            removeWardrobeItemFromFile(itemString, wardrobeItemFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
 
         //Remove from Wardrobe
         IWardrobe wardrobe = Wardrobe.getInstance();
         wardrobe.removeWardrobeItem(itemString);
     }
-
-    private String getWardrobeItemFile(ViewGroup grandparentView) {
-        if (grandparentView.getId() == R.id.shirt_pager)
-        {
-            return grandparentView.getResources().getString(R.string.saved_shirts);
-        }
-        else if (grandparentView.getId() == R.id.trousers_pager)
-        {
-            return grandparentView.getResources().getString(R.string.saved_trousers);
-        }
-        return null;
-    }
-
-    //This should be handled by Wardrobe through a FileHandlerHelper class
-    /*
-    private boolean removeWardrobeItemFromFile(String lineToRemove, String wardrobeItemFile) throws IOException {
-        FileInputStream fileInputStream = myActivity.openFileInput(wardrobeItemFile);
-        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-        BufferedReader reader = new BufferedReader(inputStreamReader);
-
-        final String myTempFileString = "myTempFile.txt";
-        FileOutputStream fileOutputStream = myActivity.openFileOutput(myTempFileString, Context.MODE_PRIVATE);
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
-        BufferedWriter writer = new BufferedWriter(outputStreamWriter);
-
-        String currentLine;
-
-        while((currentLine = reader.readLine()) != null) {
-            // trim newline when comparing with lineToRemove
-            String trimmedLine = currentLine.trim();
-            if(trimmedLine.equals(lineToRemove)) continue;
-            writer.write(currentLine + System.getProperty("line.separator"));
-        }
-
-        writer.close();
-        reader.close();
-
-        File inputFile = new File(myActivity.getFilesDir()+"/"+wardrobeItemFile);
-        File tempFile = new File(myActivity.getFilesDir()+"/"+myTempFileString);
-        return tempFile.renameTo(inputFile);
-    }
-    */
 }
