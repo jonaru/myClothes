@@ -1,8 +1,5 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 /**
  * Created by Jonatan on 2017-01-28.
  */
