@@ -88,22 +88,6 @@ public class FileHandlingHelper implements IFileHandlingHelper {
     }
 
     /*
-    private void writeToWardrobeFile(String itemText, String itemTypeString) throws IOException {
-        FileOutputStream fileOutputStream = null;
-
-        if (itemTypeString.compareTo(myContext.getResources().getString(R.string.shirt)) == 0)
-        {
-            fileOutputStream = myContext.openFileOutput(myContext.getResources().getString(R.string.saved_shirts), Context.MODE_PRIVATE);
-        }
-        else if (itemTypeString.compareTo(myContext.getResources().getString(R.string.trousers)) == 0)
-        {
-            fileOutputStream = myContext.openFileOutput(myContext.getResources().getString(R.string.saved_trousers), Context.MODE_PRIVATE);
-        }
-
-        fileOutputStream.write(itemText.getBytes());
-        fileOutputStream.close();
-    }
-
     private boolean removeWardrobeItemFromFile(String lineToRemove, String wardrobeItemFile) throws IOException {
         FileInputStream fileInputStream = myActivity.openFileInput(wardrobeItemFile);
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
