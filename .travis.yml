@@ -25,6 +25,7 @@ android:
     - sys-img-armeabi-v7a-android-21
     - sys-img-armeabi-v7a-android-19
 before_script:
+    - chmod +x gradlew
     - wget http://services.gradle.org/distributions/gradle-2.14.1-bin.zip
     - unzip gradle-2.14.1-bin.zip
     - export GRADLE_HOME=$PWD/gradle-2.14.1
