@@ -168,7 +168,7 @@ public class ClothesPlannerInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.jonatan.clothesplanner", appContext.getPackageName());
+        assertEquals("com.vikingtech.wardrober", appContext.getPackageName());
     }
 
 
