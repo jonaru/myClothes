@@ -97,6 +97,13 @@
                 android:id="@+id/fridayText"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button" />
         </LinearLayout>
+
+        <Button
+            android:text="Generate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/GenerateWeeklyPlanButton"
+            android:layout_weight="0.01" />
     </LinearLayout>
 
 </RelativeLayout>

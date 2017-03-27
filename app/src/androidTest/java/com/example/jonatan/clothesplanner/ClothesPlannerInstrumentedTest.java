@@ -119,6 +119,9 @@ public class ClothesPlannerInstrumentedTest {
         //Click Weekly Plan button
         onView(withId(R.id.WeeklyPlanButton)).perform(click());
 
+        //Click Generate Weekly Plan button
+        onView(withId(R.id.GenerateWeeklyPlanButton)).perform(click());
+
         // Check that item has been added to the wardrobe linear layout
         onView(withId(R.id.weekly_plan_layout))
                 .check(matches(hasDescendant(allOf(hasDescendant(withText(MONDAY)), hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart)), hasDescendant(withText(BLUE_SHIRT))))));
