@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+ext.versionMajor = 1
+
 //noinspection GroovyMissingReturnStatement
 android {
     compileSdkVersion 25
@@ -9,8 +11,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode System.getenv("BUILD_NUMBER") as Integer ?: 0
-        versionName "1.2"
-        project.ext.set("archivesBaseName", "MyApp-" + versionName + "-" + versionCode);
+        versionName computeVersionName()
+        project.ext.set("archivesBaseName", "Wardrober-" + versionName + "-" + versionCode);
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -25,6 +27,11 @@ android {
     lintOptions {
         abortOnError false
     }
+}
+
+def computeVersionName() {
+    // Basic <major>.<minor> version name
+    return String.format('%d.%d', versionMajor, System.getenv("BUILD_NUMBER") as Integer ?: 0)
 }
 
 dependencies {
