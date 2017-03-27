@@ -1,9 +1,7 @@
 package com.example.jonatan.clothesplanner;
 
 import android.content.Context;
-import android.view.View;
 
-import com.example.jonatan.clothesplanner.wardrobe.FileHandlingHelper;
 import com.example.jonatan.clothesplanner.wardrobe.IFileHandlingHelper;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
@@ -11,15 +9,12 @@ import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
 
-
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -30,11 +25,9 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
+ * Unit test of Wardrobe classes
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */

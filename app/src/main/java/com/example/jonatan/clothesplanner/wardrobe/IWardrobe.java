@@ -1,13 +1,6 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
-import android.support.v7.app.AppCompatActivity;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-
-import com.example.jonatan.clothesplanner.MainActivity;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
 
 import java.util.List;
 

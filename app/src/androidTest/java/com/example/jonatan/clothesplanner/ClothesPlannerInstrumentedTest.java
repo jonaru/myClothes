@@ -137,6 +137,19 @@ public class ClothesPlannerInstrumentedTest {
         //Click on back button
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+
+        //Now enter again to check that the plan is read from file and presented
+        //Click Weekly Plan button
+        onView(withId(R.id.WeeklyPlanButton)).perform(click());
+
+        // Check that item has been added to the wardrobe linear layout
+        /*
+        onView(withId(R.id.weekly_plan_layout))
+                .check(matches(hasDescendant(allOf(hasDescendant(withText(MONDAY)), hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart)), hasDescendant(withText(BLUE_SHIRT))))));
+
+        onView(withId(R.id.weekly_plan_layout))
+                .check(matches(hasDescendant(allOf(hasDescendant(withText(TUESDAY)), hasDescendant(withText(KHAKIS))))));
+        */
     }
 
 

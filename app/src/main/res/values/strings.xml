@@ -5,21 +5,15 @@
     <string name="my_wardrobe">My Wardrobe</string>
     <string name="add_item">Add Wardrobe Item</string>
     <string name="wardrobe_array_prompt">Type of item</string>
-    <string name="add_items">Add items</string>
-    <string name="your_wardrobe">Your Wardrobe</string>
     <string name="your_shirts">Your Shirts</string>
     <string name="your_sweaters">Your Sweaters</string>
     <string name="your_trousers">Your Trousers</string>
     <string name="remove">remove</string>
-    <string name="wardrobe_view">wardrobeView</string>
     <string name="saved_trousers">savedTrousers</string>
     <string name="saved_shirts">savedShirts</string>
-    <string name="saved_sweaters">savedSweaters</string>
     <string name="weekly_plan">Weekly Plan</string>
     <string name="trousers">Trousers</string>
     <string name="shirt">Shirt</string>
-
-    <string name="monday">Monday</string>
 
     <string-array name="wardrobe_array">
         <item>Trousers</item>
