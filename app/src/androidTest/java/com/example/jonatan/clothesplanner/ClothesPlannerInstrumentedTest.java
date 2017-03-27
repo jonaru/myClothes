@@ -124,7 +124,8 @@ public class ClothesPlannerInstrumentedTest {
         onView(withText(wardrobeItemStringToBeWrittenBeforeStart)).check(doesNotExist());
 
         //Click Generate Weekly Plan button
-        onView(withId(R.id.GenerateWeeklyPlanButton)).perform(click());
+        //onView(withId(R.id.GenerateWeeklyPlanButton)).perform(click());
+        clickButtonTravis("Generate");
 
         // Check that item has been added to the wardrobe linear layout
         onView(withId(R.id.weekly_plan_layout))
@@ -278,7 +279,28 @@ public class ClothesPlannerInstrumentedTest {
 
                     @Override
                     public String getDescription() {
-                        return "click plus button";
+                        return "click button";
+                    }
+
+                    @Override
+                    public void perform(UiController uiController, View view) {
+                        view.performClick();
+                    }
+                }
+        );
+    }
+
+    private void clickButtonTravis(String buttonToClick) {
+        onView(withText(buttonToClick)).perform(
+                new ViewAction() {
+                    @Override
+                    public Matcher<View> getConstraints() {
+                        return isEnabled(); // no constraints, they are checked above
+                    }
+
+                    @Override
+                    public String getDescription() {
+                        return "click button";
                     }
 
                     @Override
