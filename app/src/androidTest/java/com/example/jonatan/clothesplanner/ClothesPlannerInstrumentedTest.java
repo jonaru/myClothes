@@ -119,6 +119,10 @@ public class ClothesPlannerInstrumentedTest {
         //Click Weekly Plan button
         onView(withId(R.id.WeeklyPlanButton)).perform(click());
 
+        // Check that item has not been added to the wardrobe linear layout
+        //onView(withParent(withId(R.id.mondayViewGroup))).check(doesNotExist());
+        onView(withText(wardrobeItemStringToBeWrittenBeforeStart)).check(doesNotExist());
+
         //Click Generate Weekly Plan button
         onView(withId(R.id.GenerateWeeklyPlanButton)).perform(click());
 
