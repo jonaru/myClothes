@@ -8,8 +8,9 @@ android {
         applicationId "com.vikingtech.wardrober"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 3
+        versionCode System.getenv("BUILD_NUMBER") as Integer ?: 0
         versionName "1.2"
+        project.ext.set("archivesBaseName", "MyApp-" + versionName + "-" + versionCode);
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
