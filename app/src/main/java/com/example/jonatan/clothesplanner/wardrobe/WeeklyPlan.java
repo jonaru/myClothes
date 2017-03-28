@@ -34,7 +34,7 @@ public class WeeklyPlan implements IWeeklyPlan {
 
     @Override
     public IWardrobeItem getShirt() {
-        if (weeklyPlanShirtIndex > wardrobe.getShirts().size())
+        if (weeklyPlanShirtIndex + 1 > wardrobe.getShirts().size())
         {
             weeklyPlanShirtIndex = 0;
         }
@@ -46,7 +46,7 @@ public class WeeklyPlan implements IWeeklyPlan {
 
     @Override
     public IWardrobeItem getTrousers() {
-        if (weeklyPlanTrousersIndex > wardrobe.getTrousers().size())
+        if (weeklyPlanTrousersIndex + 1 > wardrobe.getTrousers().size())
         {
             weeklyPlanTrousersIndex = 0;
         }
@@ -60,5 +60,6 @@ public class WeeklyPlan implements IWeeklyPlan {
     @Override
     public void generateWeeklyPlan() {
         isEmpty = false;
+        weeklyPlanShirtIndex++;
     }
 }

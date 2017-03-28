@@ -47,13 +47,11 @@ public class WeeklyPlanActivity extends AppCompatActivity {
 
         for (int i = 0; i < trousers.size() && i < this.dailyPlans.size(); i++)
         {
-            //dailyPlans.get(i).addView(trousers.get(i).getView(this));
             dailyPlans.get(i).addView(weeklyPlan.getTrousers().getView(this));
             dailyPlans.get(i).setVisibility(View.VISIBLE);
         }
         for (int i = 0; i < shirts.size() && i < this.dailyPlans.size(); i++)
         {
-            //dailyPlans.get(i).addView(shirts.get(i).getView(this));
             dailyPlans.get(i).addView(weeklyPlan.getShirt().getView(this));
             dailyPlans.get(i).setVisibility(View.VISIBLE);
         }
@@ -62,6 +60,5 @@ public class WeeklyPlanActivity extends AppCompatActivity {
     public void generatePlan(@SuppressWarnings("UnusedParameters") View view) throws WardrobeException {
         weeklyPlan.generateWeeklyPlan();
         displayWeeklyPlan();
-        weeklyPlan.storeWeeklyPlan();
     }
 }

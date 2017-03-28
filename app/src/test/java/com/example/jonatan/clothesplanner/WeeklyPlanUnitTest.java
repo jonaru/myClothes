@@ -34,7 +34,10 @@ import static org.mockito.Mockito.doNothing;
 public class WeeklyPlanUnitTest {
 
     private static final String BLUE_SHIRT = "blue shirt";
+    private static final String WHITE_SHIRT = "white shirt";
     private static final String KHAKIS = "khakis";
+    private static final String JEANS = "jeans";
+    private static final String SHIRT_STRING = "Shirt";
 
     @Mock
     Context mContext;
@@ -67,21 +70,26 @@ public class WeeklyPlanUnitTest {
         assertTrue(weeklyPlan.isEmpty());
     }
 
-    /*
     @Test
     public void testGenerateWeeklyPlan() throws Exception {
         IWardrobe wardrobe = Wardrobe.getInstance();
         IWardrobeItem shirt = new Shirt(BLUE_SHIRT);
+        IWardrobeItem secondShirt = new Shirt(WHITE_SHIRT);
         IWardrobeItem khakis = new Trousers(KHAKIS);
         wardrobe.addWardrobeItem(shirt);
+        wardrobe.addWardrobeItem(secondShirt);
         wardrobe.addWardrobeItem(khakis);
 
-        IWeeklyPlan weeklyPlan = wardrobe.getWeeklyPlan();
+        IWeeklyPlan weeklyPlan = new WeeklyPlan();
         weeklyPlan.generateWeeklyPlan();
         assertFalse(weeklyPlan.isEmpty());
 
-        assertEquals(shirt, weeklyPlan.getShirt(0));
-        assertEquals(khakis, weeklyPlan.getTrousers(0));
+        assertEquals(secondShirt, weeklyPlan.getShirt());
+        assertEquals(khakis, weeklyPlan.getTrousers());
+
+        //generate a new plan to check that we get a different shirt
+        weeklyPlan.generateWeeklyPlan();
+        assertEquals(shirt, weeklyPlan.getShirt());
+        assertEquals(khakis, weeklyPlan.getTrousers());
     }
-    */
 }
