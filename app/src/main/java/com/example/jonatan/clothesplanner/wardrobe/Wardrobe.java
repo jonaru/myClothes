@@ -113,6 +113,11 @@ public class Wardrobe implements IWardrobe {
     }
 
     @Override
+    public IFileHandlingHelper getFileHandlingHelper() {
+        return fileHandlingHelper;
+    }
+
+    @Override
     public IWardrobeItem findWardrobeItem(String wardrobeItemString) {
         for (IWardrobeItem item : shirtList)
         {
@@ -131,4 +136,7 @@ public class Wardrobe implements IWardrobe {
         }
         return null;
     }
+
+    //TODO: This crap is used right now for injecting mock into unit test. Should be replaced by better solution
+    public void setFileHandlingHelper(IFileHandlingHelper fileHandlingHelper) {this.fileHandlingHelper = fileHandlingHelper;}
 }

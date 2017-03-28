@@ -7,4 +7,8 @@ package com.example.jonatan.clothesplanner.wardrobe;
 public interface IFileHandlingHelper {
     void loadWardrobe(IWardrobe wardrobe);
     void storeWardrobe(IWardrobe wardrobe);
+
+    int loadWeeklyPlanIndex();
+
+    void storeWeeklyPlanIndex(int index);
 }

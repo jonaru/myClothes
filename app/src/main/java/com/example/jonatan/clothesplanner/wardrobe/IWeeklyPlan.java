@@ -10,8 +10,6 @@ import java.util.List;
  * Created by Jonatan on 2017-03-27.
  */
 public interface IWeeklyPlan {
-    boolean isEmpty();
-
     void storeWeeklyPlan();
     void generateWeeklyPlan();
 

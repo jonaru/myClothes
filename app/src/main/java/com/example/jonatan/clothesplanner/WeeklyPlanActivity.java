@@ -34,31 +34,28 @@ public class WeeklyPlanActivity extends AppCompatActivity {
         dailyPlans.add((LinearLayout) findViewById(R.id.thursdayViewGroup));
         dailyPlans.add((LinearLayout) findViewById(R.id.fridayViewGroup));
 
-        if (!weeklyPlan.isEmpty())
-        {
-            displayWeeklyPlan();
-        }
-    }
-
-    public void displayWeeklyPlan() {
-        //LinearLayout weeklyPlanLinearLayout = (LinearLayout) findViewById(R.id.weekly_plan_layout);
-        List<IWardrobeItem> trousers = wardrobe.getTrousers();
-        List<IWardrobeItem> shirts = wardrobe.getShirts();
-
-        for (int i = 0; i < trousers.size() && i < this.dailyPlans.size(); i++)
-        {
-            dailyPlans.get(i).addView(weeklyPlan.getTrousers().getView(this));
-            dailyPlans.get(i).setVisibility(View.VISIBLE);
-        }
-        for (int i = 0; i < shirts.size() && i < this.dailyPlans.size(); i++)
-        {
-            dailyPlans.get(i).addView(weeklyPlan.getShirt().getView(this));
-            dailyPlans.get(i).setVisibility(View.VISIBLE);
-        }
+        displayWeeklyPlan();
     }
 
     public void generatePlan(@SuppressWarnings("UnusedParameters") View view) throws WardrobeException {
         weeklyPlan.generateWeeklyPlan();
         displayWeeklyPlan();
+    }
+
+    public void displayWeeklyPlan() {
+        for (LinearLayout day : dailyPlans)
+        {
+            day.removeAllViews();
+        }
+        for (int i = 0; i < wardrobe.getTrousers().size() && i < dailyPlans.size(); i++)
+        {
+            dailyPlans.get(i).addView(weeklyPlan.getTrousers().getView(this));
+            dailyPlans.get(i).setVisibility(View.VISIBLE);
+        }
+        for (int i = 0; i < wardrobe.getShirts().size() && i < dailyPlans.size(); i++)
+        {
+            dailyPlans.get(i).addView(weeklyPlan.getShirt().getView(this));
+            dailyPlans.get(i).setVisibility(View.VISIBLE);
+        }
     }
 }

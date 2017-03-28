@@ -8,6 +8,7 @@ import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -69,6 +70,47 @@ public class FileHandlingHelper implements IFileHandlingHelper {
         }
         try {
             storeToFile(wardrobe.getTrousers(), myContext.getResources().getString(R.string.saved_trousers));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public int loadWeeklyPlanIndex() {
+        FileInputStream fileInputStream = null;
+        int weeklyPlanIndex = 0;
+
+        try {
+            fileInputStream = myContext.openFileInput(myContext.getResources().getString(R.string.weekly_plan));
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+
+            String currentLine;
+            if((currentLine = reader.readLine()) != null) {
+                String trimmedLine = currentLine.trim();
+                weeklyPlanIndex = Integer.parseInt(trimmedLine);
+            }
+
+            reader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return weeklyPlanIndex;
+    }
+
+    @Override
+    public void storeWeeklyPlanIndex(int index) {
+        myContext.deleteFile(myContext.getResources().getString(R.string.weekly_plan));
+        FileOutputStream fileOutputStream = null;
+        try {
+            fileOutputStream = myContext.openFileOutput(myContext.getResources().getString(R.string.weekly_plan), Context.MODE_PRIVATE);
+            fileOutputStream.write(Integer.toString(index).getBytes());
+            fileOutputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

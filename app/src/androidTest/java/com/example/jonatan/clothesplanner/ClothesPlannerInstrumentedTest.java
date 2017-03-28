@@ -119,12 +119,19 @@ public class ClothesPlannerInstrumentedTest {
         //Click Weekly Plan button
         onView(withId(R.id.WeeklyPlanButton)).perform(click());
 
+        // Check that item has been added to the wardrobe linear layout
+        onView(withId(R.id.weekly_plan_layout))
+                .check(matches(hasDescendant(allOf(withId(R.id.mondayViewGroup), hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart)), hasDescendant(withText(BLUE_SHIRT))))));
+
+        onView(withId(R.id.weekly_plan_layout))
+                .check(matches(hasDescendant(allOf(withId(R.id.tuesdayViewGroup), hasDescendant(withText(KHAKIS))))));
+
         // Check that item has not been added to the wardrobe linear layout
         //onView(withParent(withId(R.id.mondayViewGroup))).check(doesNotExist());
-        onView(withText(wardrobeItemStringToBeWrittenBeforeStart)).check(doesNotExist());
+        //onView(withText(wardrobeItemStringToBeWrittenBeforeStart)).check(doesNotExist());
 
         //Click Generate Weekly Plan button
-        //onView(withId(R.id.GenerateWeeklyPlanButton)).perform(click());
+        /*
         clickButtonTravis("Generate");
 
         // Check that item has been added to the wardrobe linear layout
@@ -133,6 +140,7 @@ public class ClothesPlannerInstrumentedTest {
 
         onView(withId(R.id.weekly_plan_layout))
                 .check(matches(hasDescendant(allOf(hasDescendant(withText(TUESDAY)), hasDescendant(withText(KHAKIS))))));
+         */
 
         //Click on back button
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
@@ -143,13 +151,11 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.WeeklyPlanButton)).perform(click());
 
         // Check that item has been added to the wardrobe linear layout
-        /*
         onView(withId(R.id.weekly_plan_layout))
-                .check(matches(hasDescendant(allOf(hasDescendant(withText(MONDAY)), hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart)), hasDescendant(withText(BLUE_SHIRT))))));
+                .check(matches(hasDescendant(allOf(withId(R.id.mondayViewGroup), hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart)), hasDescendant(withText(BLUE_SHIRT))))));
 
         onView(withId(R.id.weekly_plan_layout))
-                .check(matches(hasDescendant(allOf(hasDescendant(withText(TUESDAY)), hasDescendant(withText(KHAKIS))))));
-        */
+                .check(matches(hasDescendant(allOf(withId(R.id.tuesdayViewGroup), hasDescendant(withText(KHAKIS))))));
     }
 
 
