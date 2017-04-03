@@ -8,7 +8,7 @@ public interface IFileHandlingHelper {
     void loadWardrobe(IWardrobe wardrobe);
     void storeWardrobe(IWardrobe wardrobe);
 
-    int loadWeeklyPlanIndex();
+    int[] loadWeeklyPlanIndex();
 
-    void storeWeeklyPlanIndex(int index);
+    void storeWeeklyPlanIndex(int weeklyPlanShirtIndex, int weeklyPlanTrousersIndex);
 }

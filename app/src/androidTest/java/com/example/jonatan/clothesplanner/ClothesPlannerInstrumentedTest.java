@@ -58,6 +58,8 @@ public class ClothesPlannerInstrumentedTest {
     static private String wardrobeItemStringToBeWrittenBeforeStart = "jeans";
     static private String KHAKIS = "khakis";
     static private String BLUE_SHIRT = "blue shirt";
+    static private String WHITE_SHIRT = "white shirt";
+    static private String STRIPED_SHIRT = "striped shirt";
     private FileInputStream fileInputStream;
 
     @Rule
@@ -85,9 +87,10 @@ public class ClothesPlannerInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
         File trousersFile = new File(appContext.getFilesDir()+"/"+appContext.getResources().getString(R.string.saved_trousers));
         File shirtFile = new File(appContext.getFilesDir()+"/"+appContext.getResources().getString(R.string.saved_shirts));
+        File weeklyPlanFile = new File(appContext.getFilesDir()+"/"+appContext.getResources().getString(R.string.weekly_plan));
         trousersFile.delete();
         shirtFile.delete();
-
+        weeklyPlanFile.delete();
     }
 
     @Test
@@ -105,9 +108,18 @@ public class ClothesPlannerInstrumentedTest {
         onData(allOf(is(instanceOf(String.class)), is("Trousers"))).perform(click());
         onView(withId(R.id.button)).perform(click());
 
-        //add shirt item
+        //add shirt items
         onView(withId(R.id.editText_add_item)).perform(typeText(BLUE_SHIRT), closeSoftKeyboard());
-        //select trousers from the drop-down menu (spinner)
+        onView(withId(R.id.wardrobe_spinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Shirt"))).perform(click());
+        onView(withId(R.id.button)).perform(click());
+
+        onView(withId(R.id.editText_add_item)).perform(typeText(WHITE_SHIRT), closeSoftKeyboard());
+        onView(withId(R.id.wardrobe_spinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Shirt"))).perform(click());
+        onView(withId(R.id.button)).perform(click());
+
+        onView(withId(R.id.editText_add_item)).perform(typeText(STRIPED_SHIRT), closeSoftKeyboard());
         onView(withId(R.id.wardrobe_spinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Shirt"))).perform(click());
         onView(withId(R.id.button)).perform(click());
@@ -123,24 +135,20 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.weekly_plan_layout))
                 .check(matches(hasDescendant(allOf(withId(R.id.mondayViewGroup), hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart)), hasDescendant(withText(BLUE_SHIRT))))));
 
-        onView(withId(R.id.weekly_plan_layout))
-                .check(matches(hasDescendant(allOf(withId(R.id.tuesdayViewGroup), hasDescendant(withText(KHAKIS))))));
 
-        // Check that item has not been added to the wardrobe linear layout
-        //onView(withParent(withId(R.id.mondayViewGroup))).check(doesNotExist());
-        //onView(withText(wardrobeItemStringToBeWrittenBeforeStart)).check(doesNotExist());
+        onView(withId(R.id.weekly_plan_layout))
+                .check(matches(hasDescendant(allOf(withId(R.id.tuesdayViewGroup), hasDescendant(withText(KHAKIS)), hasDescendant(withText(WHITE_SHIRT))))));
 
         //Click Generate Weekly Plan button
-        /*
         clickButtonTravis("Generate");
 
         // Check that item has been added to the wardrobe linear layout
         onView(withId(R.id.weekly_plan_layout))
-                .check(matches(hasDescendant(allOf(hasDescendant(withText(MONDAY)), hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart)), hasDescendant(withText(BLUE_SHIRT))))));
+                .check(matches(hasDescendant(allOf(withId(R.id.mondayViewGroup), hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart)), hasDescendant(withText(WHITE_SHIRT))))));
 
         onView(withId(R.id.weekly_plan_layout))
-                .check(matches(hasDescendant(allOf(hasDescendant(withText(TUESDAY)), hasDescendant(withText(KHAKIS))))));
-         */
+                .check(matches(hasDescendant(allOf(withId(R.id.tuesdayViewGroup), hasDescendant(withText(KHAKIS)), hasDescendant(withText(STRIPED_SHIRT))))));
+
 
         //Click on back button
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
@@ -152,10 +160,10 @@ public class ClothesPlannerInstrumentedTest {
 
         // Check that item has been added to the wardrobe linear layout
         onView(withId(R.id.weekly_plan_layout))
-                .check(matches(hasDescendant(allOf(withId(R.id.mondayViewGroup), hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart)), hasDescendant(withText(BLUE_SHIRT))))));
+                .check(matches(hasDescendant(allOf(withId(R.id.mondayViewGroup), hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart)), hasDescendant(withText(WHITE_SHIRT))))));
 
         onView(withId(R.id.weekly_plan_layout))
-                .check(matches(hasDescendant(allOf(withId(R.id.tuesdayViewGroup), hasDescendant(withText(KHAKIS))))));
+                .check(matches(hasDescendant(allOf(withId(R.id.tuesdayViewGroup), hasDescendant(withText(KHAKIS)), hasDescendant(withText(STRIPED_SHIRT))))));
     }
 
 

@@ -6,18 +6,22 @@ import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
  * Created by Jonatan on 2017-03-27.
  */
 public class WeeklyPlan implements IWeeklyPlan {
-    private int weeklyPlanStartIndex;
+    private int currentShirt;
+    private int currentTrousers;
     private int weeklyPlanShirtIndex;
     private int weeklyPlanTrousersIndex;
+
+    private IFileHandlingHelper fileHandlingHelper;
     IWardrobe wardrobe = Wardrobe.getInstance();
-    IFileHandlingHelper fileHandlingHelper;
 
     public WeeklyPlan()
     {
         fileHandlingHelper = wardrobe.getFileHandlingHelper();
-        weeklyPlanStartIndex = fileHandlingHelper.loadWeeklyPlanIndex();
-        weeklyPlanShirtIndex = weeklyPlanStartIndex;
-        weeklyPlanTrousersIndex = weeklyPlanStartIndex;
+        int[] indices = fileHandlingHelper.loadWeeklyPlanIndex();
+        weeklyPlanShirtIndex = indices[0];
+        weeklyPlanTrousersIndex = indices[1];
+        currentShirt = weeklyPlanShirtIndex;
+        currentTrousers = weeklyPlanTrousersIndex;
     }
 
     @Override
@@ -28,33 +32,49 @@ public class WeeklyPlan implements IWeeklyPlan {
 
     @Override
     public IWardrobeItem getShirt() {
-        if (weeklyPlanShirtIndex + 1 > wardrobe.getShirts().size())
+        if (currentShirt + 1 > wardrobe.getShirts().size())
         {
-            weeklyPlanShirtIndex = 0;
+            currentShirt = 0;
         }
 
-        IWardrobeItem shirt = wardrobe.getShirts().get((weeklyPlanShirtIndex));
-        weeklyPlanShirtIndex++;
+        IWardrobeItem shirt = wardrobe.getShirts().get((currentShirt));
+        currentShirt++;
         return shirt;
     }
 
     @Override
     public IWardrobeItem getTrousers() {
-        if (weeklyPlanTrousersIndex + 1 > wardrobe.getTrousers().size())
+        if (currentTrousers + 1 > wardrobe.getTrousers().size())
         {
-            weeklyPlanTrousersIndex = 0;
+            currentTrousers = 0;
         }
 
-        IWardrobeItem trousers = wardrobe.getTrousers().get((weeklyPlanTrousersIndex));
-        weeklyPlanTrousersIndex++;
+        IWardrobeItem trousers = wardrobe.getTrousers().get((currentTrousers));
+        currentTrousers++;
         return trousers;
     }
 
     @Override
     public void generateWeeklyPlan() {
-        weeklyPlanStartIndex++;
-        weeklyPlanTrousersIndex = weeklyPlanStartIndex;
-        weeklyPlanShirtIndex = weeklyPlanStartIndex;
-        fileHandlingHelper.storeWeeklyPlanIndex(weeklyPlanStartIndex);
+        weeklyPlanShirtIndex++;
+        if (weeklyPlanShirtIndex >= wardrobe.getShirts().size())
+        {
+            weeklyPlanShirtIndex = 0;
+        }
+
+        /*
+        currentTrousers--;
+        if (currentTrousers < 0)
+        {
+            currentTrousers = wardrobe.getTrousers().size() - 1;
+        }
+        */
+
+        currentShirt = weeklyPlanShirtIndex;
+        currentTrousers = weeklyPlanTrousersIndex;
+
+
+        fileHandlingHelper.storeWeeklyPlanIndex(weeklyPlanShirtIndex, weeklyPlanTrousersIndex);
+
     }
 }

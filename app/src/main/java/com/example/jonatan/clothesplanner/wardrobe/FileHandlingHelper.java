@@ -76,9 +76,11 @@ public class FileHandlingHelper implements IFileHandlingHelper {
     }
 
     @Override
-    public int loadWeeklyPlanIndex() {
+    public int[] loadWeeklyPlanIndex() {
         FileInputStream fileInputStream = null;
-        int weeklyPlanIndex = 0;
+        int indices[] = new int[2];
+        indices[0] = 0;
+        indices[1] = 0;
 
         try {
             fileInputStream = myContext.openFileInput(myContext.getResources().getString(R.string.weekly_plan));
@@ -88,7 +90,11 @@ public class FileHandlingHelper implements IFileHandlingHelper {
             String currentLine;
             if((currentLine = reader.readLine()) != null) {
                 String trimmedLine = currentLine.trim();
-                weeklyPlanIndex = Integer.parseInt(trimmedLine);
+                indices[0] = Integer.parseInt(trimmedLine);
+            }
+            if((currentLine = reader.readLine()) != null) {
+                String trimmedLine = currentLine.trim();
+                indices[1] = Integer.parseInt(trimmedLine);
             }
 
             reader.close();
@@ -98,16 +104,18 @@ public class FileHandlingHelper implements IFileHandlingHelper {
             e.printStackTrace();
         }
 
-        return weeklyPlanIndex;
+        return indices;
     }
 
     @Override
-    public void storeWeeklyPlanIndex(int index) {
+    public void storeWeeklyPlanIndex(int weeklyPlanShirtIndex, int weeklyPlanTrousersIndex) {
         myContext.deleteFile(myContext.getResources().getString(R.string.weekly_plan));
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = myContext.openFileOutput(myContext.getResources().getString(R.string.weekly_plan), Context.MODE_PRIVATE);
-            fileOutputStream.write(Integer.toString(index).getBytes());
+            fileOutputStream.write(Integer.toString(weeklyPlanShirtIndex).getBytes());
+            fileOutputStream.write(System.getProperty("line.separator").getBytes());
+            fileOutputStream.write(Integer.toString(weeklyPlanTrousersIndex).getBytes());
             fileOutputStream.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();

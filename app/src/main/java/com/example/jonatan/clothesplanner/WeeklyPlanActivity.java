@@ -37,7 +37,7 @@ public class WeeklyPlanActivity extends AppCompatActivity {
         displayWeeklyPlan();
     }
 
-    public void generatePlan(@SuppressWarnings("UnusedParameters") View view) throws WardrobeException {
+    public void generatePlan(@SuppressWarnings("UnusedParameters") View view) {
         weeklyPlan.generateWeeklyPlan();
         displayWeeklyPlan();
     }
@@ -47,12 +47,12 @@ public class WeeklyPlanActivity extends AppCompatActivity {
         {
             day.removeAllViews();
         }
-        for (int i = 0; i < wardrobe.getTrousers().size() && i < dailyPlans.size(); i++)
+        for (int i = 0; i < dailyPlans.size(); i++)
         {
             dailyPlans.get(i).addView(weeklyPlan.getTrousers().getView(this));
             dailyPlans.get(i).setVisibility(View.VISIBLE);
         }
-        for (int i = 0; i < wardrobe.getShirts().size() && i < dailyPlans.size(); i++)
+        for (int i = 0; i < dailyPlans.size(); i++)
         {
             dailyPlans.get(i).addView(weeklyPlan.getShirt().getView(this));
             dailyPlans.get(i).setVisibility(View.VISIBLE);
