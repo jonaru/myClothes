@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.KeyEvent;
@@ -35,6 +36,7 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -91,6 +93,32 @@ public class ClothesPlannerInstrumentedTest {
         trousersFile.delete();
         shirtFile.delete();
         weeklyPlanFile.delete();
+    }
+
+    @Test
+    public void scrollWeeklyPlanTest() throws Exception {
+        //Click Login button
+        onView(withId(R.id.LoginButton)).perform(click());
+
+        //Click My Wardrobe button
+        onView(withId(R.id.WardrobeButton)).perform(click());
+
+        //add shirt items
+        onView(withId(R.id.editText_add_item)).perform(typeText(BLUE_SHIRT), closeSoftKeyboard());
+        onView(withId(R.id.wardrobe_spinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Shirt"))).perform(click());
+        onView(withId(R.id.button)).perform(click());
+
+        //Click on back button
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+
+        //Click Weekly Plan button
+        onView(withId(R.id.WeeklyPlanButton)).perform(click());
+
+        //Scroll view
+        onView(withId(R.id.fridayViewGroup)).
+                perform(ViewActions.scrollTo()).check(matches(isDisplayed()));
     }
 
     @Test
