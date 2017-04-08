@@ -104,6 +104,7 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.WardrobeButton)).perform(click());
 
         //add shirt items
+        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
         onView(withId(R.id.button)).perform(click());
         onView(withId(R.id.editText_add_item)).perform(typeText(BLUE_SHIRT), closeSoftKeyboard());
         onView(withId(R.id.wardrobe_spinner)).perform(click());
@@ -131,6 +132,7 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.WardrobeButton)).perform(click());
 
         // Add khakis items
+        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
         onView(withId(R.id.button)).perform(click());
         onView(withId(R.id.editText_add_item)).perform(typeText(KHAKIS), closeSoftKeyboard());
         //select trousers from the drop-down menu (spinner)
@@ -139,18 +141,21 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.addItemButton)).perform(click());
 
         //add shirt items
+        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
         onView(withId(R.id.button)).perform(click());
         onView(withId(R.id.editText_add_item)).perform(typeText(BLUE_SHIRT), closeSoftKeyboard());
         onView(withId(R.id.wardrobe_spinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Shirt"))).perform(click());
         onView(withId(R.id.addItemButton)).perform(click());
 
+        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
         onView(withId(R.id.button)).perform(click());
         onView(withId(R.id.editText_add_item)).perform(typeText(WHITE_SHIRT), closeSoftKeyboard());
         onView(withId(R.id.wardrobe_spinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Shirt"))).perform(click());
         onView(withId(R.id.addItemButton)).perform(click());
 
+        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
         onView(withId(R.id.button)).perform(click());
         onView(withId(R.id.editText_add_item)).perform(typeText(STRIPED_SHIRT), closeSoftKeyboard());
         onView(withId(R.id.wardrobe_spinner)).perform(click());
@@ -249,6 +254,7 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.WardrobeButton)).perform(click());
 
         // Add khakis items
+        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
         onView(withId(R.id.button)).perform(click());
 
         onView(withId(R.id.editText_add_item)).perform(typeText(KHAKIS), closeSoftKeyboard());
@@ -280,6 +286,7 @@ public class ClothesPlannerInstrumentedTest {
         onView(allOf(withParent(withId(R.id.trousers_pager)), withText(wardrobeItemStringToBeWrittenBeforeStart))).check(doesNotExist());
 
         // Type text and then press the button to add khakis.
+        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
         onView(withId(R.id.button)).perform(click());
         onView(withId(R.id.editText_add_item))
                 .perform(typeText(KHAKIS), closeSoftKeyboard());
