@@ -17,6 +17,8 @@ public class Wardrobe implements IWardrobe {
     private static final String TROUSERS_STRING = "Trousers";
     private final List<IWardrobeItem> wardrobeItemList = new ArrayList<>();
     private final ArrayList<IWardrobeItem> shirtList = new ArrayList<>();
+    private final ArrayList<IWardrobeItem> tempShirtList = new ArrayList<>();
+    private final ArrayList<IWardrobeItem> tempTrouserList = new ArrayList<>();
     private final ArrayList<IWardrobeItem> trousersList = new ArrayList<>();
     private static Wardrobe instance;
     private IFileHandlingHelper fileHandlingHelper;
@@ -52,6 +54,30 @@ public class Wardrobe implements IWardrobe {
         addWardrobeItem(itemToAdd);
 
         return itemToAdd;
+    }
+
+    @Override
+    public IWardrobeItem addTempWardrobeItem(String itemString, String itemTypeString) {
+        IWardrobeItem itemToAdd = null;
+        if (itemTypeString.compareTo(SHIRT_STRING) == 0)
+        {
+            itemToAdd = new Shirt(itemString);
+        }
+        else if (itemTypeString.compareTo(TROUSERS_STRING) == 0)
+        {
+            itemToAdd = new Trousers(itemString);
+        }
+        addTempWardrobeItem(itemToAdd);
+
+        return itemToAdd;
+    }
+
+    private void addTempWardrobeItem(IWardrobeItem wardrobeItem) {
+        switch (wardrobeItem.getWardrobeItemType()){
+            case SHIRT: tempShirtList.add((Shirt)wardrobeItem); break;
+            case TROUSERS: tempTrouserList.add((Trousers)wardrobeItem); break;
+            default: wardrobeItemList.add(wardrobeItem); break;
+        }
     }
 
     @Override
@@ -115,6 +141,22 @@ public class Wardrobe implements IWardrobe {
     @Override
     public IFileHandlingHelper getFileHandlingHelper() {
         return fileHandlingHelper;
+    }
+
+    @Override
+    public List<IWardrobeItem> getTempShirts() {
+        return tempShirtList;
+    }
+
+    @Override
+    public List<IWardrobeItem> getTempTrousers() {
+        return tempTrouserList;
+    }
+
+    @Override
+    public void clearTempLists() {
+        tempShirtList.clear();
+        tempTrouserList.clear();
     }
 
     @Override

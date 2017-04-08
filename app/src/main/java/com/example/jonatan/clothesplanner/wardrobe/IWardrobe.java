@@ -29,4 +29,12 @@ public interface IWardrobe {
     void storeWardrobe();
 
     IFileHandlingHelper getFileHandlingHelper();
+
+    List<IWardrobeItem> getTempShirts();
+
+    List<IWardrobeItem> getTempTrousers();
+
+    void clearTempLists();
+
+    IWardrobeItem addTempWardrobeItem(String itemText, String itemTypeString);
 }

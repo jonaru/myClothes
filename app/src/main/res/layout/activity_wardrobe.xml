@@ -10,47 +10,17 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.jonatan.clothesplanner.WardrobeActivity">
 
-    <EditText
-        android:id="@+id/editText_add_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:hint="@string/add_item"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Spinner android:id="@+id/wardrobe_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:entries="@array/wardrobe_array"
-        android:prompt="@string/wardrobe_array_prompt"
-        android:layout_below="@+id/editText_add_item" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_add"
-        android:onClick="addWardrobeItem"
-        android:layout_below="@+id/wardrobe_spinner"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="13dp" />
-
     <LinearLayout
         android:id="@+id/wardrobe_layout"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/button">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/shirtTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/your_shirts"
-            android:layout_below="@+id/button"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="28dp" />
@@ -96,4 +66,12 @@
             android:orientation="horizontal">
         </android.support.v4.view.ViewPager>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_add"
+        android:onClick="addWardrobeItem"
+        android:layout_below="@+id/wardrobe_layout" />
 </RelativeLayout>

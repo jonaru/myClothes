@@ -2,6 +2,7 @@ package com.example.jonatan.clothesplanner;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.View;
@@ -59,19 +60,34 @@ public class WardrobeActivity extends Activity {
         Wardrobe.getInstance().storeWardrobe();
     }
 
-    public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) throws WardrobeException {
-        if (wardrobe == null) {
-            throw new WardrobeException();
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        addTempWardrobeItems();
+        wardrobe.clearTempLists();
+    }
+
+    private void addTempWardrobeItems() {
+        List<IWardrobeItem> shirtList = wardrobe.getTempShirts();
+        List<IWardrobeItem> trousersList = wardrobe.getTempTrousers();
+
+        for (IWardrobeItem shirt : shirtList)
+        {
+            wardrobe.addWardrobeItem(shirt);
+            addWardrobeItemToPager(shirt);
         }
 
-        EditText editText = (EditText) findViewById(R.id.editText_add_item);
-        Spinner wardrobeSpinner = (Spinner) findViewById(R.id.wardrobe_spinner);
-        String itemTypeString = (String) wardrobeSpinner.getSelectedItem();
-        String itemText = editText.getText().toString();
+        for (IWardrobeItem trousers : trousersList)
+        {
+            wardrobe.addWardrobeItem(trousers);
+            addWardrobeItemToPager(trousers);
+        }
+    }
 
-        IWardrobeItem addedWardrobeItem = wardrobe.addWardrobeItem(itemText, itemTypeString);
-        addWardrobeItemToPager(addedWardrobeItem);
-        editText.setText("");
+    public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) throws WardrobeException {
+        Intent intent = new Intent(this, PopUpWardrobeActivity.class);
+        startActivity(intent);
     }
 
     private void addItemsFromWardrobe() {
