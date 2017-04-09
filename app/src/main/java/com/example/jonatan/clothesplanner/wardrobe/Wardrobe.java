@@ -40,73 +40,6 @@ public class Wardrobe implements IWardrobe {
         return instance;
     }
 
-
-    @Override
-    public IWardrobeItem addWardrobeItem(String itemString, String itemTypeString) {
-        IWardrobeItem itemToAdd = null;
-
-        if (itemTypeString.compareTo(SHIRT_STRING) == 0)
-        {
-            itemToAdd = new WardrobeItem(itemString, WardrobeItemType.SHIRT);
-        }
-        else if (itemTypeString.compareTo(TROUSERS_STRING) == 0)
-        {
-            itemToAdd = new WardrobeItem(itemString, WardrobeItemType.TROUSERS);
-        }
-
-        addWardrobeItem(itemToAdd);
-        return itemToAdd;
-    }
-
-    @Override
-    public IWardrobeItem addTempWardrobeItem(String itemString, String itemTypeString) {
-        IWardrobeItem itemToAdd = null;
-        if (itemTypeString.compareTo(SHIRT_STRING) == 0)
-        {
-            itemToAdd = new WardrobeItem(itemString, WardrobeItemType.SHIRT);
-        }
-        else if (itemTypeString.compareTo(TROUSERS_STRING) == 0)
-        {
-            itemToAdd = new WardrobeItem(itemString, WardrobeItemType.TROUSERS);
-        }
-        addTempWardrobeItem(itemToAdd);
-
-        return itemToAdd;
-    }
-
-    @Override
-    public void addTempWardrobeItem(String itemText, WardrobeItemType selectedItemType, Drawable selectedDrawable) {
-        IWardrobeItem wardrobeItem = null;
-        switch (selectedItemType) {
-            case SHIRT:
-                wardrobeItem = new WardrobeItem(itemText, selectedDrawable, WardrobeItemType.SHIRT);
-                tempShirtList.add(wardrobeItem);
-                break;
-            case TROUSERS:
-                wardrobeItem = new WardrobeItem(itemText, selectedDrawable, WardrobeItemType.TROUSERS);
-                tempTrouserList.add(wardrobeItem);
-                break;
-            default: wardrobeItemList.add(wardrobeItem); break;
-        }
-    }
-
-    private void addTempWardrobeItem(IWardrobeItem wardrobeItem) {
-        switch (wardrobeItem.getWardrobeItemType()){
-            case SHIRT: tempShirtList.add(wardrobeItem); break;
-            case TROUSERS: tempTrouserList.add(wardrobeItem); break;
-            default: wardrobeItemList.add(wardrobeItem); break;
-        }
-    }
-
-    @Override
-    public void addWardrobeItem(IWardrobeItem wardrobeItem) {
-        switch (wardrobeItem.getWardrobeItemType()){
-            case SHIRT: shirtList.add(wardrobeItem); break;
-            case TROUSERS: trousersList.add(wardrobeItem); break;
-            default: wardrobeItemList.add(wardrobeItem); break;
-        }
-    }
-
     @Override
     public List<IWardrobeItem> getShirts() {
         return shirtList;
@@ -121,6 +54,77 @@ public class Wardrobe implements IWardrobe {
     public void clear() {
         shirtList.clear();
         trousersList.clear();
+    }
+
+    @Override
+    public List<IWardrobeItem> getTempShirts() {
+        return tempShirtList;
+    }
+
+    @Override
+    public List<IWardrobeItem> getTempTrousers() {
+        return tempTrouserList;
+    }
+
+    @Override
+    public void clearTempLists() {
+        tempShirtList.clear();
+        tempTrouserList.clear();
+    }
+
+    @Override
+    public void loadWardrobe() {
+        clear();
+        fileHandlingHelper.loadWardrobe(this);
+    }
+
+    @Override
+    public void storeWardrobe() {
+        fileHandlingHelper.storeWardrobe(this);
+    }
+
+    @Override
+    public IFileHandlingHelper getFileHandlingHelper() {
+        return fileHandlingHelper;
+    }
+
+    @Override
+    public IWardrobeItem addWardrobeItem(String itemString, String itemTypeString) {
+        WardrobeItemType type = getItemTypeFromString(itemTypeString);
+        IWardrobeItem itemToAdd = new WardrobeItem(itemString, type);
+        addWardrobeItem(itemToAdd);
+        return itemToAdd;
+    }
+
+    @Override
+    public void addWardrobeItem(IWardrobeItem wardrobeItem) {
+        switch (wardrobeItem.getWardrobeItemType()){
+            case SHIRT: shirtList.add(wardrobeItem); break;
+            case TROUSERS: trousersList.add(wardrobeItem); break;
+            default: wardrobeItemList.add(wardrobeItem); break;
+        }
+    }
+
+    @Override
+    public IWardrobeItem addTempWardrobeItem(String itemString, String itemTypeString) {
+        WardrobeItemType type = getItemTypeFromString(itemTypeString);
+        IWardrobeItem itemToAdd = new WardrobeItem(itemString, type);
+        addTempWardrobeItem(itemToAdd);
+        return itemToAdd;
+    }
+
+    @Override
+    public void addTempWardrobeItem(String itemText, WardrobeItemType selectedItemType, Drawable selectedDrawable) {
+        IWardrobeItem wardrobeItem = new WardrobeItem(itemText, selectedDrawable, selectedItemType);
+        addTempWardrobeItem(wardrobeItem);
+    }
+
+    private void addTempWardrobeItem(IWardrobeItem wardrobeItem) {
+        switch (wardrobeItem.getWardrobeItemType()){
+            case SHIRT: tempShirtList.add(wardrobeItem); break;
+            case TROUSERS: tempTrouserList.add(wardrobeItem); break;
+            default: wardrobeItemList.add(wardrobeItem); break;
+        }
     }
 
     @Override
@@ -168,38 +172,6 @@ public class Wardrobe implements IWardrobe {
     }
 
     @Override
-    public void loadWardrobe() {
-        clear();
-        fileHandlingHelper.loadWardrobe(this);
-    }
-
-    @Override
-    public void storeWardrobe() {
-        fileHandlingHelper.storeWardrobe(this);
-    }
-
-    @Override
-    public IFileHandlingHelper getFileHandlingHelper() {
-        return fileHandlingHelper;
-    }
-
-    @Override
-    public List<IWardrobeItem> getTempShirts() {
-        return tempShirtList;
-    }
-
-    @Override
-    public List<IWardrobeItem> getTempTrousers() {
-        return tempTrouserList;
-    }
-
-    @Override
-    public void clearTempLists() {
-        tempShirtList.clear();
-        tempTrouserList.clear();
-    }
-
-    @Override
     public IWardrobeItem findWardrobeItem(String wardrobeItemString) {
         for (IWardrobeItem item : shirtList)
         {
@@ -217,6 +189,18 @@ public class Wardrobe implements IWardrobe {
             }
         }
         return null;
+    }
+
+    private WardrobeItemType getItemTypeFromString(String itemTypeString) {
+        if (itemTypeString.compareTo(SHIRT_STRING) == 0)
+        {
+            return WardrobeItemType.SHIRT;
+        }
+        else if (itemTypeString.compareTo(TROUSERS_STRING) == 0)
+        {
+            return WardrobeItemType.TROUSERS;
+        }
+        return WardrobeItemType.DEFAULT;
     }
 
     //TODO: This crap is used right now for injecting mock into unit test. Should be replaced by better solution

@@ -12,17 +12,20 @@ import android.widget.TextView;
  */
 public class WardrobeItem implements IWardrobeItem {
 
-    protected String itemDescription = null;
-    protected Drawable drawable = null;
+    protected String itemDescription;
+    protected Drawable drawable;
     protected WardrobeItemType itemType;
 
     public WardrobeItem() {
         itemType = WardrobeItemType.DEFAULT;
+        itemDescription = null;
+        drawable = null;
     }
 
     public WardrobeItem(String description, WardrobeItemType type) {
         //noinspection RedundantStringConstructorCall
         itemDescription = new String(description);
+        drawable = null;
         itemType = type;
     }
 
