@@ -73,4 +73,10 @@ public class PopUpWardrobeActivity extends Activity {
         selectedDrawable = imageButton.getDrawable();
         selectedItemType = WardrobeItemType.SHIRT;
     }
+
+    public void selectTrousers(@SuppressWarnings("UnusedParameters") View view) {
+        ImageButton imageButton = (ImageButton)view;
+        selectedDrawable = imageButton.getDrawable();
+        selectedItemType = WardrobeItemType.TROUSERS;
+    }
 }

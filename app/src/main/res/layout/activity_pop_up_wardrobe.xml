@@ -58,25 +58,37 @@
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         android:padding="0dp"
-        android:src="@drawable/shirt_striped"
-        android:onClick="selectShirt"
-        android:layout_alignTop="@+id/whiteShirtButton"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/stripedShirtButton" />
+        android:src="@drawable/khaki_trousers"
+        android:layout_below="@+id/blueShirtButton"
+        android:onClick="selectTrousers"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp"
+        android:id="@+id/khakiTrouserstButton" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         android:padding="0dp"
-        android:src="@drawable/shirt_squared"
-        android:onClick="selectShirt"
-        android:layout_alignTop="@+id/stripedShirtButton"
-        android:layout_toRightOf="@+id/stripedShirtButton"
-        android:layout_toEndOf="@+id/stripedShirtButton"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:id="@+id/squaredShirtButton" />
+        android:src="@drawable/blue_trousers"
+        android:onClick="selectTrousers"
+        android:layout_alignTop="@+id/khakiTrouserstButton"
+        android:layout_toRightOf="@+id/khakiTrouserstButton"
+        android:layout_toEndOf="@+id/khakiTrouserstButton"
+        android:id="@+id/blueTrouserstButton" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:padding="0dp"
+        android:src="@drawable/grey_trousers"
+        android:onClick="selectTrousers"
+        android:id="@+id/greyTrouserstButton"
+        android:layout_alignTop="@+id/blueTrouserstButton"
+        android:layout_toRightOf="@+id/blueTrouserstButton"
+        android:layout_toEndOf="@+id/blueTrouserstButton" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -87,7 +99,66 @@
         android:onClick="selectShirt"
         android:id="@+id/whiteShirtButton"
         android:layout_alignTop="@+id/blueShirtButton"
-        android:layout_alignRight="@+id/wardrobe_spinner"
-        android:layout_alignEnd="@+id/wardrobe_spinner" />
+        android:layout_toRightOf="@+id/blueShirtButton"
+        android:layout_toEndOf="@+id/blueShirtButton" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:padding="0dp"
+        android:src="@drawable/shirt_striped"
+        android:onClick="selectShirt"
+        android:id="@+id/stripedShirtButton"
+        android:layout_alignTop="@+id/whiteShirtButton"
+        android:layout_toRightOf="@+id/whiteShirtButton"
+        android:layout_toEndOf="@+id/whiteShirtButton" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:padding="0dp"
+        android:src="@drawable/shirt_squared"
+        android:onClick="selectShirt"
+        android:id="@+id/squaredShirtButton"
+        android:layout_alignTop="@+id/stripedShirtButton"
+        android:layout_toRightOf="@+id/stripedShirtButton"
+        android:layout_toEndOf="@+id/stripedShirtButton" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:padding="0dp"
+        android:src="@drawable/brown_trousers"
+        android:onClick="selectTrousers"
+        android:id="@+id/brownTrouserstButton"
+        android:layout_alignTop="@+id/greyTrouserstButton"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:padding="0dp"
+        android:src="@drawable/jeans_trousers"
+        android:onClick="selectTrousers"
+        android:id="@+id/jeansTrouserstButton"
+        android:layout_alignTop="@+id/brownTrouserstButton"
+        android:layout_toRightOf="@+id/brownTrouserstButton"
+        android:layout_toEndOf="@+id/brownTrouserstButton" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:padding="0dp"
+        android:src="@drawable/shirt_spotted"
+        android:onClick="selectShirt"
+        android:id="@+id/spottedShirtButton"
+        android:layout_alignTop="@+id/squaredShirtButton"
+        android:layout_toRightOf="@+id/brownTrouserstButton"
+        android:layout_toEndOf="@+id/brownTrouserstButton" />
 
 </RelativeLayout>

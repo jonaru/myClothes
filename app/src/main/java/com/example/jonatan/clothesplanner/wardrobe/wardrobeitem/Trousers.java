@@ -1,6 +1,7 @@
 package com.example.jonatan.clothesplanner.wardrobe.wardrobeitem;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 
 /**
@@ -8,16 +9,14 @@ import android.view.View;
  */
 public class Trousers extends WardrobeItem {
 
-    private final String trousers;
-
-    public Trousers(@SuppressWarnings("SameParameterValue") String trousersString) {
+    public Trousers(String description) {
         //noinspection RedundantStringConstructorCall
-        trousers = new String(trousersString);
+        itemDescription = new String(description);
     }
 
-    @Override
-    public String getWardrobeItemString() {
-        return trousers;
+    public Trousers(String description, Drawable selectedDrawable) {
+        itemDescription = new String(description);
+        drawable = selectedDrawable;
     }
 
     @Override

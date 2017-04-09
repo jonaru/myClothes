@@ -80,8 +80,12 @@ public class Wardrobe implements IWardrobe {
         switch (selectedItemType) {
             case SHIRT:
                 wardrobeItem = new Shirt(itemText, selectedDrawable);
-                tempShirtList.add((Shirt)wardrobeItem); break;
-            case TROUSERS: tempTrouserList.add((Trousers)wardrobeItem); break;
+                tempShirtList.add((Shirt)wardrobeItem);
+                break;
+            case TROUSERS:
+                wardrobeItem = new Trousers(itemText, selectedDrawable);
+                tempTrouserList.add((Trousers)wardrobeItem);
+                break;
             default: wardrobeItemList.add(wardrobeItem); break;
         }
     }

@@ -16,7 +16,6 @@ import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,7 +46,6 @@ import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
-import com.example.jonatan.clothesplanner.matchers.DrawableMatcher;
 
 /**
  * Instrumentation test, which will execute on an Android device.
@@ -60,6 +58,7 @@ public class ClothesPlannerInstrumentedTest {
     private static final String MONDAY = "Monday";
     private static final String TUESDAY = "Tuesday";
     static private String wardrobeItemStringToBeWrittenBeforeStart = "jeans";
+    static private String JEANS = "jeans";
     static private String KHAKIS = "khakis";
     static private String BLUE_SHIRT = "blue shirt";
     static private String WHITE_SHIRT = "white shirt";
@@ -118,14 +117,8 @@ public class ClothesPlannerInstrumentedTest {
     public void displayWeeklyPlanTest() throws Exception {
         goToWardrobe();
 
-        // Add khakis items
-        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
-        onView(withId(R.id.button)).perform(click());
-        onView(withId(R.id.editText_add_item)).perform(typeText(KHAKIS), closeSoftKeyboard());
-        //select trousers from the drop-down menu (spinner)
-        onView(withId(R.id.wardrobe_spinner)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is("Trousers"))).perform(click());
-        onView(withId(R.id.addItemButton)).perform(click());
+        // Add khakis item
+        addTrousers(KHAKIS);
 
         //add shirt items
         addShirt(BLUE_SHIRT);
@@ -145,7 +138,7 @@ public class ClothesPlannerInstrumentedTest {
 
 
         onView(withId(R.id.weekly_plan_layout))
-                .check(matches(hasDescendant(allOf(withId(R.id.tuesdayViewGroup), hasDescendant(withText(KHAKIS)), hasDescendant(withDrawable(R.drawable.shirt_white))))));
+                .check(matches(hasDescendant(allOf(withId(R.id.tuesdayViewGroup), hasDescendant(withDrawable(R.drawable.khaki_trousers)), hasDescendant(withDrawable(R.drawable.shirt_white))))));
 
         //Click Generate Weekly Plan button
         clickButtonTravis("Generate");
@@ -155,7 +148,7 @@ public class ClothesPlannerInstrumentedTest {
                 .check(matches(hasDescendant(allOf(withId(R.id.mondayViewGroup), hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart)), hasDescendant(withDrawable(R.drawable.shirt_white))))));
 
         onView(withId(R.id.weekly_plan_layout))
-                .check(matches(hasDescendant(allOf(withId(R.id.tuesdayViewGroup), hasDescendant(withText(KHAKIS)), hasDescendant(withDrawable(R.drawable.shirt_striped))))));
+                .check(matches(hasDescendant(allOf(withId(R.id.tuesdayViewGroup), hasDescendant(withDrawable(R.drawable.khaki_trousers)), hasDescendant(withDrawable(R.drawable.shirt_striped))))));
 
 
         //Click on back button
@@ -171,7 +164,7 @@ public class ClothesPlannerInstrumentedTest {
                 .check(matches(hasDescendant(allOf(withId(R.id.mondayViewGroup), hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart)), hasDescendant(withDrawable(R.drawable.shirt_white))))));
 
         onView(withId(R.id.weekly_plan_layout))
-                .check(matches(hasDescendant(allOf(withId(R.id.tuesdayViewGroup), hasDescendant(withText(KHAKIS)), hasDescendant(withDrawable(R.drawable.shirt_striped))))));
+                .check(matches(hasDescendant(allOf(withId(R.id.tuesdayViewGroup), hasDescendant(withDrawable(R.drawable.khaki_trousers)), hasDescendant(withDrawable(R.drawable.shirt_striped))))));
     }
 
 
@@ -235,15 +228,7 @@ public class ClothesPlannerInstrumentedTest {
         clickRemove(wardrobeItemStringToBeWrittenBeforeStart);
         onView(allOf(withParent(withId(R.id.trousers_pager)), withText(wardrobeItemStringToBeWrittenBeforeStart))).check(doesNotExist());
 
-        // Type text and then press the button to add khakis.
-        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
-        onView(withId(R.id.button)).perform(click());
-        onView(withId(R.id.editText_add_item))
-                .perform(typeText(KHAKIS), closeSoftKeyboard());
-        //select trousers from the drop-down menu (spinner)
-        onView(withId(R.id.wardrobe_spinner)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is("Trousers"))).perform(click());
-        onView(withId(R.id.addItemButton)).perform(click());
+        addTrousers(KHAKIS);
 
         //Click on back button
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
@@ -262,7 +247,7 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.WardrobeButton)).perform(click());
 
         //Click remove and check that item is removed from file
-        clickRemove(KHAKIS);
+        clickRemove(R.drawable.khaki_trousers);
 
         //Click on back button
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
@@ -378,6 +363,30 @@ public class ClothesPlannerInstrumentedTest {
         }
 
         //Click to add the new shirt
+        onView(withId(R.id.addItemButton)).perform(click());
+    }
+
+    private void addTrousers(String description) {
+        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
+        onView(withId(R.id.button)).perform(click());
+
+        //select trousers from the drop-down menu (spinner)
+        onView(withId(R.id.wardrobe_spinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Trousers"))).perform(click());
+
+        //Enter description
+        onView(withId(R.id.editText_add_item)).perform(typeText(description), closeSoftKeyboard());
+        //Select image...
+        if (description.compareTo(KHAKIS) == 0)
+        {
+            onView(withId(R.id.khakiTrouserstButton)).perform(click());
+        } else if (description.compareTo(wardrobeItemStringToBeWrittenBeforeStart) == 0) {
+            onView(withId(R.id.jeansTrouserstButton)).perform(click());
+        } else if (description.compareTo(JEANS) == 0) {
+            onView(withId(R.id.jeansTrouserstButton)).perform(click());
+        }
+
+        //Click to add the new trousers
         onView(withId(R.id.addItemButton)).perform(click());
     }
 }
