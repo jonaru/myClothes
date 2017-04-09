@@ -1,10 +1,12 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +74,18 @@ public class Wardrobe implements IWardrobe {
         return itemToAdd;
     }
 
+    @Override
+    public void addTempWardrobeItem(String itemText, WardrobeItemType selectedItemType, Drawable selectedDrawable) {
+        IWardrobeItem wardrobeItem = null;
+        switch (selectedItemType) {
+            case SHIRT:
+                wardrobeItem = new Shirt(itemText, selectedDrawable);
+                tempShirtList.add((Shirt)wardrobeItem); break;
+            case TROUSERS: tempTrouserList.add((Trousers)wardrobeItem); break;
+            default: wardrobeItemList.add(wardrobeItem); break;
+        }
+    }
+
     private void addTempWardrobeItem(IWardrobeItem wardrobeItem) {
         switch (wardrobeItem.getWardrobeItemType()){
             case SHIRT: tempShirtList.add((Shirt)wardrobeItem); break;
@@ -119,6 +133,28 @@ public class Wardrobe implements IWardrobe {
         for (IWardrobeItem item : trousersList)
         {
             if (item.getWardrobeItemString().compareTo(wardrobeItemString) == 0)
+            {
+                trousersList.remove(item);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeWardrobeItem(Drawable drawable) {
+        for (IWardrobeItem item : shirtList)
+        {
+            if (item.getDrawable() == drawable)
+            {
+                shirtList.remove(item);
+                return true;
+            }
+        }
+
+        for (IWardrobeItem item : trousersList)
+        {
+            if (item.getDrawable() == drawable)
             {
                 trousersList.remove(item);
                 return true;

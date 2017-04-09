@@ -46,8 +46,9 @@
         android:scaleType="centerCrop"
         android:padding="0dp"
         android:src="@drawable/shirt_blue"
+        android:onClick="selectBlueShirt"
         android:layout_marginTop="18dp"
-        android:id="@+id/imageButton"
+        android:id="@+id/blueShirtButton"
         android:layout_below="@+id/addItemButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -58,9 +59,9 @@
         android:scaleType="centerCrop"
         android:padding="0dp"
         android:src="@drawable/shirt_striped"
-        android:layout_alignTop="@+id/imageButton2"
+        android:layout_alignTop="@+id/whiteShirtButton"
         android:layout_centerHorizontal="true"
-        android:id="@+id/imageButton3" />
+        android:id="@+id/stripedShirtButton" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -68,12 +69,12 @@
         android:scaleType="centerCrop"
         android:padding="0dp"
         android:src="@drawable/shirt_squared"
-        android:layout_alignTop="@+id/imageButton3"
-        android:layout_toRightOf="@+id/imageButton3"
-        android:layout_toEndOf="@+id/imageButton3"
+        android:layout_alignTop="@+id/stripedShirtButton"
+        android:layout_toRightOf="@+id/stripedShirtButton"
+        android:layout_toEndOf="@+id/stripedShirtButton"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
-        android:id="@+id/imageButton4" />
+        android:id="@+id/squaredShirtButton" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -81,8 +82,8 @@
         android:scaleType="centerCrop"
         android:padding="0dp"
         android:src="@drawable/shirt_white"
-        android:id="@+id/imageButton2"
-        android:layout_alignTop="@+id/imageButton"
+        android:id="@+id/whiteShirtButton"
+        android:layout_alignTop="@+id/blueShirtButton"
         android:layout_alignRight="@+id/wardrobe_spinner"
         android:layout_alignEnd="@+id/wardrobe_spinner" />
 

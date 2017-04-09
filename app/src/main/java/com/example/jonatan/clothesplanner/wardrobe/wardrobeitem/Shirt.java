@@ -1,20 +1,20 @@
 package com.example.jonatan.clothesplanner.wardrobe.wardrobeitem;
 
+import android.graphics.drawable.Drawable;
+
 /**
  * Created by Jonatan on 2016-12-13.
  */
 public class Shirt extends WardrobeItem {
 
-    private final String shirt;
-
-    public Shirt(@SuppressWarnings("SameParameterValue") String shirtString) {
+    public Shirt(String description) {
         //noinspection RedundantStringConstructorCall
-        shirt = new String(shirtString);
+        itemDescription = new String(description);
     }
 
-    @Override
-    public String getWardrobeItemString() {
-        return shirt;
+    public Shirt(String description, Drawable selectedDrawable) {
+        itemDescription = new String(description);
+        drawable = selectedDrawable;
     }
 
     @Override

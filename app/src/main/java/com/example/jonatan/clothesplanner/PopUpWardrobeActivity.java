@@ -1,17 +1,23 @@
 package com.example.jonatan.clothesplanner;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.DrawableWrapper;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
 public class PopUpWardrobeActivity extends Activity {
 
     private static final double POPUP_SCREEN_PERCENTAGE = 0.8;
+    private Drawable selectedDrawable;
+    private WardrobeItemType selectedItemType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,8 @@ public class PopUpWardrobeActivity extends Activity {
         getWindow().setLayout((int)(width * POPUP_SCREEN_PERCENTAGE), (int)(height * POPUP_SCREEN_PERCENTAGE));
         */
         setContentView(R.layout.activity_pop_up_wardrobe);
+        selectedDrawable = null;
+        selectedItemType = null;
     }
 
     public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) throws WardrobeException {
@@ -48,7 +56,21 @@ public class PopUpWardrobeActivity extends Activity {
         String itemTypeString = (String) wardrobeSpinner.getSelectedItem();
         String itemText = editText.getText().toString();
 
-        wardrobe.addTempWardrobeItem(itemText, itemTypeString);
+        if (selectedDrawable != null)
+        {
+            wardrobe.addTempWardrobeItem(itemText, selectedItemType, selectedDrawable);
+        }
+        else
+        {
+            wardrobe.addTempWardrobeItem(itemText, itemTypeString);
+        }
+
         finish();
+    }
+
+    public void selectBlueShirt(@SuppressWarnings("UnusedParameters") View view) {
+        ImageButton imageButton = (ImageButton)view;
+        selectedDrawable = imageButton.getDrawable();
+        selectedItemType = WardrobeItemType.SHIRT;
     }
 }

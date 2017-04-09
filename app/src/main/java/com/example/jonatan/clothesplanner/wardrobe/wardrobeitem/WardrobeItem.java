@@ -1,7 +1,9 @@
 package com.example.jonatan.clothesplanner.wardrobe.wardrobeitem;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -10,11 +12,29 @@ import android.widget.TextView;
  */
 public abstract class WardrobeItem implements IWardrobeItem {
 
+    protected String itemDescription = null;
+    protected Drawable drawable = null;
+
     public WardrobeItem() {
     }
 
-    @Override
-    public abstract String getWardrobeItemString();
+    public WardrobeItem(String description) {
+        //noinspection RedundantStringConstructorCall
+        itemDescription = new String(description);
+    }
+
+    public WardrobeItem(String description, Drawable selectedDrawable) {
+        itemDescription = new String(description);
+        drawable = selectedDrawable;
+    }
+
+    public String getWardrobeItemString() {
+        return itemDescription;
+    }
+
+    public Drawable getDrawable() {
+        return drawable;
+    }
 
     @Override
     public WardrobeItemType getWardrobeItemType() {
@@ -26,9 +46,19 @@ public abstract class WardrobeItem implements IWardrobeItem {
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        final TextView textView = new TextView(context);
-        textView.setLayoutParams(layoutParams);
-        textView.setText(this.getWardrobeItemString());
-        return textView;
+        if (drawable == null)
+        {
+            final TextView textView = new TextView(context);
+            textView.setLayoutParams(layoutParams);
+            textView.setText(this.getWardrobeItemString());
+            return textView;
+        }
+        else
+        {
+            final ImageView imageView = new ImageView(context);
+            imageView.setImageDrawable(drawable);
+            imageView.setLayoutParams(layoutParams);
+            return imageView;
+        }
     }
 }

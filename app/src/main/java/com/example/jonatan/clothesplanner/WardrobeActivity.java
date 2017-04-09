@@ -65,7 +65,6 @@ public class WardrobeActivity extends Activity {
         super.onResume();
 
         addTempWardrobeItems();
-        wardrobe.clearTempLists();
     }
 
     private void addTempWardrobeItems() {
@@ -83,6 +82,8 @@ public class WardrobeActivity extends Activity {
             wardrobe.addWardrobeItem(trousers);
             addWardrobeItemToPager(trousers);
         }
+
+        wardrobe.clearTempLists();
     }
 
     public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) throws WardrobeException {

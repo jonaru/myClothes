@@ -42,10 +42,12 @@ import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.example.jonatan.clothesplanner.matchers.EspressoTestsMatchers.withDrawable;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
+import com.example.jonatan.clothesplanner.matchers.DrawableMatcher;
 
 /**
  * Instrumentation test, which will execute on an Android device.
@@ -97,19 +99,8 @@ public class ClothesPlannerInstrumentedTest {
 
     @Test
     public void scrollWeeklyPlanTest() throws Exception {
-        //Click Login button
-        onView(withId(R.id.LoginButton)).perform(click());
-
-        //Click My Wardrobe button
-        onView(withId(R.id.WardrobeButton)).perform(click());
-
-        //add shirt items
-        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
-        onView(withId(R.id.button)).perform(click());
-        onView(withId(R.id.editText_add_item)).perform(typeText(BLUE_SHIRT), closeSoftKeyboard());
-        onView(withId(R.id.wardrobe_spinner)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is("Shirt"))).perform(click());
-        onView(withId(R.id.addItemButton)).perform(click());
+        goToWardrobe();
+        addShirt(BLUE_SHIRT);
 
         //Click on back button
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
@@ -125,11 +116,7 @@ public class ClothesPlannerInstrumentedTest {
 
     @Test
     public void displayWeeklyPlanTest() throws Exception {
-        //Click Login button
-        onView(withId(R.id.LoginButton)).perform(click());
-
-        //Click My Wardrobe button
-        onView(withId(R.id.WardrobeButton)).perform(click());
+        goToWardrobe();
 
         // Add khakis items
         onView(withId(R.id.button)).perform(ViewActions.scrollTo());
@@ -207,11 +194,7 @@ public class ClothesPlannerInstrumentedTest {
 
     @Test
     public void loadWardrobeFromFileOnStartupTest() throws Exception {
-        //Click Login button
-        onView(withId(R.id.LoginButton)).perform(click());
-
-        //Click My Wardrobe button
-        onView(withId(R.id.WardrobeButton)).perform(click());
+        goToWardrobe();
 
         // Check that item has been added to the wardrobe linear layout
         onView(withId(R.id.trousers_pager))
@@ -247,39 +230,23 @@ public class ClothesPlannerInstrumentedTest {
 
     @Test
     public void addRemoveWardrobeItemTest() throws Exception {
-        //Click Login button
-        onView(withId(R.id.LoginButton)).perform(click());
-
-        //Click My Wardrobe button
-        onView(withId(R.id.WardrobeButton)).perform(click());
-
-        // Add khakis items
-        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
-        onView(withId(R.id.button)).perform(click());
-
-        onView(withId(R.id.editText_add_item)).perform(typeText(KHAKIS), closeSoftKeyboard());
-        //select trousers from the drop-down menu (spinner)
-        onView(withId(R.id.wardrobe_spinner)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is("Trousers"))).perform(click());
-        onView(withId(R.id.addItemButton)).perform(click());
+        goToWardrobe();
+        addShirt(BLUE_SHIRT);
 
         // Check that item has been added to the wardrobe linear layout
-        onView(withId(R.id.trousers_pager))
-                .check(matches(hasDescendant(withText(KHAKIS))));
+        onView(withId(R.id.shirt_pager))
+                .check(matches(hasDescendant(withDrawable(R.drawable.shirt_blue))));
 
         //Click remove button and check that the item does not exist anymore
-        clickRemove(KHAKIS);
-
-        onView(allOf(withParent(withId(R.id.trousers_pager)), withText(KHAKIS))).check(doesNotExist());
+        clickRemove(R.drawable.shirt_blue);
+        onView(allOf(withParent(withId(R.id.trousers_pager)), withText(KHAKIS)))
+                .check(doesNotExist());
     }
+
 
     @Test
     public void addRemoveWardrobeItemReadFromFileTest() throws Exception {
-        //Click Login button
-        onView(withId(R.id.LoginButton)).perform(click());
-
-        //Click My Wardrobe button
-        onView(withId(R.id.WardrobeButton)).perform(click());
+        goToWardrobe();
 
         //Click remove button on the jeans
         clickRemove(wardrobeItemStringToBeWrittenBeforeStart);
@@ -357,6 +324,27 @@ public class ClothesPlannerInstrumentedTest {
         );
     }
 
+    private void clickRemove(int drawableToRemove) {
+        onView(allOf(withText(R.string.remove), withParent(withChild(withDrawable(drawableToRemove))))).perform(
+                new ViewAction() {
+                    @Override
+                    public Matcher<View> getConstraints() {
+                        return isEnabled(); // no constraints, they are checked above
+                    }
+
+                    @Override
+                    public String getDescription() {
+                        return "click button";
+                    }
+
+                    @Override
+                    public void perform(UiController uiController, View view) {
+                        view.performClick();
+                    }
+                }
+        );
+    }
+
     private void clickButtonTravis(String buttonToClick) {
         onView(withText(buttonToClick)).perform(
                 new ViewAction() {
@@ -376,5 +364,37 @@ public class ClothesPlannerInstrumentedTest {
                     }
                 }
         );
+    }
+
+    private void goToWardrobe() {
+        //Click Login button
+        onView(withId(R.id.LoginButton)).perform(click());
+
+        //Click My Wardrobe button
+        onView(withId(R.id.WardrobeButton)).perform(click());
+    }
+
+    private void addShirt(String description) {
+        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
+        onView(withId(R.id.button)).perform(click());
+
+        //select shirt from the drop-down menu (spinner)
+        onView(withId(R.id.wardrobe_spinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Shirt"))).perform(click());
+
+        //Enter description
+        onView(withId(R.id.editText_add_item)).perform(typeText(description), closeSoftKeyboard());
+        //Select image
+        if (description.compareTo(BLUE_SHIRT) == 0)
+        {
+            onView(withId(R.id.blueShirtButton)).perform(click());
+        } else if (description.compareTo(WHITE_SHIRT) == 0) {
+            onView(withId(R.id.whiteShirtButton)).perform(click());
+        } else if (description.compareTo(STRIPED_SHIRT) == 0) {
+            onView(withId(R.id.stripedShirtButton)).perform(click());
+        }
+
+        //Click to add the new shirt
+        onView(withId(R.id.addItemButton)).perform(click());
     }
 }

@@ -2,10 +2,12 @@ package com.example.jonatan.clothesplanner;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jonatan.clothesplanner.R;
@@ -40,14 +42,24 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        //Remove from view
-        ViewGroup parentView = (ViewGroup) view.getParent();
-        TextView textView = (TextView) parentView.getChildAt(0);
-        String itemString = textView.getText().toString();
-        myPagerAdapter.removeView(myViewPager, parentView);
-
-        //Remove from Wardrobe
         IWardrobe wardrobe = Wardrobe.getInstance();
-        wardrobe.removeWardrobeItem(itemString);
+        ViewGroup parentView = (ViewGroup) view.getParent();
+
+        View itemView = parentView.getChildAt(0);
+        if (itemView instanceof TextView)
+        {
+            String itemString = ((TextView)itemView).getText().toString();
+            //Remove from Wardrobe
+            wardrobe.removeWardrobeItem(itemString);
+        }
+        else if (itemView instanceof ImageView)
+        {
+            Drawable drawable = ((ImageView)itemView).getDrawable();
+            //Remove from Wardrobe
+            wardrobe.removeWardrobeItem(drawable);
+        }
+
+        //Remove from view
+        myPagerAdapter.removeView(myViewPager, parentView);
     }
 }

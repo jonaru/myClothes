@@ -1,6 +1,9 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
+import android.graphics.drawable.Drawable;
+
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
 import java.util.List;
 
@@ -24,6 +27,8 @@ public interface IWardrobe {
 
     boolean removeWardrobeItem(String wardrobeItemString);
 
+    boolean removeWardrobeItem(Drawable drawable);
+
     void loadWardrobe();
 
     void storeWardrobe();
@@ -37,4 +42,6 @@ public interface IWardrobe {
     void clearTempLists();
 
     IWardrobeItem addTempWardrobeItem(String itemText, String itemTypeString);
+
+    void addTempWardrobeItem(String itemText, WardrobeItemType selectedItemType, Drawable selectedDrawable);
 }
