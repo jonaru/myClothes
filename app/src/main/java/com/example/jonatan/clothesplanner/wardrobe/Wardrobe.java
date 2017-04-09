@@ -4,8 +4,8 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class Wardrobe implements IWardrobe {
         IWardrobeItem itemToAdd = null;
         if (itemTypeString.compareTo(SHIRT_STRING) == 0)
         {
-            itemToAdd = new Shirt(itemString);
+            itemToAdd = new WardrobeItem(itemString, WardrobeItemType.SHIRT);
         }
         else if (itemTypeString.compareTo(TROUSERS_STRING) == 0)
         {
@@ -63,11 +63,11 @@ public class Wardrobe implements IWardrobe {
         IWardrobeItem itemToAdd = null;
         if (itemTypeString.compareTo(SHIRT_STRING) == 0)
         {
-            itemToAdd = new Shirt(itemString);
+            itemToAdd = new WardrobeItem(itemString, WardrobeItemType.SHIRT);
         }
         else if (itemTypeString.compareTo(TROUSERS_STRING) == 0)
         {
-            itemToAdd = new Trousers(itemString);
+            itemToAdd = new WardrobeItem(itemString, WardrobeItemType.TROUSERS);
         }
         addTempWardrobeItem(itemToAdd);
 
@@ -79,12 +79,12 @@ public class Wardrobe implements IWardrobe {
         IWardrobeItem wardrobeItem = null;
         switch (selectedItemType) {
             case SHIRT:
-                wardrobeItem = new Shirt(itemText, selectedDrawable);
-                tempShirtList.add((Shirt)wardrobeItem);
+                wardrobeItem = new WardrobeItem(itemText, selectedDrawable, WardrobeItemType.SHIRT);
+                tempShirtList.add(wardrobeItem);
                 break;
             case TROUSERS:
-                wardrobeItem = new Trousers(itemText, selectedDrawable);
-                tempTrouserList.add((Trousers)wardrobeItem);
+                wardrobeItem = new WardrobeItem(itemText, selectedDrawable, WardrobeItemType.TROUSERS);
+                tempTrouserList.add(wardrobeItem);
                 break;
             default: wardrobeItemList.add(wardrobeItem); break;
         }
@@ -92,8 +92,8 @@ public class Wardrobe implements IWardrobe {
 
     private void addTempWardrobeItem(IWardrobeItem wardrobeItem) {
         switch (wardrobeItem.getWardrobeItemType()){
-            case SHIRT: tempShirtList.add((Shirt)wardrobeItem); break;
-            case TROUSERS: tempTrouserList.add((Trousers)wardrobeItem); break;
+            case SHIRT: tempShirtList.add(wardrobeItem); break;
+            case TROUSERS: tempTrouserList.add(wardrobeItem); break;
             default: wardrobeItemList.add(wardrobeItem); break;
         }
     }
@@ -101,8 +101,8 @@ public class Wardrobe implements IWardrobe {
     @Override
     public void addWardrobeItem(IWardrobeItem wardrobeItem) {
         switch (wardrobeItem.getWardrobeItemType()){
-            case SHIRT: shirtList.add((Shirt)wardrobeItem); break;
-            case TROUSERS: trousersList.add((Trousers)wardrobeItem); break;
+            case SHIRT: shirtList.add(wardrobeItem); break;
+            case TROUSERS: trousersList.add(wardrobeItem); break;
             default: wardrobeItemList.add(wardrobeItem); break;
         }
     }

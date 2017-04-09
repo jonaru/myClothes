@@ -6,8 +6,9 @@ import com.example.jonatan.clothesplanner.wardrobe.IFileHandlingHelper;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItem;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
 import org.junit.After;
 import org.junit.Before;
@@ -68,20 +69,20 @@ public class WardrobeUnitTest {
 
     @Test
     public void testGetWardrobeItemString() throws Exception {
-        IWardrobeItem shirt = new Shirt(BLUE_SHIRT);
+        IWardrobeItem shirt = new WardrobeItem(BLUE_SHIRT, WardrobeItemType.SHIRT);
         assertEquals(BLUE_SHIRT, shirt.getWardrobeItemString());
     }
 
     @Test
     public void testGetWardrobeItemType() throws Exception {
-        IWardrobeItem shirt = new Shirt(BLUE_SHIRT);
+        IWardrobeItem shirt = new WardrobeItem(BLUE_SHIRT, WardrobeItemType.SHIRT);
         assertEquals(SHIRT, shirt.getWardrobeItemType());
     }
 
     @Test
     public void testFindWardrobeItemFromWardrobe() throws Exception {
         IWardrobe wardrobe = Wardrobe.getInstance();
-        IWardrobeItem shirt = new Shirt(BLUE_SHIRT);
+        IWardrobeItem shirt = new WardrobeItem(BLUE_SHIRT, WardrobeItemType.SHIRT);
         wardrobe.addWardrobeItem(shirt);
 
         assertEquals(shirt, wardrobe.findWardrobeItem(BLUE_SHIRT));
@@ -89,7 +90,7 @@ public class WardrobeUnitTest {
 
     @Test
     public void testAddWardrobeItemByString() throws Exception {
-        IWardrobeItem shirt = new Shirt(BLUE_SHIRT);
+        IWardrobeItem shirt = new WardrobeItem(BLUE_SHIRT, WardrobeItemType.SHIRT);
         //doNothing().when(mFileHandlingHelper).writeToWardrobeFile(BLUE_SHIRT, SHIRT_STRING);
         wardrobe.addWardrobeItem(BLUE_SHIRT, SHIRT_STRING);
 
@@ -99,8 +100,8 @@ public class WardrobeUnitTest {
     @Test
     public void testGetShirts() throws Exception {
         IWardrobe wardrobe = Wardrobe.getInstance();
-        IWardrobeItem blueShirt = new Shirt(BLUE_SHIRT);
-        IWardrobeItem whiteShirt = new Shirt(WHITE_SHIRT);
+        IWardrobeItem blueShirt = new WardrobeItem(BLUE_SHIRT, WardrobeItemType.SHIRT);
+        IWardrobeItem whiteShirt = new WardrobeItem(WHITE_SHIRT, WardrobeItemType.SHIRT);
         wardrobe.addWardrobeItem(blueShirt);
         wardrobe.addWardrobeItem(whiteShirt);
 

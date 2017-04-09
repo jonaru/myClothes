@@ -10,22 +10,26 @@ import android.widget.TextView;
 /**
  * Created by Jonatan on 2016-12-13.
  */
-public abstract class WardrobeItem implements IWardrobeItem {
+public class WardrobeItem implements IWardrobeItem {
 
     protected String itemDescription = null;
     protected Drawable drawable = null;
+    protected WardrobeItemType itemType;
 
     public WardrobeItem() {
+        itemType = WardrobeItemType.DEFAULT;
     }
 
-    public WardrobeItem(String description) {
+    public WardrobeItem(String description, WardrobeItemType type) {
         //noinspection RedundantStringConstructorCall
         itemDescription = new String(description);
+        itemType = type;
     }
 
-    public WardrobeItem(String description, Drawable selectedDrawable) {
+    public WardrobeItem(String description, Drawable selectedDrawable, WardrobeItemType type) {
         itemDescription = new String(description);
         drawable = selectedDrawable;
+        itemType = type;
     }
 
     public String getWardrobeItemString() {
@@ -38,7 +42,7 @@ public abstract class WardrobeItem implements IWardrobeItem {
 
     @Override
     public WardrobeItemType getWardrobeItemType() {
-        return WardrobeItemType.DEFAULT;
+        return itemType;
     }
 
     @Override

@@ -7,8 +7,9 @@ import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.WeeklyPlan;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Shirt;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItem;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,8 +21,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 
@@ -76,9 +75,9 @@ public class WeeklyPlanUnitTest {
     @Test
     public void testGenerateWeeklyPlan() throws Exception {
         Wardrobe wardrobe = Wardrobe.getInstance();
-        IWardrobeItem blue_shirt = new Shirt(BLUE_SHIRT);
-        IWardrobeItem white_shirt = new Shirt(WHITE_SHIRT);
-        IWardrobeItem striped_shirt = new Shirt(STRIPED_SHIRT);
+        IWardrobeItem blue_shirt = new WardrobeItem(BLUE_SHIRT, WardrobeItemType.SHIRT);
+        IWardrobeItem white_shirt = new WardrobeItem(WHITE_SHIRT, WardrobeItemType.SHIRT);
+        IWardrobeItem striped_shirt = new WardrobeItem(STRIPED_SHIRT, WardrobeItemType.SHIRT);
         IWardrobeItem jeans = new Trousers(JEANS);
         IWardrobeItem khakis = new Trousers(KHAKIS);
         wardrobe.addWardrobeItem(blue_shirt);
