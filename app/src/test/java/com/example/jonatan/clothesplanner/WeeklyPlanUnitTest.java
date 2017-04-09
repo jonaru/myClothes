@@ -7,7 +7,6 @@ import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.WeeklyPlan;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
@@ -78,8 +77,8 @@ public class WeeklyPlanUnitTest {
         IWardrobeItem blue_shirt = new WardrobeItem(BLUE_SHIRT, WardrobeItemType.SHIRT);
         IWardrobeItem white_shirt = new WardrobeItem(WHITE_SHIRT, WardrobeItemType.SHIRT);
         IWardrobeItem striped_shirt = new WardrobeItem(STRIPED_SHIRT, WardrobeItemType.SHIRT);
-        IWardrobeItem jeans = new Trousers(JEANS);
-        IWardrobeItem khakis = new Trousers(KHAKIS);
+        IWardrobeItem jeans = new WardrobeItem(JEANS, WardrobeItemType.TROUSERS);
+        IWardrobeItem khakis = new WardrobeItem(KHAKIS, WardrobeItemType.TROUSERS);
         wardrobe.addWardrobeItem(blue_shirt);
         wardrobe.addWardrobeItem(white_shirt);
         wardrobe.addWardrobeItem(striped_shirt);

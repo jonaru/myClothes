@@ -6,7 +6,6 @@ import com.example.jonatan.clothesplanner.wardrobe.IFileHandlingHelper;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
@@ -112,8 +111,8 @@ public class WardrobeUnitTest {
     @Test
     public void testGetTrousers() throws Exception {
         IWardrobe wardrobe = Wardrobe.getInstance();
-        IWardrobeItem khakis = new Trousers(KHAKIS);
-        IWardrobeItem jeans = new Trousers(JEANS);
+        IWardrobeItem khakis = new WardrobeItem(KHAKIS, WardrobeItemType.TROUSERS);
+        IWardrobeItem jeans = new WardrobeItem(JEANS, WardrobeItemType.TROUSERS);
         wardrobe.addWardrobeItem(khakis);
         wardrobe.addWardrobeItem(jeans);
 

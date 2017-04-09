@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.Trousers;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
@@ -45,16 +44,17 @@ public class Wardrobe implements IWardrobe {
     @Override
     public IWardrobeItem addWardrobeItem(String itemString, String itemTypeString) {
         IWardrobeItem itemToAdd = null;
+
         if (itemTypeString.compareTo(SHIRT_STRING) == 0)
         {
             itemToAdd = new WardrobeItem(itemString, WardrobeItemType.SHIRT);
         }
         else if (itemTypeString.compareTo(TROUSERS_STRING) == 0)
         {
-            itemToAdd = new Trousers(itemString);
+            itemToAdd = new WardrobeItem(itemString, WardrobeItemType.TROUSERS);
         }
-        addWardrobeItem(itemToAdd);
 
+        addWardrobeItem(itemToAdd);
         return itemToAdd;
     }
 
