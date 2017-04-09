@@ -43,19 +43,26 @@ public class WeeklyPlanActivity extends AppCompatActivity {
     }
 
     public void displayWeeklyPlan() {
+
         for (LinearLayout day : dailyPlans)
         {
             day.removeAllViews();
         }
-        for (int i = 0; i < dailyPlans.size(); i++)
-        {
-            dailyPlans.get(i).addView(weeklyPlan.getTrousers().getView(this));
-            dailyPlans.get(i).setVisibility(View.VISIBLE);
+        if (wardrobe.getTrousers().size() > 0) {
+            for (int i = 0; i < dailyPlans.size(); i++)
+            {
+                dailyPlans.get(i).addView(weeklyPlan.getTrousers().getView(this));
+                dailyPlans.get(i).setVisibility(View.VISIBLE);
+            }
         }
-        for (int i = 0; i < dailyPlans.size(); i++)
-        {
-            dailyPlans.get(i).addView(weeklyPlan.getShirt().getView(this));
-            dailyPlans.get(i).setVisibility(View.VISIBLE);
+
+        if (wardrobe.getShirts().size() > 0) {
+            for (int i = 0; i < dailyPlans.size(); i++)
+            {
+                dailyPlans.get(i).addView(weeklyPlan.getShirt().getView(this));
+                dailyPlans.get(i).setVisibility(View.VISIBLE);
+            }
         }
+
     }
 }

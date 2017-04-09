@@ -2,6 +2,7 @@
     <string name="app_name">Wardrober</string>
     <string name="button_add">Add</string>
     <string name="login">Login</string>
+    <string name="enter">Enter</string>
     <string name="my_wardrobe">My Wardrobe</string>
     <string name="add_item">Add Wardrobe Item</string>
     <string name="wardrobe_array_prompt">Type of item</string>
