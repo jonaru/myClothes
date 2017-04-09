@@ -68,7 +68,7 @@ public class PopUpWardrobeActivity extends Activity {
         finish();
     }
 
-    public void selectBlueShirt(@SuppressWarnings("UnusedParameters") View view) {
+    public void selectShirt(@SuppressWarnings("UnusedParameters") View view) {
         ImageButton imageButton = (ImageButton)view;
         selectedDrawable = imageButton.getDrawable();
         selectedItemType = WardrobeItemType.SHIRT;
