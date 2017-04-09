@@ -16,10 +16,7 @@ import java.util.List;
 public class Wardrobe implements IWardrobe {
     private static final String SHIRT_STRING = "Shirt";
     private static final String TROUSERS_STRING = "Trousers";
-    private final List<IWardrobeItem> wardrobeItemList = new ArrayList<>();
     private final ArrayList<IWardrobeItem> shirtList = new ArrayList<>();
-    private final ArrayList<IWardrobeItem> tempShirtList = new ArrayList<>();
-    private final ArrayList<IWardrobeItem> tempTrouserList = new ArrayList<>();
     private final ArrayList<IWardrobeItem> trousersList = new ArrayList<>();
     private static Wardrobe instance;
     private IFileHandlingHelper fileHandlingHelper;
@@ -57,22 +54,6 @@ public class Wardrobe implements IWardrobe {
     }
 
     @Override
-    public List<IWardrobeItem> getTempShirts() {
-        return tempShirtList;
-    }
-
-    @Override
-    public List<IWardrobeItem> getTempTrousers() {
-        return tempTrouserList;
-    }
-
-    @Override
-    public void clearTempLists() {
-        tempShirtList.clear();
-        tempTrouserList.clear();
-    }
-
-    @Override
     public void loadWardrobe() {
         clear();
         fileHandlingHelper.loadWardrobe(this);
@@ -97,33 +78,17 @@ public class Wardrobe implements IWardrobe {
     }
 
     @Override
-    public void addWardrobeItem(IWardrobeItem wardrobeItem) {
-        switch (wardrobeItem.getWardrobeItemType()){
-            case SHIRT: shirtList.add(wardrobeItem); break;
-            case TROUSERS: trousersList.add(wardrobeItem); break;
-            default: wardrobeItemList.add(wardrobeItem); break;
-        }
-    }
-
-    @Override
-    public IWardrobeItem addTempWardrobeItem(String itemString, String itemTypeString) {
-        WardrobeItemType type = getItemTypeFromString(itemTypeString);
-        IWardrobeItem itemToAdd = new WardrobeItem(itemString, type);
-        addTempWardrobeItem(itemToAdd);
+    public IWardrobeItem addWardrobeItem(String description, WardrobeItemType selectedItemType, Drawable selectedDrawable) {
+        IWardrobeItem itemToAdd = new WardrobeItem(description, selectedDrawable, selectedItemType);
+        addWardrobeItem(itemToAdd);
         return itemToAdd;
     }
 
     @Override
-    public void addTempWardrobeItem(String itemText, WardrobeItemType selectedItemType, Drawable selectedDrawable) {
-        IWardrobeItem wardrobeItem = new WardrobeItem(itemText, selectedDrawable, selectedItemType);
-        addTempWardrobeItem(wardrobeItem);
-    }
-
-    private void addTempWardrobeItem(IWardrobeItem wardrobeItem) {
+    public void addWardrobeItem(IWardrobeItem wardrobeItem) {
         switch (wardrobeItem.getWardrobeItemType()){
-            case SHIRT: tempShirtList.add(wardrobeItem); break;
-            case TROUSERS: tempTrouserList.add(wardrobeItem); break;
-            default: wardrobeItemList.add(wardrobeItem); break;
+            case SHIRT: shirtList.add(wardrobeItem); break;
+            case TROUSERS: trousersList.add(wardrobeItem); break;
         }
     }
 

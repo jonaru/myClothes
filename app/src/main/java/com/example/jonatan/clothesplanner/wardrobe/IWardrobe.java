@@ -13,35 +13,27 @@ import java.util.List;
 
 public interface IWardrobe {
 
-    IWardrobeItem findWardrobeItem(@SuppressWarnings("SameParameterValue") String wardrobeItemString);
-
-    IWardrobeItem addWardrobeItem(String itemString, String itemTypeString);
-
-    void addWardrobeItem(IWardrobeItem wardrobeItem);
-
     List<IWardrobeItem> getShirts();
 
     List<IWardrobeItem> getTrousers();
 
     void clear();
 
+    IWardrobeItem addWardrobeItem(String description, String itemTypeString);
+
+    IWardrobeItem addWardrobeItem(String description, WardrobeItemType selectedItemType, Drawable selectedDrawable);
+
+    void addWardrobeItem(IWardrobeItem wardrobeItem);
+
     boolean removeWardrobeItem(String wardrobeItemString);
 
     boolean removeWardrobeItem(Drawable drawable);
+
+    IWardrobeItem findWardrobeItem(@SuppressWarnings("SameParameterValue") String wardrobeItemString);
 
     void loadWardrobe();
 
     void storeWardrobe();
 
     IFileHandlingHelper getFileHandlingHelper();
-
-    List<IWardrobeItem> getTempShirts();
-
-    List<IWardrobeItem> getTempTrousers();
-
-    void clearTempLists();
-
-    IWardrobeItem addTempWardrobeItem(String itemText, String itemTypeString);
-
-    void addTempWardrobeItem(String itemText, WardrobeItemType selectedItemType, Drawable selectedDrawable);
 }

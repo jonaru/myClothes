@@ -29,6 +29,7 @@ public class WardrobeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wardrobe);
+        wardrobe = Wardrobe.getInstance();
 
         shirtViewPager = (ViewPager) findViewById(R.id.shirt_pager);
         if (shirtViewPager != null) {
@@ -41,9 +42,6 @@ public class WardrobeActivity extends Activity {
             trousersAdapter = new WardrobePagerAdapter();
             trousersViewPager.setAdapter(trousersAdapter);
         }
-
-        wardrobe = Wardrobe.getInstance();
-        addItemsFromWardrobe();
     }
 
     @Override
@@ -57,26 +55,7 @@ public class WardrobeActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        addTempWardrobeItems();
-    }
-
-    private void addTempWardrobeItems() {
-        List<IWardrobeItem> shirtList = wardrobe.getTempShirts();
-        List<IWardrobeItem> trousersList = wardrobe.getTempTrousers();
-
-        for (IWardrobeItem shirt : shirtList)
-        {
-            wardrobe.addWardrobeItem(shirt);
-            addWardrobeItemToPager(shirt);
-        }
-
-        for (IWardrobeItem trousers : trousersList)
-        {
-            wardrobe.addWardrobeItem(trousers);
-            addWardrobeItemToPager(trousers);
-        }
-
-        wardrobe.clearTempLists();
+        addItemsFromWardrobe();
     }
 
     public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) throws WardrobeException {
@@ -85,6 +64,8 @@ public class WardrobeActivity extends Activity {
     }
 
     private void addItemsFromWardrobe() {
+        shirtViewPager.removeAllViews();
+        trousersViewPager.removeAllViews();
         List<IWardrobeItem> shirtList = wardrobe.getShirts();
         List<IWardrobeItem> trousersList = wardrobe.getTrousers();
 
