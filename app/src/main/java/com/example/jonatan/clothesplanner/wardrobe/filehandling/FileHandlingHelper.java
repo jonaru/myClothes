@@ -1,9 +1,11 @@
-package com.example.jonatan.clothesplanner.wardrobe;
+package com.example.jonatan.clothesplanner.wardrobe.filehandling;
 
 import android.content.Context;
 
 import com.example.jonatan.clothesplanner.R;
 import com.example.jonatan.clothesplanner.WardrobeException;
+import com.example.jonatan.clothesplanner.wardrobe.IStorageHelper;
+import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 
 import java.io.BufferedReader;
@@ -122,6 +124,11 @@ public class FileHandlingHelper implements IFileHandlingHelper, IStorageHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void closeStorage() {
+        //nothing to be done
     }
 
     private void storeToFile(List<IWardrobeItem> wardrobeItemList, String fileString) throws IOException {

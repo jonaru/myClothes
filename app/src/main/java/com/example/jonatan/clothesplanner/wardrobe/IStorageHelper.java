@@ -11,4 +11,6 @@ public interface IStorageHelper {
     int[] loadWeeklyPlanIndex();
 
     void storeWeeklyPlanIndex(int weeklyPlanShirtIndex, int weeklyPlanTrousersIndex);
+
+    void closeStorage();
 }

@@ -38,4 +38,9 @@ public class StorageAdapter implements IStorageAdapter {
     public void setStorageHelper(IStorageHelper storageHelper) {
         this.storageHelper = storageHelper;
     }
+
+    @Override
+    public void closeStorage() {
+        storageHelper.closeStorage();
+    }
 }

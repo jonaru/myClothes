@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.jonatan.clothesplanner.wardrobe.FileHandlingHelper;
-import com.example.jonatan.clothesplanner.wardrobe.IFileHandlingHelper;
+import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
+import com.example.jonatan.clothesplanner.wardrobe.filehandling.FileHandlingHelper;
 import com.example.jonatan.clothesplanner.wardrobe.IStorageHelper;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 
@@ -26,6 +26,12 @@ public class HomeScreenActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Wardrobe.getInstance().getStorageAdapter().closeStorage();
+        super.onDestroy();
     }
 
     public void goToWardrobe(View view) {

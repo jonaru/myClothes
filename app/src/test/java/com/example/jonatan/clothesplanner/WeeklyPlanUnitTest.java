@@ -2,7 +2,6 @@ package com.example.jonatan.clothesplanner;
 
 import android.content.Context;
 
-import com.example.jonatan.clothesplanner.wardrobe.IFileHandlingHelper;
 import com.example.jonatan.clothesplanner.wardrobe.IStorageHelper;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;

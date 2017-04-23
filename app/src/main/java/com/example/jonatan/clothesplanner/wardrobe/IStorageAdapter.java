@@ -4,7 +4,7 @@ package com.example.jonatan.clothesplanner.wardrobe;
  * Created by Jonatan on 2017-04-23.
  */
 
-interface IStorageAdapter {
+public interface IStorageAdapter {
     void loadWardrobe(IWardrobe wardrobe);
     void storeWardrobe(IWardrobe wardrobe);
 
@@ -13,4 +13,6 @@ interface IStorageAdapter {
     void storeWeeklyPlanIndex(int weeklyPlanShirtIndex, int weeklyPlanTrousersIndex);
 
     void setStorageHelper(IStorageHelper storageHelper);
+
+    void closeStorage();
 }
