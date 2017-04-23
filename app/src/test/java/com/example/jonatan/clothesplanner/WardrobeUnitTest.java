@@ -3,6 +3,7 @@ package com.example.jonatan.clothesplanner;
 import android.content.Context;
 
 import com.example.jonatan.clothesplanner.wardrobe.IFileHandlingHelper;
+import com.example.jonatan.clothesplanner.wardrobe.IStorageHelper;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
@@ -48,7 +49,7 @@ public class WardrobeUnitTest {
     IWardrobe mWardrobe;
 
     @Mock
-    IFileHandlingHelper mFileHandlingHelper;
+    IStorageHelper mFileHandlingHelper;
 
     @InjectMocks
     Wardrobe wardrobe;
@@ -57,7 +58,7 @@ public class WardrobeUnitTest {
     public void initSingletons() {
         MockitoAnnotations.initMocks(this);
         doNothing().when(mFileHandlingHelper).loadWardrobe(mWardrobe);
-        Wardrobe.initInstance(mContext);
+        Wardrobe.initInstance(mFileHandlingHelper);
     }
 
     @After

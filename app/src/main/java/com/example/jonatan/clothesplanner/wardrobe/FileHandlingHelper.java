@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Jonatan on 2017-01-28.
  */
 
-public class FileHandlingHelper implements IFileHandlingHelper {
+public class FileHandlingHelper implements IFileHandlingHelper, IStorageHelper {
 
     private final Context myContext;
 

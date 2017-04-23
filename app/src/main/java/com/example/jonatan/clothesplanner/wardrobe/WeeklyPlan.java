@@ -11,13 +11,13 @@ public class WeeklyPlan implements IWeeklyPlan {
     private int weeklyPlanShirtIndex;
     private int weeklyPlanTrousersIndex;
 
-    private IFileHandlingHelper fileHandlingHelper;
+    private IStorageAdapter storageAdapter;
     IWardrobe wardrobe = Wardrobe.getInstance();
 
     public WeeklyPlan()
     {
-        fileHandlingHelper = wardrobe.getFileHandlingHelper();
-        int[] indices = fileHandlingHelper.loadWeeklyPlanIndex();
+        storageAdapter = wardrobe.getStorageAdapter();
+        int[] indices = storageAdapter.loadWeeklyPlanIndex();
         weeklyPlanShirtIndex = indices[0];
         weeklyPlanTrousersIndex = indices[1];
         currentShirt = weeklyPlanShirtIndex;
@@ -80,7 +80,7 @@ public class WeeklyPlan implements IWeeklyPlan {
         currentTrousers = weeklyPlanTrousersIndex;
 
 
-        fileHandlingHelper.storeWeeklyPlanIndex(weeklyPlanShirtIndex, weeklyPlanTrousersIndex);
+        storageAdapter.storeWeeklyPlanIndex(weeklyPlanShirtIndex, weeklyPlanTrousersIndex);
 
     }
 }

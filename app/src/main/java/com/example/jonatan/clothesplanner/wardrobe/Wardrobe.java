@@ -19,17 +19,17 @@ public class Wardrobe implements IWardrobe {
     private final ArrayList<IWardrobeItem> shirtList = new ArrayList<>();
     private final ArrayList<IWardrobeItem> trousersList = new ArrayList<>();
     private static Wardrobe instance;
-    private IFileHandlingHelper fileHandlingHelper;
+    private IStorageAdapter storageAdapter;
 
-    private Wardrobe(Context context)
+    private Wardrobe(IStorageHelper storageHelper)
     {
-        fileHandlingHelper = new FileHandlingHelper(context);
+        storageAdapter = new StorageAdapter(storageHelper);
     }
 
-    public static void initInstance(Context context) {
+    public static void initInstance(IStorageHelper storageHelper) {
         if (instance == null)
         {
-            instance = new Wardrobe(context);
+            instance = new Wardrobe(storageHelper);
         }
     }
 
@@ -56,17 +56,21 @@ public class Wardrobe implements IWardrobe {
     @Override
     public void loadWardrobe() {
         clear();
-        fileHandlingHelper.loadWardrobe(this);
+        storageAdapter.loadWardrobe(this);
     }
 
     @Override
     public void storeWardrobe() {
-        fileHandlingHelper.storeWardrobe(this);
+        storageAdapter.storeWardrobe(this);
+    }
+
+    public IStorageAdapter getStorageAdapter() {
+        return storageAdapter;
     }
 
     @Override
-    public IFileHandlingHelper getFileHandlingHelper() {
-        return fileHandlingHelper;
+    public void setStorageHelper(IStorageHelper storageHelper) {
+        storageAdapter.setStorageHelper(storageHelper);
     }
 
     @Override
@@ -169,5 +173,5 @@ public class Wardrobe implements IWardrobe {
     }
 
     //TODO: This crap is used right now for injecting mock into unit test. Should be replaced by better solution
-    public void setFileHandlingHelper(IFileHandlingHelper fileHandlingHelper) {this.fileHandlingHelper = fileHandlingHelper;}
+    public void setStorageAdapter(IStorageAdapter storageAdapter) {this.storageAdapter = storageAdapter;}
 }

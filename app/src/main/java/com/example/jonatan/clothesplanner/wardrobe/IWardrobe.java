@@ -35,5 +35,7 @@ public interface IWardrobe {
 
     void storeWardrobe();
 
-    IFileHandlingHelper getFileHandlingHelper();
+    IStorageAdapter getStorageAdapter();
+
+    void setStorageHelper(IStorageHelper storageHelper);
 }
