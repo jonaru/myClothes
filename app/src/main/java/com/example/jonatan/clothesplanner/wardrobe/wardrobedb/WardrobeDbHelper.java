@@ -116,37 +116,31 @@ public class WardrobeDbHelper extends SQLiteOpenHelper implements IStorageAdapte
     public void storeWardrobe(IWardrobe wardrobe) {
         database.execSQL(SQL_DELETE_ENTRIES);
         database.execSQL(SQL_CREATE_ENTRIES);
+
         for (IWardrobeItem item : wardrobe.getShirts()) {
-            ContentValues values = new ContentValues();
-            Drawable drawable = item.getDrawable();
-
-            values.put(WardrobeReaderContract.WardrobeEntry.COLUMN_NAME_TYPE, SHIRT);
-            values.put(WardrobeReaderContract.WardrobeEntry.COLUMN_NAME_DESCRIPTION, item.getWardrobeItemString());
-            if (drawable != null)
-            {
-                Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                values.put(WardrobeReaderContract.WardrobeEntry.COLUMN_NAME_IMAGE, stream.toByteArray());
-            }
-
-            database.insert(WardrobeReaderContract.WardrobeEntry.TABLE_NAME, null, values);
+            storeWardrobeItem(item, SHIRT);
         }
 
         for (IWardrobeItem item : wardrobe.getTrousers()) {
-            ContentValues values = new ContentValues();
-            Drawable drawable = item.getDrawable();
-            values.put(WardrobeReaderContract.WardrobeEntry.COLUMN_NAME_TYPE, TROUSERS);
-            values.put(WardrobeReaderContract.WardrobeEntry.COLUMN_NAME_DESCRIPTION, item.getWardrobeItemString());
-            if (drawable != null)
-            {
-                Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                values.put(WardrobeReaderContract.WardrobeEntry.COLUMN_NAME_IMAGE, stream.toByteArray());
-            }
-            database.insert(WardrobeReaderContract.WardrobeEntry.TABLE_NAME, null, values);
+            storeWardrobeItem(item, TROUSERS);
         }
+    }
+
+    private void storeWardrobeItem(IWardrobeItem item, String type) {
+        ContentValues values = new ContentValues();
+        Drawable drawable = item.getDrawable();
+
+        values.put(WardrobeReaderContract.WardrobeEntry.COLUMN_NAME_TYPE, type);
+        values.put(WardrobeReaderContract.WardrobeEntry.COLUMN_NAME_DESCRIPTION, item.getWardrobeItemString());
+        if (drawable != null)
+        {
+            Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            values.put(WardrobeReaderContract.WardrobeEntry.COLUMN_NAME_IMAGE, stream.toByteArray());
+        }
+
+        database.insert(WardrobeReaderContract.WardrobeEntry.TABLE_NAME, null, values);
     }
 
     @Override
@@ -187,10 +181,8 @@ public class WardrobeDbHelper extends SQLiteOpenHelper implements IStorageAdapte
         database.execSQL(SQL_CREATE_WEEKLY_PLAN_ENTRIES);
 
         ContentValues values = new ContentValues();
-
         values.put(WardrobeReaderContract.WeeklyPlanEntry.COLUMN_NAME_SHIRTS_INDEX, weeklyPlanShirtIndex);
         values.put(WardrobeReaderContract.WeeklyPlanEntry.COLUMN_NAME_TROUSERS_INDEX, weeklyPlanTrousersIndex);
-
         database.insert(WardrobeReaderContract.WeeklyPlanEntry.TABLE_NAME, null, values);
     }
 
