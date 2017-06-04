@@ -38,6 +38,15 @@ public class WardrobeDbHelper extends SQLiteOpenHelper implements IStorageAdapte
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + WardrobeReaderContract.WardrobeEntry.TABLE_NAME;
 
+    private static final String SQL_CREATE_WEEKLY_PLAN_ENTRIES =
+            "CREATE TABLE IF NOT EXISTS " + WardrobeReaderContract.WeeklyPlanEntry.TABLE_NAME + " (" +
+                    WardrobeReaderContract.WardrobeEntry._ID + " INTEGER PRIMARY KEY," +
+                    WardrobeReaderContract.WeeklyPlanEntry.COLUMN_NAME_SHIRTS_INDEX + " INTEGER," +
+                    WardrobeReaderContract.WeeklyPlanEntry.COLUMN_NAME_TROUSERS_INDEX + " INTEGER)";
+
+    private static final String SQL_DELETE_WEEKLY_PLAN_ENTRIES =
+            "DROP TABLE IF EXISTS " + WardrobeReaderContract.WeeklyPlanEntry.TABLE_NAME;
+
     SQLiteDatabase database;
     private Context dbContext;
 
@@ -55,6 +64,7 @@ public class WardrobeDbHelper extends SQLiteOpenHelper implements IStorageAdapte
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_ENTRIES);
+        db.execSQL(SQL_DELETE_WEEKLY_PLAN_ENTRIES);
         onCreate(db);
     }
 
@@ -141,12 +151,47 @@ public class WardrobeDbHelper extends SQLiteOpenHelper implements IStorageAdapte
 
     @Override
     public int[] loadWeeklyPlanIndex() {
-        return new int[0];
+        String[] projection = {
+                WardrobeReaderContract.WeeklyPlanEntry.COLUMN_NAME_SHIRTS_INDEX,
+                WardrobeReaderContract.WeeklyPlanEntry.COLUMN_NAME_TROUSERS_INDEX,
+        };
+
+        String sortOrder =
+                WardrobeReaderContract.WeeklyPlanEntry.COLUMN_NAME_SHIRTS_INDEX + " DESC";
+
+        Cursor cursor = database.query(
+                WardrobeReaderContract.WeeklyPlanEntry.TABLE_NAME,
+                projection,                               // The columns to return
+                null,                                // The columns for the WHERE clause
+                null,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+        int[] weeklyPlanIndices = new int[2];
+        if (cursor.moveToFirst()) {
+            while (cursor.isAfterLast() == false) {
+                weeklyPlanIndices[0] = cursor.getInt(cursor.getColumnIndex(WardrobeReaderContract.WeeklyPlanEntry.COLUMN_NAME_SHIRTS_INDEX));
+                weeklyPlanIndices[1] = cursor.getInt(cursor.getColumnIndex(WardrobeReaderContract.WeeklyPlanEntry.COLUMN_NAME_TROUSERS_INDEX));
+                cursor.moveToNext();
+            }
+        }
+
+        return weeklyPlanIndices;
     }
 
     @Override
     public void storeWeeklyPlanIndex(int weeklyPlanShirtIndex, int weeklyPlanTrousersIndex) {
+        database.execSQL(SQL_DELETE_WEEKLY_PLAN_ENTRIES);
+        database.execSQL(SQL_CREATE_WEEKLY_PLAN_ENTRIES);
 
+        ContentValues values = new ContentValues();
+
+        values.put(WardrobeReaderContract.WeeklyPlanEntry.COLUMN_NAME_SHIRTS_INDEX, weeklyPlanShirtIndex);
+        values.put(WardrobeReaderContract.WeeklyPlanEntry.COLUMN_NAME_TROUSERS_INDEX, weeklyPlanTrousersIndex);
+
+        database.insert(WardrobeReaderContract.WeeklyPlanEntry.TABLE_NAME, null, values);
     }
 
     @Override

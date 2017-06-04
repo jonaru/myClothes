@@ -18,4 +18,10 @@ public final class WardrobeReaderContract {
         public static final String COLUMN_NAME_DESCRIPTION = "description";
         public static final String COLUMN_NAME_IMAGE = "image";
     }
+
+    public static class WeeklyPlanEntry implements BaseColumns {
+        public static final String TABLE_NAME = "weekly_plan_entry";
+        public static final String COLUMN_NAME_SHIRTS_INDEX = "shirts_index";
+        public static final String COLUMN_NAME_TROUSERS_INDEX = "trousers_index";
+    }
 }

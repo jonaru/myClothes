@@ -87,4 +87,22 @@ public class DatabaseTest {
         db.storeWardrobe(wardrobe);
         db.close();
     }
+
+    @Test
+    public void storeWeeklyPlanIndexTest() throws Exception {
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        db = new WardrobeDbHelper(InstrumentationRegistry.getTargetContext());
+        Wardrobe.initInstance(((IStorageAdapter) db));
+
+        IWardrobe wardrobe = Wardrobe.getInstance();
+        int shirtIndex = 1;
+        int trousersIndex = 0;
+
+        db.storeWeeklyPlanIndex(shirtIndex, trousersIndex);
+        int[] weeklyPlanIndices = db.loadWeeklyPlanIndex();
+        assertEquals(weeklyPlanIndices[0], shirtIndex);
+        assertEquals(weeklyPlanIndices[1], trousersIndex);
+
+        db.close();
+    }
 }
