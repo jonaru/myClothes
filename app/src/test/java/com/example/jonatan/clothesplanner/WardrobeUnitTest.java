@@ -2,7 +2,7 @@ package com.example.jonatan.clothesplanner;
 
 import android.content.Context;
 
-import com.example.jonatan.clothesplanner.wardrobe.IStorageHelper;
+import com.example.jonatan.clothesplanner.wardrobe.IStorageAdapter;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
@@ -48,7 +48,7 @@ public class WardrobeUnitTest {
     IWardrobe mWardrobe;
 
     @Mock
-    IStorageHelper mFileHandlingHelper;
+    IStorageAdapter mFileHandlingHelper;
 
     @InjectMocks
     Wardrobe wardrobe;

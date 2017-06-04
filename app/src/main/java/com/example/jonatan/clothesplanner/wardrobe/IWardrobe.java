@@ -38,6 +38,4 @@ public interface IWardrobe {
     void storeWardrobe();
 
     IStorageAdapter getStorageAdapter();
-
-    void setStorageHelper(IStorageHelper storageHelper);
 }

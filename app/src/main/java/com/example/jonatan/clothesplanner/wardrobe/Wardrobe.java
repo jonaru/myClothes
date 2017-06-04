@@ -21,15 +21,15 @@ public class Wardrobe implements IWardrobe {
     private static Wardrobe instance;
     private IStorageAdapter storageAdapter;
 
-    private Wardrobe(IStorageHelper storageHelper)
+    private Wardrobe(IStorageAdapter storageAdapter)
     {
-        storageAdapter = new StorageAdapter(storageHelper);
+        this.storageAdapter = storageAdapter;
     }
 
-    public static void initInstance(IStorageHelper storageHelper) {
+    public static void initInstance(IStorageAdapter storageAdapter) {
         if (instance == null)
         {
-            instance = new Wardrobe(storageHelper);
+            instance = new Wardrobe(storageAdapter);
         }
     }
 
@@ -66,11 +66,6 @@ public class Wardrobe implements IWardrobe {
 
     public IStorageAdapter getStorageAdapter() {
         return storageAdapter;
-    }
-
-    @Override
-    public void setStorageHelper(IStorageHelper storageHelper) {
-        storageAdapter.setStorageHelper(storageHelper);
     }
 
     @Override

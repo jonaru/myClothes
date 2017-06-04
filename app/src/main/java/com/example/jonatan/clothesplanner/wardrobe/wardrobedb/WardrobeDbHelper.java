@@ -9,13 +9,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 
-import com.example.jonatan.clothesplanner.wardrobe.IStorageHelper;
+import com.example.jonatan.clothesplanner.wardrobe.IStorageAdapter;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItem;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -24,7 +21,7 @@ import java.io.ByteArrayOutputStream;
  * Created by Jonatan on 2017-04-23.
  */
 
-public class WardrobeDbHelper extends SQLiteOpenHelper implements IStorageHelper {
+public class WardrobeDbHelper extends SQLiteOpenHelper implements IStorageAdapter {
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "WardrobeReader.db";

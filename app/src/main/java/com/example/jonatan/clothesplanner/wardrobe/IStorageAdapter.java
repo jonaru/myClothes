@@ -12,7 +12,5 @@ public interface IStorageAdapter {
 
     void storeWeeklyPlanIndex(int weeklyPlanShirtIndex, int weeklyPlanTrousersIndex);
 
-    void setStorageHelper(IStorageHelper storageHelper);
-
     void closeStorage();
 }

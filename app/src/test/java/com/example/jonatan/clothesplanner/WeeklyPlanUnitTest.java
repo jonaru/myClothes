@@ -2,7 +2,7 @@ package com.example.jonatan.clothesplanner;
 
 import android.content.Context;
 
-import com.example.jonatan.clothesplanner.wardrobe.IStorageHelper;
+import com.example.jonatan.clothesplanner.wardrobe.IStorageAdapter;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.WeeklyPlan;
@@ -45,7 +45,7 @@ public class WeeklyPlanUnitTest {
     IWardrobe mWardrobe;
 
     @Mock
-    IStorageHelper mStorageHelper;
+    IStorageAdapter mStorageHelper;
 
     @InjectMocks
     Wardrobe wardrobe;
@@ -89,7 +89,7 @@ public class WeeklyPlanUnitTest {
         indices[0] = 0;
         indices[1] = 0;
 
-        wardrobe.setStorageHelper(mStorageHelper);
+        wardrobe.setStorageAdapter(mStorageHelper);
         doReturn(indices).when(mStorageHelper).loadWeeklyPlanIndex();
         WeeklyPlan weeklyPlan = new WeeklyPlan();
 

@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.jonatan.clothesplanner.R;
 import com.example.jonatan.clothesplanner.WardrobeException;
-import com.example.jonatan.clothesplanner.wardrobe.IStorageHelper;
+import com.example.jonatan.clothesplanner.wardrobe.IStorageAdapter;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 
@@ -20,7 +20,7 @@ import java.util.List;
  * Created by Jonatan on 2017-01-28.
  */
 
-public class FileHandlingHelper implements IFileHandlingHelper, IStorageHelper {
+public class FileHandlingHelper implements IFileHandlingHelper, IStorageAdapter {
 
     private final Context myContext;
 

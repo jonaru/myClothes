@@ -3,12 +3,10 @@ package com.example.jonatan.clothesplanner;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.content.ContextCompat;
 
-import com.example.jonatan.clothesplanner.matchers.DrawableMatcher;
-import com.example.jonatan.clothesplanner.wardrobe.IStorageHelper;
+import com.example.jonatan.clothesplanner.wardrobe.IStorageAdapter;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobedb.WardrobeDbHelper;
@@ -16,11 +14,6 @@ import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -54,7 +47,7 @@ public class DatabaseTest {
     public void storeLoadWardrobeTest() throws Exception{
         Context appContext = InstrumentationRegistry.getTargetContext();
         db = new WardrobeDbHelper(InstrumentationRegistry.getTargetContext());
-        Wardrobe.initInstance(((IStorageHelper)db));
+        Wardrobe.initInstance(((IStorageAdapter) db));
         IWardrobe wardrobe = Wardrobe.getInstance();
 
         //Store some clothes in the wardrobe db
@@ -83,7 +76,7 @@ public class DatabaseTest {
     public void storeWardrobeMissingImageTest() throws Exception {
         Context appContext = InstrumentationRegistry.getTargetContext();
         db = new WardrobeDbHelper(InstrumentationRegistry.getTargetContext());
-        Wardrobe.initInstance(((IStorageHelper)db));
+        Wardrobe.initInstance(((IStorageAdapter) db));
 
         IWardrobe wardrobe = Wardrobe.getInstance();
         IWardrobeItem shirt = new WardrobeItem(BLUE_SHIRT, WardrobeItemType.SHIRT);
