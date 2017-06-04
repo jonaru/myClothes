@@ -25,6 +25,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created by Jonatan on 2017-04-23.
@@ -40,31 +42,6 @@ public class DatabaseTest {
     static private String KHAKIS = "khakis";
     static private String BLUE_SHIRT = "blue shirt";
 
-    /*
-    @Rule
-    public ActivityTestRule<HomeScreenActivity> mActivityRule = new ActivityTestRule<>(HomeScreenActivity.class);
-    */
-
-    /*
-    @Rule
-    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
-    */
-
-    /*
-    @Before
-    public void init() {
-        Context appContext = InstrumentationRegistry.getTargetContext();
-
-        db = new WardrobeDbHelper(appContext);
-        Wardrobe.initInstance(((IStorageHelper)db));
-    }
-
-    @After
-    public void cleanUp() {
-
-    }
-    */
-
     @Test
     public void useAppContext() throws Exception {
         // Context of the app under test.
@@ -78,22 +55,43 @@ public class DatabaseTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
         db = new WardrobeDbHelper(InstrumentationRegistry.getTargetContext());
         Wardrobe.initInstance(((IStorageHelper)db));
+        IWardrobe wardrobe = Wardrobe.getInstance();
 
+        //Store some clothes in the wardrobe db
         Drawable blue_shirt_drawable = ContextCompat.getDrawable(appContext, R.drawable.shirt_blue);
         Drawable khakis_drawable = ContextCompat.getDrawable(appContext, R.drawable.khaki_trousers);
-
-        IWardrobe wardrobe = Wardrobe.getInstance();
         IWardrobeItem shirt = new WardrobeItem(BLUE_SHIRT, blue_shirt_drawable, WardrobeItemType.SHIRT);
         IWardrobeItem trousers = new WardrobeItem(KHAKIS, khakis_drawable, WardrobeItemType.TROUSERS);
         wardrobe.addWardrobeItem(shirt);
         wardrobe.addWardrobeItem(trousers);
-
         db.storeWardrobe(wardrobe);
+
+        //Delete the clothes from the Wardrobe and make sure they don't exists
+        wardrobe.clear();
+        assertNull(wardrobe.findWardrobeItem(BLUE_SHIRT));
+        assertNull(wardrobe.findWardrobeItem(KHAKIS));
+
+        //Load them again from the db
+        wardrobe.loadWardrobe();
+        assertNotNull(wardrobe.findWardrobeItem(BLUE_SHIRT));
+        assertNotNull(wardrobe.findWardrobeItem(KHAKIS));
+
         db.close();
     }
 
     @Test
     public void storeWardrobeMissingImageTest() throws Exception {
-        //TODO
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        db = new WardrobeDbHelper(InstrumentationRegistry.getTargetContext());
+        Wardrobe.initInstance(((IStorageHelper)db));
+
+        IWardrobe wardrobe = Wardrobe.getInstance();
+        IWardrobeItem shirt = new WardrobeItem(BLUE_SHIRT, WardrobeItemType.SHIRT);
+        IWardrobeItem trousers = new WardrobeItem(KHAKIS, WardrobeItemType.TROUSERS);
+        wardrobe.addWardrobeItem(shirt);
+        wardrobe.addWardrobeItem(trousers);
+
+        db.storeWardrobe(wardrobe);
+        db.close();
     }
 }

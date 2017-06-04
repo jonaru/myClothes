@@ -89,6 +89,14 @@ public class Wardrobe implements IWardrobe {
     }
 
     @Override
+    public IWardrobeItem addWardrobeItem(String description, String itemTypeString, Drawable selectedDrawable) {
+        WardrobeItemType type = getItemTypeFromString(itemTypeString);
+        IWardrobeItem itemToAdd = new WardrobeItem(description, selectedDrawable, type);
+        addWardrobeItem(itemToAdd);
+        return itemToAdd;
+    }
+
+    @Override
     public void addWardrobeItem(IWardrobeItem wardrobeItem) {
         switch (wardrobeItem.getWardrobeItemType()){
             case SHIRT: shirtList.add(wardrobeItem); break;

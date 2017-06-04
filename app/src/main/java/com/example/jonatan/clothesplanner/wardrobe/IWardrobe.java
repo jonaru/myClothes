@@ -23,6 +23,8 @@ public interface IWardrobe {
 
     IWardrobeItem addWardrobeItem(String description, WardrobeItemType selectedItemType, Drawable selectedDrawable);
 
+    IWardrobeItem addWardrobeItem(String description, String itemTypeString, Drawable selectedDrawable);
+
     void addWardrobeItem(IWardrobeItem wardrobeItem);
 
     boolean removeWardrobeItem(String wardrobeItemString);
