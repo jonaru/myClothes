@@ -28,8 +28,8 @@ public class WardrobeDbHelper extends SQLiteOpenHelper implements IStorageHelper
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "WardrobeReader.db";
-    public static final String SHIRT = "shirt";
-    public static final String TROUSERS = "trousers";
+    public static final String SHIRT = "Shirt";
+    public static final String TROUSERS = "Trousers";
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE IF NOT EXISTS " + WardrobeReaderContract.WardrobeEntry.TABLE_NAME + " (" +

@@ -14,8 +14,8 @@ import java.util.List;
  * Created by Jonatan on 2016-12-13.
  */
 public class Wardrobe implements IWardrobe {
-    private static final String SHIRT_STRING = "Shirt";
-    private static final String TROUSERS_STRING = "Trousers";
+    public static final String SHIRT_STRING = "Shirt";
+    public static final String TROUSERS_STRING = "Trousers";
     private final ArrayList<IWardrobeItem> shirtList = new ArrayList<>();
     private final ArrayList<IWardrobeItem> trousersList = new ArrayList<>();
     private static Wardrobe instance;
