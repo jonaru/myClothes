@@ -72,7 +72,7 @@ public class DatabaseTest {
         assertNull(wardrobe.findWardrobeItem(KHAKIS));
 
         //Load them again from the db
-        wardrobe.loadWardrobe();
+        db.loadWardrobe(wardrobe);
         assertNotNull(wardrobe.findWardrobeItem(BLUE_SHIRT));
         assertNotNull(wardrobe.findWardrobeItem(KHAKIS));
 
