@@ -59,6 +59,7 @@ public class WardrobeDbHelper extends SQLiteOpenHelper implements IStorageAdapte
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(SQL_CREATE_WEEKLY_PLAN_ENTRIES);
     }
 
     @Override
@@ -73,8 +74,15 @@ public class WardrobeDbHelper extends SQLiteOpenHelper implements IStorageAdapte
         onUpgrade(db, oldVersion, newVersion);
     }
 
+    public void clearTables() {
+        database.execSQL(SQL_DELETE_ENTRIES);
+        database.execSQL(SQL_DELETE_WEEKLY_PLAN_ENTRIES);
+        onCreate(database);
+    }
+
     @Override
     public void loadWardrobe(IWardrobe wardrobe) {
+        //onOpen(database);
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
@@ -102,11 +110,15 @@ public class WardrobeDbHelper extends SQLiteOpenHelper implements IStorageAdapte
                 String type = cursor.getString(cursor.getColumnIndex(WardrobeReaderContract.WardrobeEntry.COLUMN_NAME_TYPE));
                 String description = cursor.getString(cursor.getColumnIndex(WardrobeReaderContract.WardrobeEntry.COLUMN_NAME_DESCRIPTION));
                 byte[] imageBlob = cursor.getBlob(cursor.getColumnIndex(WardrobeReaderContract.WardrobeEntry.COLUMN_NAME_IMAGE));
-                ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBlob);
-                Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
-                Drawable drawable = new BitmapDrawable(dbContext.getResources(), bitmap);
-                wardrobe.addWardrobeItem(description, type, drawable);
-
+                if (imageBlob == null) {
+                    wardrobe.addWardrobeItem(description, type);
+                }
+                else {
+                    ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBlob);
+                    Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+                    Drawable drawable = new BitmapDrawable(dbContext.getResources(), bitmap);
+                    wardrobe.addWardrobeItem(description, type, drawable);
+                }
                 cursor.moveToNext();
             }
         }

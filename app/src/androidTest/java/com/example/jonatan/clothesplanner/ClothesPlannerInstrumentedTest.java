@@ -1,17 +1,24 @@
 package com.example.jonatan.clothesplanner;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.example.jonatan.clothesplanner.wardrobe.IStorageAdapter;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobedb.WardrobeDbHelper;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItem;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
 import org.hamcrest.Matcher;
 import org.junit.After;
@@ -64,6 +71,9 @@ public class ClothesPlannerInstrumentedTest {
     static private String WHITE_SHIRT = "white shirt";
     static private String STRIPED_SHIRT = "striped shirt";
     private FileInputStream fileInputStream;
+    WardrobeDbHelper db;
+
+    private static final boolean runWithDb = true;
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
@@ -71,14 +81,28 @@ public class ClothesPlannerInstrumentedTest {
     @Before
     public void init() {
         Context appContext = InstrumentationRegistry.getTargetContext();
-        FileOutputStream fileOutputStream;
-        try {
-            fileOutputStream = appContext.openFileOutput(appContext.getResources().getString(R.string.saved_trousers), Context.MODE_PRIVATE);
-            fileOutputStream.write(wardrobeItemStringToBeWrittenBeforeStart.getBytes());
+        if (runWithDb) {
+            db = new WardrobeDbHelper(InstrumentationRegistry.getTargetContext());
+            Wardrobe.initInstance((db));
+            IWardrobe wardrobe = Wardrobe.getInstance();
 
-            fileOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            //Store the jeans in the database before tests start
+            Drawable jeans_drawable = ContextCompat.getDrawable(appContext, R.drawable.jeans_trousers);
+            IWardrobeItem trousers = new WardrobeItem(wardrobeItemStringToBeWrittenBeforeStart, jeans_drawable, WardrobeItemType.TROUSERS);
+            wardrobe.addWardrobeItem(trousers);
+            db.storeWardrobe(wardrobe);
+            wardrobe.clear();
+        }
+        else {
+            FileOutputStream fileOutputStream;
+            try {
+                fileOutputStream = appContext.openFileOutput(appContext.getResources().getString(R.string.saved_trousers), Context.MODE_PRIVATE);
+                fileOutputStream.write(wardrobeItemStringToBeWrittenBeforeStart.getBytes());
+
+                fileOutputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -86,14 +110,18 @@ public class ClothesPlannerInstrumentedTest {
     public void cleanUp() {
         IWardrobe wardrobe = Wardrobe.getInstance();
         wardrobe.clear();
-
         Context appContext = InstrumentationRegistry.getTargetContext();
-        File trousersFile = new File(appContext.getFilesDir()+"/"+appContext.getResources().getString(R.string.saved_trousers));
-        File shirtFile = new File(appContext.getFilesDir()+"/"+appContext.getResources().getString(R.string.saved_shirts));
-        File weeklyPlanFile = new File(appContext.getFilesDir()+"/"+appContext.getResources().getString(R.string.weekly_plan));
-        trousersFile.delete();
-        shirtFile.delete();
-        weeklyPlanFile.delete();
+
+        if(runWithDb){
+            db.clearTables();
+        } else {
+            File trousersFile = new File(appContext.getFilesDir()+"/"+appContext.getResources().getString(R.string.saved_trousers));
+            File shirtFile = new File(appContext.getFilesDir()+"/"+appContext.getResources().getString(R.string.saved_shirts));
+            File weeklyPlanFile = new File(appContext.getFilesDir()+"/"+appContext.getResources().getString(R.string.weekly_plan));
+            trousersFile.delete();
+            shirtFile.delete();
+            weeklyPlanFile.delete();
+        }
     }
 
     @Test
@@ -190,9 +218,15 @@ public class ClothesPlannerInstrumentedTest {
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 
         //Check that file has been cleared
-        Context appContext = InstrumentationRegistry.getTargetContext();
-        String wardrobeFileString = readLineFromWardrobeFile(appContext.getResources().getString(R.string.saved_trousers));
-        assertNull(wardrobeFileString);
+        if(runWithDb){
+            Wardrobe wardrobe = Wardrobe.getInstance();
+            wardrobe.loadWardrobe();
+            assertNull(wardrobe.findWardrobeItem(wardrobeItemStringToBeWrittenBeforeStart));
+        } else {
+            Context appContext = InstrumentationRegistry.getTargetContext();
+            String wardrobeFileString = readLineFromWardrobeFile(appContext.getResources().getString(R.string.saved_trousers));
+            assertNull(wardrobeFileString);
+        }
     }
 
     @Test
@@ -239,9 +273,16 @@ public class ClothesPlannerInstrumentedTest {
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 
         // Check that the item was written to file
-        Context appContext = InstrumentationRegistry.getTargetContext();
-        String inputString = readLineFromWardrobeFile(appContext.getResources().getString(R.string.saved_trousers));
-        assertEquals(inputString, KHAKIS);
+        Context appContext = InstrumentationRegistry.getTargetContext(); //need this for the file reading
+        if(runWithDb){
+            Wardrobe wardrobe = Wardrobe.getInstance();
+            wardrobe.clear();
+            wardrobe.loadWardrobe();
+            assertNotNull(wardrobe.findWardrobeItem(KHAKIS));
+        } else {
+            String inputString = readLineFromWardrobeFile(appContext.getResources().getString(R.string.saved_trousers));
+            assertEquals(inputString, KHAKIS);
+        }
 
         //Click My Wardrobe button
         onView(withId(R.id.WardrobeButton)).perform(click());
@@ -257,8 +298,14 @@ public class ClothesPlannerInstrumentedTest {
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
         InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 
-        String secondInput = readLineFromWardrobeFile(appContext.getResources().getString(R.string.saved_trousers));
-        assertNull(secondInput);
+        if(runWithDb){
+            Wardrobe wardrobe = Wardrobe.getInstance();
+            wardrobe.loadWardrobe();
+            assertNull(wardrobe.findWardrobeItem(KHAKIS));
+        } else {
+            String secondInput = readLineFromWardrobeFile(appContext.getResources().getString(R.string.saved_trousers));
+            assertNull(secondInput);
+        }
     }
 
     private String readLineFromWardrobeFile(String wardrobeFileString) throws IOException {

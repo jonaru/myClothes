@@ -49,23 +49,25 @@ public class WardrobeItem implements IWardrobeItem {
     }
 
     @Override
-    public View getView(Context context) {
+    public View addToView(LinearLayout layout) {
+        Context context = layout.getContext();
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        if (drawable == null)
-        {
-            final TextView textView = new TextView(context);
-            textView.setLayoutParams(layoutParams);
-            textView.setText(this.getWardrobeItemString());
-            return textView;
-        }
-        else
+
+        final TextView textView = new TextView(context);
+        textView.setLayoutParams(layoutParams);
+        textView.setText(this.getWardrobeItemString());
+        layout.addView(textView);
+
+        if (drawable != null)
         {
             final ImageView imageView = new ImageView(context);
             imageView.setImageDrawable(drawable);
             imageView.setLayoutParams(layoutParams);
-            return imageView;
+            layout.addView(imageView);
         }
+
+        return layout;
     }
 }

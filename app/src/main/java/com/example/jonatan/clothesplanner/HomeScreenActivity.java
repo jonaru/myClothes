@@ -8,6 +8,7 @@ import android.view.View;
 import com.example.jonatan.clothesplanner.wardrobe.IStorageAdapter;
 import com.example.jonatan.clothesplanner.wardrobe.filehandling.FileHandlingHelper;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobedb.WardrobeDbHelper;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
@@ -17,7 +18,8 @@ public class HomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
 
         //Initialize Wardrobe
-        IStorageAdapter storageAdapter = new FileHandlingHelper(getApplicationContext());
+        //IStorageAdapter storageAdapter = new FileHandlingHelper(getApplicationContext());
+        IStorageAdapter storageAdapter = new WardrobeDbHelper(getApplicationContext());
         Wardrobe.initInstance(storageAdapter);
         Wardrobe.getInstance().loadWardrobe();
     }
@@ -29,7 +31,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Wardrobe.getInstance().getStorageAdapter().closeStorage();
+        //Wardrobe.getInstance().getStorageAdapter().closeStorage();
         super.onDestroy();
     }
 

@@ -9,7 +9,6 @@ import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.IWeeklyPlan;
 import com.example.jonatan.clothesplanner.wardrobe.WeeklyPlan;
-import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,16 +50,22 @@ public class WeeklyPlanActivity extends AppCompatActivity {
         if (wardrobe.getTrousers().size() > 0) {
             for (int i = 0; i < dailyPlans.size(); i++)
             {
-                dailyPlans.get(i).addView(weeklyPlan.getTrousers().getView(this));
+                weeklyPlan.getTrousers().addToView(dailyPlans.get(i));
                 dailyPlans.get(i).setVisibility(View.VISIBLE);
+                /*
+                dailyPlans.get(i).addView(weeklyPlan.getTrousers().addToView(this));
+                */
             }
         }
 
         if (wardrobe.getShirts().size() > 0) {
             for (int i = 0; i < dailyPlans.size(); i++)
             {
-                dailyPlans.get(i).addView(weeklyPlan.getShirt().getView(this));
+                weeklyPlan.getShirt().addToView(dailyPlans.get(i));
                 dailyPlans.get(i).setVisibility(View.VISIBLE);
+                /*
+                dailyPlans.get(i).addView(weeklyPlan.getShirt().addToView(this));
+                */
             }
         }
 

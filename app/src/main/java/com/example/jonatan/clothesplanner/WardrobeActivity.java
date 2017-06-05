@@ -1,7 +1,6 @@
 package com.example.jonatan.clothesplanner;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -82,7 +81,7 @@ public class WardrobeActivity extends Activity {
 
     private void addWardrobeItemToPager(IWardrobeItem addedWardrobeItem) {
         LinearLayout wardrobeItemViewGroup = new LinearLayout(this);
-        wardrobeItemViewGroup.addView(addedWardrobeItem.getView(this));
+        addedWardrobeItem.addToView(wardrobeItemViewGroup);
         Button removeButton = (Button) createNewRemoveButton();
         wardrobeItemViewGroup.addView(removeButton);
 
