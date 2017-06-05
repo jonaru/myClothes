@@ -55,11 +55,6 @@ public class WardrobeItem implements IWardrobeItem {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        final TextView textView = new TextView(context);
-        textView.setLayoutParams(layoutParams);
-        textView.setText(this.getWardrobeItemString());
-        layout.addView(textView);
-
         if (drawable != null)
         {
             final ImageView imageView = new ImageView(context);
@@ -67,6 +62,11 @@ public class WardrobeItem implements IWardrobeItem {
             imageView.setLayoutParams(layoutParams);
             layout.addView(imageView);
         }
+
+        final TextView textView = new TextView(context);
+        textView.setLayoutParams(layoutParams);
+        textView.setText(this.getWardrobeItemString());
+        layout.addView(textView);
 
         return layout;
     }

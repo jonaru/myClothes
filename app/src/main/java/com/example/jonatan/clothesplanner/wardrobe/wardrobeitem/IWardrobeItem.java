@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
  */
 public interface IWardrobeItem {
     String getWardrobeItemString();
+
     Drawable getDrawable();
 
     WardrobeItemType getWardrobeItemType();

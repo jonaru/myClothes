@@ -18,7 +18,6 @@ public class HomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
 
         //Initialize Wardrobe
-        //IStorageAdapter storageAdapter = new FileHandlingHelper(getApplicationContext());
         IStorageAdapter storageAdapter = new WardrobeDbHelper(getApplicationContext());
         Wardrobe.initInstance(storageAdapter);
         Wardrobe.getInstance().loadWardrobe();
@@ -31,7 +30,6 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        //Wardrobe.getInstance().getStorageAdapter().closeStorage();
         super.onDestroy();
     }
 

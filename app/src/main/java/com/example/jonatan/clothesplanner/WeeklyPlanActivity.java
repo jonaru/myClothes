@@ -52,9 +52,6 @@ public class WeeklyPlanActivity extends AppCompatActivity {
             {
                 weeklyPlan.getTrousers().addToView(dailyPlans.get(i));
                 dailyPlans.get(i).setVisibility(View.VISIBLE);
-                /*
-                dailyPlans.get(i).addView(weeklyPlan.getTrousers().addToView(this));
-                */
             }
         }
 
@@ -63,9 +60,6 @@ public class WeeklyPlanActivity extends AppCompatActivity {
             {
                 weeklyPlan.getShirt().addToView(dailyPlans.get(i));
                 dailyPlans.get(i).setVisibility(View.VISIBLE);
-                /*
-                dailyPlans.get(i).addView(weeklyPlan.getShirt().addToView(this));
-                */
             }
         }
 

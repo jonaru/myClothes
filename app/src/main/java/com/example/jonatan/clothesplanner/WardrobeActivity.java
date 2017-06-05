@@ -46,14 +46,12 @@ public class WardrobeActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-
         Wardrobe.getInstance().storeWardrobe();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         addItemsFromWardrobe();
     }
 
