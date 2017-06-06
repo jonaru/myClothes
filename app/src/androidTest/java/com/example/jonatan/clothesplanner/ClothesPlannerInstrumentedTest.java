@@ -1,6 +1,8 @@
 package com.example.jonatan.clothesplanner;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.UiController;
@@ -50,10 +52,12 @@ import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.example.jonatan.clothesplanner.matchers.EspressoTestsMatchers.withBackground;
 import static com.example.jonatan.clothesplanner.matchers.EspressoTestsMatchers.withDrawable;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
 
 /**
@@ -265,17 +269,15 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.button)).perform(ViewActions.scrollTo());
         onView(withId(R.id.button)).perform(click());
 
-        //Select image
-        Context appContext = InstrumentationRegistry.getTargetContext();
-        //Drawable backgroundHighlight = ResourcesCompat.getDrawable(appContext.getResources(), R.drawable.highlight, null);
+        //Select image and check that it's highlighted
         onView(withId(R.id.blueShirtButton)).perform(click());
-        View clickedView = mPopUpWardrobeActivityRule.getActivity().findViewById(R.id.blueShirtButton);
-        assertNotNull(clickedView.getBackground());
+        onView(withId(R.id.blueShirtButton)).check(matches(withBackground(R.drawable.highlight)));
+        onView(withId(R.id.whiteShirtButton)).check(matches(not(withBackground(R.drawable.highlight))));
 
         //Select a new image and check that the new one is highlighted and the old one is not anymore
         onView(withId(R.id.whiteShirtButton)).perform(click());
-        View secondClickedView = mPopUpWardrobeActivityRule.getActivity().findViewById(R.id.whiteShirtButton);
-        assertNotNull(secondClickedView.getBackground());
+        onView(withId(R.id.whiteShirtButton)).check(matches(withBackground(R.drawable.highlight)));
+        onView(withId(R.id.blueShirtButton)).check(matches(not(withBackground(R.drawable.highlight))));
     }
 
 

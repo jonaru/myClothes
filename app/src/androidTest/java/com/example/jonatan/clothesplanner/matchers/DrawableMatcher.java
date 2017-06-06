@@ -36,7 +36,6 @@ public class DrawableMatcher extends TypeSafeMatcher<View> {
         }
         Resources resources = target.getContext().getResources();
 
-        //Drawable expectedDrawable = resources.getDrawable(expectedId);
         Drawable expectedDrawable = ContextCompat.getDrawable(target.getContext(), expectedId);
         resourceName = resources.getResourceEntryName(expectedId);
 
