@@ -16,6 +16,7 @@ import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType
 public class PopUpWardrobeActivity extends Activity {
     private Drawable selectedDrawable;
     private WardrobeItemType selectedItemType;
+    private View highlightedView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class PopUpWardrobeActivity extends Activity {
         setContentView(R.layout.activity_pop_up_wardrobe);
         selectedDrawable = null;
         selectedItemType = null;
+        highlightedView = null;
     }
 
     public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) throws WardrobeException {
@@ -47,18 +49,25 @@ public class PopUpWardrobeActivity extends Activity {
     }
 
     public void selectShirt(@SuppressWarnings("UnusedParameters") View view) {
-        Drawable highlight = ResourcesCompat.getDrawable(getResources(), R.drawable.highlight, null);
-        view.setBackground(highlight);
+        highlightSelection(view);
         ImageButton imageButton = (ImageButton)view;
         selectedDrawable = imageButton.getDrawable();
         selectedItemType = WardrobeItemType.SHIRT;
     }
 
     public void selectTrousers(@SuppressWarnings("UnusedParameters") View view) {
-        Drawable highlight = ResourcesCompat.getDrawable(getResources(), R.drawable.highlight, null);
-        view.setBackground(highlight);
+        highlightSelection(view);
         ImageButton imageButton = (ImageButton)view;
         selectedDrawable = imageButton.getDrawable();
         selectedItemType = WardrobeItemType.TROUSERS;
+    }
+
+    private void highlightSelection(View view) {
+        if (highlightedView != null){
+            highlightedView.setBackground(null);
+        }
+        Drawable highlight = ResourcesCompat.getDrawable(getResources(), R.drawable.highlight, null);
+        view.setBackground(highlight);
+        highlightedView = view;
     }
 }

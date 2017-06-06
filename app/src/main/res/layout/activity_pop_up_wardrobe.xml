@@ -135,7 +135,8 @@
         android:onClick="selectTrousers"
         android:id="@+id/brownTrouserstButton"
         android:layout_alignTop="@+id/greyTrouserstButton"
-        android:layout_centerHorizontal="true" />
+        android:layout_toRightOf="@+id/editText_add_item"
+        android:layout_toEndOf="@+id/editText_add_item" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -146,8 +147,8 @@
         android:onClick="selectTrousers"
         android:id="@+id/jeansTrouserstButton"
         android:layout_alignTop="@+id/brownTrouserstButton"
-        android:layout_toRightOf="@+id/brownTrouserstButton"
-        android:layout_toEndOf="@+id/brownTrouserstButton" />
+        android:layout_toRightOf="@+id/squaredShirtButton"
+        android:layout_toEndOf="@+id/squaredShirtButton" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -158,7 +159,7 @@
         android:onClick="selectShirt"
         android:id="@+id/spottedShirtButton"
         android:layout_alignTop="@+id/squaredShirtButton"
-        android:layout_toRightOf="@+id/brownTrouserstButton"
-        android:layout_toEndOf="@+id/brownTrouserstButton" />
+        android:layout_toRightOf="@+id/squaredShirtButton"
+        android:layout_toEndOf="@+id/squaredShirtButton" />
 
 </RelativeLayout>

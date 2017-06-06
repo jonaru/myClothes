@@ -5,10 +5,12 @@ import android.graphics.drawable.Drawable;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -77,6 +79,9 @@ public class ClothesPlannerInstrumentedTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
+
+    @Rule
+    public ActivityTestRule<PopUpWardrobeActivity> mPopUpWardrobeActivityRule = new ActivityTestRule<>(PopUpWardrobeActivity.class);
 
     @Before
     public void init() {
@@ -251,6 +256,26 @@ public class ClothesPlannerInstrumentedTest {
         clickRemove(R.drawable.shirt_blue);
         onView(allOf(withParent(withId(R.id.trousers_pager)), withText(KHAKIS)))
                 .check(doesNotExist());
+    }
+
+    @Test
+    public void highlightSelectedItemTest() throws Exception {
+        goToWardrobe();
+
+        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
+        onView(withId(R.id.button)).perform(click());
+
+        //Select image
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        //Drawable backgroundHighlight = ResourcesCompat.getDrawable(appContext.getResources(), R.drawable.highlight, null);
+        onView(withId(R.id.blueShirtButton)).perform(click());
+        View clickedView = mPopUpWardrobeActivityRule.getActivity().findViewById(R.id.blueShirtButton);
+        assertNotNull(clickedView.getBackground());
+
+        //Select a new image and check that the new one is highlighted and the old one is not anymore
+        onView(withId(R.id.whiteShirtButton)).perform(click());
+        View secondClickedView = mPopUpWardrobeActivityRule.getActivity().findViewById(R.id.whiteShirtButton);
+        assertNotNull(secondClickedView.getBackground());
     }
 
 
