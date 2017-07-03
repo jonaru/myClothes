@@ -162,4 +162,37 @@
         android:layout_toRightOf="@+id/squaredShirtButton"
         android:layout_toEndOf="@+id/squaredShirtButton" />
 
+    <Button
+        android:id="@+id/galleryButton"
+        android:onClick="getFromGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/khakiTrouserstButton"
+        android:layout_marginTop="30dp"
+        android:text="Gallery" />
+
+    <Button
+        android:id="@+id/photoButton"
+        android:onClick="takePhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/galleryButton"
+        android:layout_toEndOf="@+id/blueTrouserstButton"
+        android:layout_toRightOf="@+id/blueTrouserstButton"
+        android:text="Take photo" />
+
+    <ImageView
+        android:id="@+id/galleryImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/galleryButton"
+        android:layout_marginTop="21dp"
+        android:layout_toLeftOf="@+id/blueTrouserstButton"
+        android:layout_toStartOf="@+id/blueTrouserstButton"
+        app:srcCompat="@android:drawable/alert_dark_frame" />
+
 </RelativeLayout>

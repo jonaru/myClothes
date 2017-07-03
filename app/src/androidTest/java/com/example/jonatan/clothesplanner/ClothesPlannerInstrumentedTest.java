@@ -1,22 +1,26 @@
 package com.example.jonatan.clothesplanner;
 
+import android.app.Activity;
+import android.app.Instrumentation;
+import android.content.ContentResolver;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.action.ViewActions;
+import android.support.test.espresso.intent.Intents;
+import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.example.jonatan.clothesplanner.wardrobe.IStorageAdapter;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobedb.WardrobeDbHelper;
@@ -38,6 +42,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -45,6 +50,11 @@ import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.Intents.intending;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAction;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasData;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
@@ -52,6 +62,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.example.jonatan.clothesplanner.matchers.EspressoTestsMatchers.noDrawable;
 import static com.example.jonatan.clothesplanner.matchers.EspressoTestsMatchers.withBackground;
 import static com.example.jonatan.clothesplanner.matchers.EspressoTestsMatchers.withDrawable;
 import static org.hamcrest.Matchers.allOf;
@@ -59,6 +70,7 @@ import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
+import android.support.test.espresso.intent.matcher.IntentMatchers;
 
 /**
  * Instrumentation test, which will execute on an Android device.
@@ -84,8 +96,30 @@ public class ClothesPlannerInstrumentedTest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
+    /*
+    private static class PopUpWardrobeActivityTestRule extends IntentsTestRule {
+        private PopUpWardrobeActivityTestRule() {
+            super(PopUpWardrobeActivity.class);
+        }
+
+
+        @Override public void beforeActivityLaunched() {
+            Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+            ShowAndHideApplication app =
+                    (ShowAndHideApplication) instrumentation.getTargetContext().getApplicationContext();
+            ShowAndHideTestComponent component = DaggerShowAndHideTestComponent.builder()
+                    .mockFileUtilitiesModule(new MockFileUtilitiesModule())
+                    .mockImageProcessorModule(new MockImageProcessorModule())
+                    .build();
+            app.setComponent(component);
+        }
+
+    }
+    */
+
     @Rule
     public ActivityTestRule<PopUpWardrobeActivity> mPopUpWardrobeActivityRule = new ActivityTestRule<>(PopUpWardrobeActivity.class);
+    //public IntentsTestRule<PopUpWardrobeActivity> mPopUpWardrobeActivityRule = new IntentsTestRule<>(PopUpWardrobeActivity.class);
 
     @Before
     public void init() {
@@ -116,7 +150,7 @@ public class ClothesPlannerInstrumentedTest {
     }
 
     @After
-    public void cleanUp() {
+    public void cleanUp() throws Exception{
         IWardrobe wardrobe = Wardrobe.getInstance();
         wardrobe.clear();
         Context appContext = InstrumentationRegistry.getTargetContext();
@@ -139,8 +173,8 @@ public class ClothesPlannerInstrumentedTest {
         addShirt(BLUE_SHIRT);
 
         //Click on back button
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 
         //Click Weekly Plan button
         onView(withId(R.id.WeeklyPlanButton)).perform(click());
@@ -163,8 +197,8 @@ public class ClothesPlannerInstrumentedTest {
         addShirt(STRIPED_SHIRT);
 
         //Click on back button
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 
         //Click Weekly Plan button
         onView(withId(R.id.WeeklyPlanButton)).perform(click());
@@ -189,8 +223,8 @@ public class ClothesPlannerInstrumentedTest {
 
 
         //Click on back button
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 
         //Now enter again to check that the plan is read from file and presented
         //Click Weekly Plan button
@@ -219,12 +253,12 @@ public class ClothesPlannerInstrumentedTest {
 
 
         //Click on back button
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 
         //Click on back button
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 
         //Check that file has been cleared
         if(runWithDb){
@@ -280,6 +314,43 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.blueShirtButton)).check(matches(not(withBackground(R.drawable.highlight))));
     }
 
+    @Test
+    public void selectFromGalleryTest() throws Exception {
+        goToWardrobe();
+        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
+        onView(withId(R.id.button)).perform(click());
+
+        //Create ActivityResult to return when clicking the gallery button
+        Resources resources = InstrumentationRegistry.getTargetContext().getResources();
+        int resId = R.drawable.shirt_blue;
+        Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                "://" + resources.getResourcePackageName(resId)
+                + '/' + resources.getResourceTypeName(resId)
+                + '/' + resources.getResourceEntryName(resId));
+        Intent resultData = new Intent();
+        resultData.setData(imageUri);
+        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(
+                Activity.RESULT_OK, resultData);
+
+        //Expect gallery intent and set it to return the ActivityResult from above
+        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String pictureDirectoryPath = pictureDirectory.getPath();
+        Uri pictureDirectoryUri = Uri.parse(pictureDirectoryPath);
+        Matcher<Intent> expectedIntent = allOf(hasAction(Intent.ACTION_PICK),
+                hasData(pictureDirectoryUri));
+        Intents.init();
+        intending(expectedIntent).respondWith(result);
+
+        //Click gallery button
+        onView(withId(R.id.galleryButton)).perform(click());
+        intended(expectedIntent);
+
+        //Check the image is displayed
+        //onView(withId(R.id.galleryImageView)).check(matches(withDrawable(R.drawable.shirt_blue)));
+        onView(withId(R.id.galleryImageView)).check(matches(not(noDrawable())));
+        Intents.release();
+        //Intents.assertNoUnverifiedIntents();
+    }
 
     @Test
     public void addRemoveWardrobeItemReadFromFileTest() throws Exception {
@@ -292,12 +363,12 @@ public class ClothesPlannerInstrumentedTest {
         addTrousers(KHAKIS);
 
         //Click on back button
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 
         //Click on back button
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 
         // Check that the item was written to file
         Context appContext = InstrumentationRegistry.getTargetContext(); //need this for the file reading
@@ -318,12 +389,12 @@ public class ClothesPlannerInstrumentedTest {
         clickRemove(R.drawable.khaki_trousers);
 
         //Click on back button
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 
         //Click on back button
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        InstrumentationRegistry.getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 
         if(runWithDb){
             Wardrobe wardrobe = Wardrobe.getInstance();
