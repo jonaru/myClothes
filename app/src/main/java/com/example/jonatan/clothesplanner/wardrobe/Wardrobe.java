@@ -163,7 +163,7 @@ public class Wardrobe implements IWardrobe {
         return null;
     }
 
-    private WardrobeItemType getItemTypeFromString(String itemTypeString) {
+    public WardrobeItemType getItemTypeFromString(String itemTypeString) {
         if (itemTypeString.compareTo(SHIRT_STRING) == 0)
         {
             return WardrobeItemType.SHIRT;

@@ -322,7 +322,7 @@ public class ClothesPlannerInstrumentedTest {
 
         //Create ActivityResult to return when clicking the gallery button
         Resources resources = InstrumentationRegistry.getTargetContext().getResources();
-        int resId = R.drawable.shirt_blue;
+        int resId = R.drawable.khaki_trousers;
         Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
                 "://" + resources.getResourcePackageName(resId)
                 + '/' + resources.getResourceTypeName(resId)
@@ -350,6 +350,10 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.galleryImageButton)).check(matches(not(noDrawable())));
         Intents.release();
         //Intents.assertNoUnverifiedIntents();
+
+        onView(withId(R.id.galleryImageButton)).perform(click());
+        onView(withId(R.id.galleryImageButton)).check(matches(withBackground(R.drawable.highlight)));
+        onView(withId(R.id.addItemButton)).perform(click());
     }
 
     @Test

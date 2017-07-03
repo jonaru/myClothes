@@ -46,8 +46,6 @@ public class PopUpWardrobeActivity extends Activity {
         IWardrobe wardrobe = Wardrobe.getInstance();
 
         EditText editText = (EditText) findViewById(R.id.editText_add_item);
-        Spinner wardrobeSpinner = (Spinner) findViewById(R.id.wardrobe_spinner);
-        String itemTypeString = (String) wardrobeSpinner.getSelectedItem();
         String itemText = editText.getText().toString();
 
 
@@ -57,6 +55,8 @@ public class PopUpWardrobeActivity extends Activity {
         }
         else
         {
+            Spinner wardrobeSpinner = (Spinner) findViewById(R.id.wardrobe_spinner);
+            String itemTypeString = (String) wardrobeSpinner.getSelectedItem();
             wardrobe.addWardrobeItem(itemText, itemTypeString);
         }
 
@@ -75,6 +75,16 @@ public class PopUpWardrobeActivity extends Activity {
         ImageButton imageButton = (ImageButton)view;
         selectedDrawable = imageButton.getDrawable();
         selectedItemType = WardrobeItemType.TROUSERS;
+    }
+
+    public void selectFromGallery(@SuppressWarnings("UnusedParameters") View view) {
+        highlightSelection(view);
+        ImageButton imageButton = (ImageButton)view;
+        selectedDrawable = imageButton.getDrawable();
+
+        Spinner wardrobeSpinner = (Spinner) findViewById(R.id.wardrobe_spinner);
+        String itemTypeString = (String) wardrobeSpinner.getSelectedItem();
+        selectedItemType = Wardrobe.getInstance().getItemTypeFromString(itemTypeString);
     }
 
     public void getFromGallery(@SuppressWarnings("UnusedParameters") View view) {
@@ -102,7 +112,7 @@ public class PopUpWardrobeActivity extends Activity {
 
                     //Scale the image
                     float imageOriginalWidthHeightRatio = (float) bitmap.getWidth() / (float) bitmap.getHeight();
-                    int imageToShowWidth = galleryImageButton.getWidth();
+                    int imageToShowWidth = galleryImageButton.getWidth() - 15; //make room for the highlight to show
                     int imageToShowHeight = (int) (imageToShowWidth / imageOriginalWidthHeightRatio);
                     Bitmap imageToShow = Bitmap.createScaledBitmap(bitmap, imageToShowWidth, imageToShowHeight, true);
 

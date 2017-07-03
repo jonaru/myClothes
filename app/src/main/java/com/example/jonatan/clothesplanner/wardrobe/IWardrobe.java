@@ -37,5 +37,7 @@ public interface IWardrobe {
 
     void storeWardrobe();
 
+    WardrobeItemType getItemTypeFromString(String itemTypeString);
+
     IStorageAdapter getStorageAdapter();
 }
