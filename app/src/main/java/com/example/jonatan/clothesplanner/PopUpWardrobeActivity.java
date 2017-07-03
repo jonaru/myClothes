@@ -100,8 +100,14 @@ public class PopUpWardrobeActivity extends Activity {
                     inputStream = getContentResolver().openInputStream(imageUri);
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 
+                    //Scale the image
+                    float imageOriginalWidthHeightRatio = (float) bitmap.getWidth() / (float) bitmap.getHeight();
+                    int imageToShowWidth = galleryImageView.getWidth();
+                    int imageToShowHeight = (int) (imageToShowWidth / imageOriginalWidthHeightRatio);
+                    Bitmap imageToShow = Bitmap.createScaledBitmap(bitmap, imageToShowWidth, imageToShowHeight, true);
+
                     //display the image
-                    galleryImageView.setImageBitmap(bitmap);
+                    galleryImageView.setImageBitmap(imageToShow);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                     Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
