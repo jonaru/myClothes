@@ -347,7 +347,7 @@ public class ClothesPlannerInstrumentedTest {
 
         //Check the image is displayed
         //onView(withId(R.id.galleryImageView)).check(matches(withDrawable(R.drawable.shirt_blue)));
-        onView(withId(R.id.galleryImageView)).check(matches(not(noDrawable())));
+        onView(withId(R.id.galleryImageButton)).check(matches(not(noDrawable())));
         Intents.release();
         //Intents.assertNoUnverifiedIntents();
     }

@@ -183,8 +183,8 @@
         android:layout_toRightOf="@+id/blueTrouserstButton"
         android:text="Take photo" />
 
-    <ImageView
-        android:id="@+id/galleryImageView"
+    <ImageButton
+        android:id="@+id/galleryImageButton"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

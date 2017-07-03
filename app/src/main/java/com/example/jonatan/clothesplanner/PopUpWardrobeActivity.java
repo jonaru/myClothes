@@ -29,7 +29,7 @@ public class PopUpWardrobeActivity extends Activity {
     private Drawable selectedDrawable;
     private WardrobeItemType selectedItemType;
     private View highlightedView;
-    private ImageView galleryImageView;
+    private ImageButton galleryImageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class PopUpWardrobeActivity extends Activity {
         selectedItemType = null;
         highlightedView = null;
 
-        galleryImageView = (ImageView) findViewById(R.id.galleryImageView);
+        galleryImageButton = (ImageButton) findViewById(R.id.galleryImageButton);
     }
 
     public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) throws WardrobeException {
@@ -102,12 +102,12 @@ public class PopUpWardrobeActivity extends Activity {
 
                     //Scale the image
                     float imageOriginalWidthHeightRatio = (float) bitmap.getWidth() / (float) bitmap.getHeight();
-                    int imageToShowWidth = galleryImageView.getWidth();
+                    int imageToShowWidth = galleryImageButton.getWidth();
                     int imageToShowHeight = (int) (imageToShowWidth / imageOriginalWidthHeightRatio);
                     Bitmap imageToShow = Bitmap.createScaledBitmap(bitmap, imageToShowWidth, imageToShowHeight, true);
 
                     //display the image
-                    galleryImageView.setImageBitmap(imageToShow);
+                    galleryImageButton.setImageBitmap(imageToShow);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                     Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
