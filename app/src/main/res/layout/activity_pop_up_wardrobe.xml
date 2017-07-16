@@ -185,11 +185,11 @@
 
     <ImageButton
         android:id="@+id/galleryImageButton"
+        android:onClick="selectFromGallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         android:padding="3dp"
-        android:onClick="selectFromGallery"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/galleryButton"

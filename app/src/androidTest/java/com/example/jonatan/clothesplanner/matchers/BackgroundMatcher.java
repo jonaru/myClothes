@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -46,21 +47,21 @@ public class BackgroundMatcher extends TypeSafeMatcher<View> {
             otherDrawable = otherDrawable.getCurrent();
         }
 
-        if (drawable instanceof GradientDrawable) {
-            Bitmap bitmap = getBitmapFromGradientDrawable((GradientDrawable)drawable);
-            Bitmap otherBitmap = getBitmapFromGradientDrawable((GradientDrawable)otherDrawable);
-            return bitmap.sameAs(otherBitmap);
-        }
-
         if (drawable instanceof BitmapDrawable) {
             Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
             Bitmap otherBitmap = ((BitmapDrawable) otherDrawable).getBitmap();
             return bitmap.sameAs(otherBitmap);
         }
+
+        if (drawable instanceof RippleDrawable || drawable instanceof GradientDrawable) {
+            Bitmap bitmap = getBitmapFromDrawable(drawable);
+            Bitmap otherBitmap = getBitmapFromDrawable(otherDrawable);
+            return bitmap.sameAs(otherBitmap);
+        }
         return false;
     }
 
-    private static Bitmap getBitmapFromGradientDrawable(GradientDrawable drawable) {
+    private static Bitmap getBitmapFromDrawable(Drawable drawable) {
         Canvas canvas = new Canvas();
         Bitmap bitmap = Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888);
         canvas.setBitmap(bitmap);

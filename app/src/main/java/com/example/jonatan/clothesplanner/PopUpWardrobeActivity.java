@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.widget.EditText;
@@ -26,6 +27,7 @@ import java.io.InputStream;
 
 public class PopUpWardrobeActivity extends Activity {
     public static final int IMAGE_GALLERY_REQUEST = 20;
+    public static final int CAMERA_REQUEST = 1;
     private Drawable selectedDrawable;
     private WardrobeItemType selectedItemType;
     private View highlightedView;
@@ -99,6 +101,13 @@ public class PopUpWardrobeActivity extends Activity {
         startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
     }
 
+    public void takePhoto(@SuppressWarnings("UnusedParameters") View view) {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK){
@@ -123,11 +132,13 @@ public class PopUpWardrobeActivity extends Activity {
                     Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
                 }
             }
+            else if (requestCode == CAMERA_REQUEST){
+                //display the image
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                galleryImageButton.setImageBitmap(imageBitmap);
+            }
         }
-    }
-
-    public void takePhoto(@SuppressWarnings("UnusedParameters") View view) {
-        //Invoke take photo
     }
 
     private void highlightSelection(View view) {

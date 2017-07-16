@@ -6,9 +6,12 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
@@ -350,6 +353,52 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.galleryImageButton)).check(matches(not(noDrawable())));
         Intents.release();
         //Intents.assertNoUnverifiedIntents();
+
+        //select shirt from the drop-down menu (spinner)
+        onView(withId(R.id.wardrobe_spinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Shirt"))).perform(click());
+
+        onView(withId(R.id.galleryImageButton)).perform(click());
+        onView(withId(R.id.galleryImageButton)).check(matches(withBackground(R.drawable.highlight)));
+        onView(withId(R.id.addItemButton)).perform(click());
+
+        // Check that item has been added to the wardrobe linear layout
+        onView(withId(R.id.shirt_pager))
+                .check(matches(hasDescendant(not(noDrawable()))));
+    }
+
+    @Test
+    public void selectFromCameraTest() throws Exception {
+        goToWardrobe();
+        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
+        onView(withId(R.id.button)).perform(click());
+
+        //Create ActivityResult to return when clicking the camera button
+        //Return this icon bitmap as the photo taken
+        Bitmap icon = BitmapFactory.decodeResource(
+                InstrumentationRegistry.getTargetContext().getResources(),
+                R.mipmap.ic_launcher);
+
+        Intent resultData = new Intent();
+        resultData.putExtra("data", icon);
+        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(
+                Activity.RESULT_OK, resultData);
+
+        //Expect camera intent and set it to return the ActivityResult from above
+        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String pictureDirectoryPath = pictureDirectory.getPath();
+        Uri pictureDirectoryUri = Uri.parse(pictureDirectoryPath);
+        Matcher<Intent> expectedIntent = allOf(hasAction(MediaStore.ACTION_IMAGE_CAPTURE));
+        Intents.init();
+        intending(expectedIntent).respondWith(result);
+
+        //Click gallery button
+        onView(withId(R.id.photoButton)).perform(click());
+        intended(expectedIntent);
+
+        //Check the image is displayed
+        onView(withId(R.id.galleryImageButton)).check(matches(not(noDrawable())));
+        Intents.release();
 
         //select shirt from the drop-down menu (spinner)
         onView(withId(R.id.wardrobe_spinner)).perform(click());
