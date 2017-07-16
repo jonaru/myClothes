@@ -68,14 +68,6 @@ public class WeeklyPlan implements IWeeklyPlan {
             weeklyPlanShirtIndex = 0;
         }
 
-        /*
-        currentTrousers--;
-        if (currentTrousers < 0)
-        {
-            currentTrousers = wardrobe.getTrousers().size() - 1;
-        }
-        */
-
         currentShirt = weeklyPlanShirtIndex;
         currentTrousers = weeklyPlanTrousersIndex;
 

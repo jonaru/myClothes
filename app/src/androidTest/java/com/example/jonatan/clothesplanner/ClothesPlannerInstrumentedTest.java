@@ -99,27 +99,6 @@ public class ClothesPlannerInstrumentedTest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
-    /*
-    private static class PopUpWardrobeActivityTestRule extends IntentsTestRule {
-        private PopUpWardrobeActivityTestRule() {
-            super(PopUpWardrobeActivity.class);
-        }
-
-
-        @Override public void beforeActivityLaunched() {
-            Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-            ShowAndHideApplication app =
-                    (ShowAndHideApplication) instrumentation.getTargetContext().getApplicationContext();
-            ShowAndHideTestComponent component = DaggerShowAndHideTestComponent.builder()
-                    .mockFileUtilitiesModule(new MockFileUtilitiesModule())
-                    .mockImageProcessorModule(new MockImageProcessorModule())
-                    .build();
-            app.setComponent(component);
-        }
-
-    }
-    */
-
     @Rule
     public ActivityTestRule<PopUpWardrobeActivity> mPopUpWardrobeActivityRule = new ActivityTestRule<>(PopUpWardrobeActivity.class);
     //public IntentsTestRule<PopUpWardrobeActivity> mPopUpWardrobeActivityRule = new IntentsTestRule<>(PopUpWardrobeActivity.class);
