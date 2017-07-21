@@ -23,6 +23,7 @@ import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class PopUpWardrobeActivity extends Activity {
@@ -32,6 +33,14 @@ public class PopUpWardrobeActivity extends Activity {
     private WardrobeItemType selectedItemType;
     private View highlightedView;
     private ImageButton galleryImageButton;
+    private Bitmap imageBitmap;
+
+    // save the Activity's instance state as it gets destroyed
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("imageBitmap", imageBitmap);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +51,15 @@ public class PopUpWardrobeActivity extends Activity {
         highlightedView = null;
 
         galleryImageButton = (ImageButton) findViewById(R.id.galleryImageButton);
+
+        //Need to restore the state if the camera's captured image bitmap since it seems the activity often gets recreated on some devices (Samsung) and the image then lost and not displayed
+        if (savedInstanceState != null) {
+            imageBitmap = savedInstanceState.getParcelable("imageBitmap");
+        }
+
+        if(imageBitmap != null) {
+            galleryImageButton.setImageBitmap(imageBitmap);
+        }
     }
 
     public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) throws WardrobeException {
@@ -110,41 +128,54 @@ public class PopUpWardrobeActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK){
+            if (imageBitmap != null){
+                imageBitmap.recycle();
+            }
+
             if (requestCode == IMAGE_GALLERY_REQUEST){
-                //Got back image
-                Uri imageUri = data.getData();
-                InputStream inputStream;
-                try {
-                    inputStream = getContentResolver().openInputStream(imageUri);
-                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-
-                    //Scale the image
-                    float imageOriginalWidthHeightRatio = (float) bitmap.getWidth() / (float) bitmap.getHeight();
-                    int imageToShowWidth = galleryImageButton.getWidth() - 15; //make room for the highlight to show
-                    int imageToShowHeight = (int) (imageToShowWidth / imageOriginalWidthHeightRatio);
-                    Bitmap imageToShow = Bitmap.createScaledBitmap(bitmap, imageToShowWidth, imageToShowHeight, true);
-
-                    //display the image
-                    galleryImageButton.setImageBitmap(imageToShow);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
-                }
+                displayPickedGalleryImage(data);
             }
             else if (requestCode == CAMERA_REQUEST){
-                //display the image
-                Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-                galleryImageButton.setImageBitmap(imageBitmap);
+                displayCapturedCameraImage(data);
             }
         }
+    }
+
+    private void displayPickedGalleryImage(Intent data) {
+        Uri imageUri = data.getData();
+        InputStream inputStream;
+
+        try {
+            inputStream = getContentResolver().openInputStream(imageUri);
+            imageBitmap = BitmapFactory.decodeStream(inputStream);
+
+            //Scale the image to make it thumb sized
+            float imageOriginalWidthHeightRatio = (float) imageBitmap.getWidth() / (float) imageBitmap.getHeight();
+            int imageToShowWidth = galleryImageButton.getWidth() - 15; //make room for the highlight to show
+            int imageToShowHeight = (int) (imageToShowWidth / imageOriginalWidthHeightRatio);
+            Bitmap imageToShow = Bitmap.createScaledBitmap(imageBitmap, imageToShowWidth, imageToShowHeight, true);
+
+            //display the image
+            galleryImageButton.setImageBitmap(imageToShow);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void displayCapturedCameraImage(Intent data) {
+        Bundle extras = data.getExtras();
+        imageBitmap = (Bitmap) extras.get("data");
+        galleryImageButton.setImageBitmap(imageBitmap);
     }
 
     private void highlightSelection(View view) {
         if (highlightedView != null){
             highlightedView.setBackground(null);
         }
+
         Drawable highlight = ResourcesCompat.getDrawable(getResources(), R.drawable.highlight, null);
         view.setBackground(highlight);
         highlightedView = view;
