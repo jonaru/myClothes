@@ -15,8 +15,10 @@ import java.util.List;
 public class Wardrobe implements IWardrobe {
     public static final String UPPER_ITEMS_STRING = "upper";
     public static final String LOWER_ITEMS_STRING = "lower";
+    public static final String FOOTWEAR_STRING = "footwear";
     private final ArrayList<IWardrobeItem> upperItemsList = new ArrayList<>();
     private final ArrayList<IWardrobeItem> lowerItemsList = new ArrayList<>();
+    private final ArrayList<IWardrobeItem> footwearItemsList = new ArrayList<>();
     private static Wardrobe instance;
     private IStorageAdapter storageAdapter;
 
@@ -46,10 +48,15 @@ public class Wardrobe implements IWardrobe {
         return lowerItemsList;
     }
 
+    public List<IWardrobeItem> getFootwearItems() {
+        return footwearItemsList;
+    }
+
     @Override
     public void clear() {
         upperItemsList.clear();
         lowerItemsList.clear();
+        footwearItemsList.clear();
     }
 
     @Override
@@ -95,6 +102,7 @@ public class Wardrobe implements IWardrobe {
         switch (wardrobeItem.getWardrobeItemType()){
             case UPPER: upperItemsList.add(wardrobeItem); break;
             case LOWER: lowerItemsList.add(wardrobeItem); break;
+            case FOOTWEAR: footwearItemsList.add(wardrobeItem); break;
         }
     }
 
@@ -114,6 +122,15 @@ public class Wardrobe implements IWardrobe {
             if (item.getWardrobeItemString().compareTo(wardrobeItemString) == 0)
             {
                 lowerItemsList.remove(item);
+                return true;
+            }
+        }
+
+        for (IWardrobeItem item : footwearItemsList)
+        {
+            if (item.getWardrobeItemString().compareTo(wardrobeItemString) == 0)
+            {
+                footwearItemsList.remove(item);
                 return true;
             }
         }
@@ -139,6 +156,16 @@ public class Wardrobe implements IWardrobe {
                 return true;
             }
         }
+
+        for (IWardrobeItem item : footwearItemsList)
+        {
+            if (item.getDrawable() == drawable)
+            {
+                footwearItemsList.remove(item);
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -159,6 +186,14 @@ public class Wardrobe implements IWardrobe {
                 return item;
             }
         }
+
+        for (IWardrobeItem item : footwearItemsList)
+        {
+            if (item.getWardrobeItemString().compareTo(wardrobeItemString) == 0)
+            {
+                return item;
+            }
+        }
         return null;
     }
 
@@ -170,6 +205,10 @@ public class Wardrobe implements IWardrobe {
         else if (itemTypeString.compareTo(LOWER_ITEMS_STRING) == 0)
         {
             return WardrobeItemType.LOWER;
+        }
+        else if (itemTypeString.compareTo(FOOTWEAR_STRING) == 0)
+        {
+            return WardrobeItemType.FOOTWEAR;
         }
         return WardrobeItemType.DEFAULT;
     }

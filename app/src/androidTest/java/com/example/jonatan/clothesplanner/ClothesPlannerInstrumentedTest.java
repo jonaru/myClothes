@@ -88,8 +88,10 @@ public class ClothesPlannerInstrumentedTest {
     static private String BLUE_SHIRT = "blue shirt";
     static private String WHITE_SHIRT = "white shirt";
     static private String STRIPED_SHIRT = "striped shirt";
+    private static final String SNEAKERS = "sneakers";
     static private int LOWER_SPINNER_OPTION = 0;
     static private int UPPER_SPINNER_OPTION = 1;
+    private static final int FOOTWEAR_SPINNER_OPTION = 2;
     private String[] wardrobeSpinnerStrings;
     private FileInputStream fileInputStream;
     WardrobeDbHelper db;
@@ -277,6 +279,23 @@ public class ClothesPlannerInstrumentedTest {
         clickRemove(R.drawable.shirt_blue);
         onView(allOf(withParent(withId(R.id.lower_body_pager)), withText(KHAKIS)))
                 .check(doesNotExist());
+    }
+
+    @Test
+    public void addRemoveFootWearTest() throws Exception {
+        goToWardrobe();
+        addFootwear(SNEAKERS);
+
+        // Check that item has been added to the wardrobe linear layout
+        onView(withId(R.id.footwear_pager))
+                .check(matches(hasDescendant(withText(SNEAKERS))));
+
+        //Click remove button and check that the item does not exist anymore
+        clickRemove(SNEAKERS);
+        onView(allOf(withParent(withId(R.id.footwear_pager)), withText(SNEAKERS)))
+                .check(doesNotExist());
+
+        assertNull(Wardrobe.getInstance().findWardrobeItem(SNEAKERS));
     }
 
     @Test
@@ -573,6 +592,33 @@ public class ClothesPlannerInstrumentedTest {
         }
 
         //Click to add the new trousers
+        onView(withId(R.id.addItemButton)).perform(click());
+    }
+
+    private void addFootwear(String description) {
+        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
+        onView(withId(R.id.button)).perform(click());
+
+        //select shirt from the drop-down menu (spinner)
+        onView(withId(R.id.wardrobe_spinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is(wardrobeSpinnerStrings[FOOTWEAR_SPINNER_OPTION]))).perform(click());
+
+        //Enter description
+        onView(withId(R.id.editText_add_item)).perform(typeText(description), closeSoftKeyboard());
+
+        /*
+        //Select image
+        if (description.compareTo(BLUE_SHIRT) == 0)
+        {
+            onView(withId(R.id.blueShirtButton)).perform(click());
+        } else if (description.compareTo(WHITE_SHIRT) == 0) {
+            onView(withId(R.id.whiteShirtButton)).perform(click());
+        } else if (description.compareTo(STRIPED_SHIRT) == 0) {
+            onView(withId(R.id.stripedShirtButton)).perform(click());
+        }
+        */
+
+        //Click to add the new shoes
         onView(withId(R.id.addItemButton)).perform(click());
     }
 }

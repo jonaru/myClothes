@@ -20,9 +20,11 @@ public class WardrobeActivity extends Activity {
     private IWardrobe wardrobe;
     ViewPager upperItemsViewPager;
     ViewPager lowerItemsViewPager;
+    ViewPager footwearViewPager;
 
     WardrobePagerAdapter upperItemAdapter;
     WardrobePagerAdapter lowerItemsAdapter;
+    WardrobePagerAdapter footwearAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,12 @@ public class WardrobeActivity extends Activity {
         if (lowerItemsViewPager != null) {
             lowerItemsAdapter = new WardrobePagerAdapter();
             lowerItemsViewPager.setAdapter(lowerItemsAdapter);
+        }
+
+        footwearViewPager = (ViewPager) findViewById(R.id.footwear_pager);
+        if (footwearViewPager != null) {
+            footwearAdapter = new WardrobePagerAdapter();
+            footwearViewPager.setAdapter(footwearAdapter);
         }
     }
 
@@ -65,6 +73,7 @@ public class WardrobeActivity extends Activity {
         lowerItemsViewPager.removeAllViews();
         List<IWardrobeItem> upperItemsList = wardrobe.getUpperItems();
         List<IWardrobeItem> lowerItemsList = wardrobe.getLowerItems();
+        List<IWardrobeItem> footwearList = wardrobe.getFootwearItems();
 
         for (IWardrobeItem upperItem : upperItemsList)
         {
@@ -74,6 +83,11 @@ public class WardrobeActivity extends Activity {
         for (IWardrobeItem lowerItem : lowerItemsList)
         {
             addWardrobeItemToPager(lowerItem);
+        }
+
+        for (IWardrobeItem footwear : footwearList)
+        {
+            addWardrobeItemToPager(footwear);
         }
     }
 
@@ -94,6 +108,12 @@ public class WardrobeActivity extends Activity {
             removeButton.setOnClickListener(new RemoveButtonOnClickListener(lowerItemsAdapter, lowerItemsViewPager));
             int pageIndex = lowerItemsAdapter.addView(wardrobeItemViewGroup);
             lowerItemsViewPager.setCurrentItem(pageIndex, true);
+        }
+        else if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.FOOTWEAR)
+        {
+            removeButton.setOnClickListener(new RemoveButtonOnClickListener(footwearAdapter, footwearViewPager));
+            int pageIndex = footwearAdapter.addView(wardrobeItemViewGroup);
+            footwearViewPager.setCurrentItem(pageIndex, true);
         }
     }
 

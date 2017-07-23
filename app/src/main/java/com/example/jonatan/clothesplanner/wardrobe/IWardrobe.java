@@ -17,6 +17,8 @@ public interface IWardrobe {
 
     List<IWardrobeItem> getLowerItems();
 
+    List<IWardrobeItem> getFootwearItems();
+
     void clear();
 
     IWardrobeItem addWardrobeItem(String description, String itemTypeString);
