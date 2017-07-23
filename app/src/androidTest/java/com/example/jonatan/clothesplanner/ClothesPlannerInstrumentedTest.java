@@ -227,12 +227,12 @@ public class ClothesPlannerInstrumentedTest {
         goToWardrobe();
 
         // Check that item has been added to the wardrobe linear layout
-        onView(withId(R.id.trousers_pager))
+        onView(withId(R.id.lower_body_pager))
                 .check(matches(hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart))));
 
         //Click remove button and check that the item does not exist anymore
         clickRemove(wardrobeItemStringToBeWrittenBeforeStart);
-        onView(allOf(withParent(withId(R.id.trousers_pager)), withText(wardrobeItemStringToBeWrittenBeforeStart))).check(doesNotExist());
+        onView(allOf(withParent(withId(R.id.lower_body_pager)), withText(wardrobeItemStringToBeWrittenBeforeStart))).check(doesNotExist());
 
 
         //Click on back button
@@ -270,12 +270,12 @@ public class ClothesPlannerInstrumentedTest {
         addShirt(BLUE_SHIRT);
 
         // Check that item has been added to the wardrobe linear layout
-        onView(withId(R.id.shirt_pager))
+        onView(withId(R.id.upper_body_pager))
                 .check(matches(hasDescendant(withDrawable(R.drawable.shirt_blue))));
 
         //Click remove button and check that the item does not exist anymore
         clickRemove(R.drawable.shirt_blue);
-        onView(allOf(withParent(withId(R.id.trousers_pager)), withText(KHAKIS)))
+        onView(allOf(withParent(withId(R.id.lower_body_pager)), withText(KHAKIS)))
                 .check(doesNotExist());
     }
 
@@ -343,7 +343,7 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.addItemButton)).perform(click());
 
         // Check that item has been added to the wardrobe linear layout
-        onView(withId(R.id.shirt_pager))
+        onView(withId(R.id.upper_body_pager))
                 .check(matches(hasDescendant(not(noDrawable()))));
     }
 
@@ -389,7 +389,7 @@ public class ClothesPlannerInstrumentedTest {
         onView(withId(R.id.addItemButton)).perform(click());
 
         // Check that item has been added to the wardrobe linear layout
-        onView(withId(R.id.shirt_pager))
+        onView(withId(R.id.upper_body_pager))
                 .check(matches(hasDescendant(not(noDrawable()))));
     }
 
@@ -399,7 +399,7 @@ public class ClothesPlannerInstrumentedTest {
 
         //Click remove button on the jeans
         clickRemove(wardrobeItemStringToBeWrittenBeforeStart);
-        onView(allOf(withParent(withId(R.id.trousers_pager)), withText(wardrobeItemStringToBeWrittenBeforeStart))).check(doesNotExist());
+        onView(allOf(withParent(withId(R.id.lower_body_pager)), withText(wardrobeItemStringToBeWrittenBeforeStart))).check(doesNotExist());
 
         addTrousers(KHAKIS);
 

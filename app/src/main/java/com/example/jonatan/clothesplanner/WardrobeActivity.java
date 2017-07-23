@@ -30,13 +30,13 @@ public class WardrobeActivity extends Activity {
         setContentView(R.layout.activity_wardrobe);
         wardrobe = Wardrobe.getInstance();
 
-        upperItemsViewPager = (ViewPager) findViewById(R.id.shirt_pager);
+        upperItemsViewPager = (ViewPager) findViewById(R.id.upper_body_pager);
         if (upperItemsViewPager != null) {
             upperItemAdapter = new WardrobePagerAdapter();
             upperItemsViewPager.setAdapter(upperItemAdapter);
         }
 
-        lowerItemsViewPager = (ViewPager) findViewById(R.id.trousers_pager);
+        lowerItemsViewPager = (ViewPager) findViewById(R.id.lower_body_pager);
         if (lowerItemsViewPager != null) {
             lowerItemsAdapter = new WardrobePagerAdapter();
             lowerItemsViewPager.setAdapter(lowerItemsAdapter);

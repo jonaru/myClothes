@@ -21,53 +21,53 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/shirtTextView"
+                android:id="@+id/upperBodyTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/your_shirts"
+                android:text="@string/upper_body"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="28dp" />
 
             <android.support.v4.view.ViewPager
-                android:id="@+id/shirt_pager"
+                android:id="@+id/upper_body_pager"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:orientation="vertical">
             </android.support.v4.view.ViewPager>
 
             <TextView
-                android:id="@+id/sweaterTextView"
+                android:id="@+id/lowerBodyTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/your_sweaters"
+                android:text="@string/lower_body"
                 android:layout_below="@+id/button"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="28dp" />
 
             <android.support.v4.view.ViewPager
-                android:id="@+id/sweater_pager"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:orientation="vertical">
-            </android.support.v4.view.ViewPager>
-
-            <TextView
-                android:id="@+id/trousersTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/your_trousers"
-                android:layout_below="@+id/button"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="28dp" />
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/trousers_pager"
+                android:id="@+id/lower_body_pager"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:orientation="horizontal">
+            </android.support.v4.view.ViewPager>
+
+            <TextView
+                android:id="@+id/footwearTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/footwear"
+                android:layout_below="@+id/button"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="28dp" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/footwear_pager"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="vertical">
             </android.support.v4.view.ViewPager>
         </LinearLayout>
 
