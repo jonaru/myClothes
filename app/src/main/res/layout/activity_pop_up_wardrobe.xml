@@ -29,17 +29,6 @@
         android:prompt="@string/wardrobe_array_prompt"
         android:layout_below="@+id/editText_add_item" />
 
-    <Button
-        android:id="@+id/addItemButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_add"
-        android:onClick="addWardrobeItem"
-        android:layout_below="@+id/wardrobe_spinner"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="13dp" />
-
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,7 +38,7 @@
         android:onClick="selectShirt"
         android:layout_marginTop="18dp"
         android:id="@+id/blueShirtButton"
-        android:layout_below="@+id/addItemButton"
+        android:layout_below="@+id/wardrobe_spinner"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -135,8 +124,8 @@
         android:onClick="selectTrousers"
         android:id="@+id/brownTrouserstButton"
         android:layout_alignTop="@+id/greyTrouserstButton"
-        android:layout_toRightOf="@+id/editText_add_item"
-        android:layout_toEndOf="@+id/editText_add_item" />
+        android:layout_alignRight="@+id/photoButton"
+        android:layout_alignEnd="@+id/photoButton" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -196,5 +185,14 @@
         android:layout_marginTop="21dp"
         android:layout_toLeftOf="@+id/blueTrouserstButton"
         android:layout_toStartOf="@+id/blueTrouserstButton" />
-
+    <Button
+        android:id="@+id/addItemButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_add"
+        android:onClick="addWardrobeItem"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="42dp" />
 </RelativeLayout>
