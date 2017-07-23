@@ -18,11 +18,11 @@ import java.util.List;
 public class WardrobeActivity extends Activity {
 
     private IWardrobe wardrobe;
-    ViewPager shirtViewPager;
-    ViewPager trousersViewPager;
+    ViewPager upperItemsViewPager;
+    ViewPager lowerItemsViewPager;
 
-    WardrobePagerAdapter shirtAdapter;
-    WardrobePagerAdapter trousersAdapter;
+    WardrobePagerAdapter upperItemAdapter;
+    WardrobePagerAdapter lowerItemsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +30,16 @@ public class WardrobeActivity extends Activity {
         setContentView(R.layout.activity_wardrobe);
         wardrobe = Wardrobe.getInstance();
 
-        shirtViewPager = (ViewPager) findViewById(R.id.shirt_pager);
-        if (shirtViewPager != null) {
-            shirtAdapter = new WardrobePagerAdapter();
-            shirtViewPager.setAdapter(shirtAdapter);
+        upperItemsViewPager = (ViewPager) findViewById(R.id.shirt_pager);
+        if (upperItemsViewPager != null) {
+            upperItemAdapter = new WardrobePagerAdapter();
+            upperItemsViewPager.setAdapter(upperItemAdapter);
         }
 
-        trousersViewPager = (ViewPager) findViewById(R.id.trousers_pager);
-        if (trousersViewPager != null) {
-            trousersAdapter = new WardrobePagerAdapter();
-            trousersViewPager.setAdapter(trousersAdapter);
+        lowerItemsViewPager = (ViewPager) findViewById(R.id.trousers_pager);
+        if (lowerItemsViewPager != null) {
+            lowerItemsAdapter = new WardrobePagerAdapter();
+            lowerItemsViewPager.setAdapter(lowerItemsAdapter);
         }
     }
 
@@ -61,8 +61,8 @@ public class WardrobeActivity extends Activity {
     }
 
     private void addItemsFromWardrobe() {
-        shirtViewPager.removeAllViews();
-        trousersViewPager.removeAllViews();
+        upperItemsViewPager.removeAllViews();
+        lowerItemsViewPager.removeAllViews();
         List<IWardrobeItem> shirtList = wardrobe.getUpperItems();
         List<IWardrobeItem> trousersList = wardrobe.getLowerItems();
 
@@ -85,15 +85,15 @@ public class WardrobeActivity extends Activity {
 
         if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.UPPER)
         {
-            removeButton.setOnClickListener(new RemoveButtonOnClickListener(shirtAdapter, shirtViewPager));
-            int pageIndex = shirtAdapter.addView(wardrobeItemViewGroup);
-            shirtViewPager.setCurrentItem(pageIndex, true);
+            removeButton.setOnClickListener(new RemoveButtonOnClickListener(upperItemAdapter, upperItemsViewPager));
+            int pageIndex = upperItemAdapter.addView(wardrobeItemViewGroup);
+            upperItemsViewPager.setCurrentItem(pageIndex, true);
         }
         else if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.LOWER)
         {
-            removeButton.setOnClickListener(new RemoveButtonOnClickListener(trousersAdapter, trousersViewPager));
-            int pageIndex = trousersAdapter.addView(wardrobeItemViewGroup);
-            trousersViewPager.setCurrentItem(pageIndex, true);
+            removeButton.setOnClickListener(new RemoveButtonOnClickListener(lowerItemsAdapter, lowerItemsViewPager));
+            int pageIndex = lowerItemsAdapter.addView(wardrobeItemViewGroup);
+            lowerItemsViewPager.setCurrentItem(pageIndex, true);
         }
     }
 
