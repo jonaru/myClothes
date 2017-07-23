@@ -135,6 +135,10 @@ public class WardrobeDbHelper extends SQLiteOpenHelper implements IStorageAdapte
         for (IWardrobeItem item : wardrobe.getLowerItems()) {
             storeWardrobeItem(item, Wardrobe.LOWER_ITEMS_STRING);
         }
+
+        for (IWardrobeItem item : wardrobe.getFootwearItems()) {
+            storeWardrobeItem(item, Wardrobe.FOOTWEAR_STRING);
+        }
     }
 
     private void storeWardrobeItem(IWardrobeItem item, String type) {

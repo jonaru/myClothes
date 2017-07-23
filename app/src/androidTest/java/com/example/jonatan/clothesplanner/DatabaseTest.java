@@ -32,8 +32,9 @@ import static org.junit.Assert.assertNull;
 @RunWith(AndroidJUnit4.class)
 public class DatabaseTest {
     public static WardrobeDbHelper db;
-    static private String KHAKIS = "khakis";
-    static private String BLUE_SHIRT = "blue shirt";
+    private static final String KHAKIS = "khakis";
+    private static final String BLUE_SHIRT = "blue shirt";
+    private static final String SNEAKERS = "sneakers";
 
     @Test
     public void useAppContext() throws Exception {
@@ -55,19 +56,23 @@ public class DatabaseTest {
         Drawable khakis_drawable = ContextCompat.getDrawable(appContext, R.drawable.khaki_trousers);
         IWardrobeItem shirt = new WardrobeItem(BLUE_SHIRT, blue_shirt_drawable, WardrobeItemType.UPPER);
         IWardrobeItem trousers = new WardrobeItem(KHAKIS, khakis_drawable, WardrobeItemType.LOWER);
+        IWardrobeItem sneakers = new WardrobeItem(SNEAKERS, WardrobeItemType.FOOTWEAR);
         wardrobe.addWardrobeItem(shirt);
         wardrobe.addWardrobeItem(trousers);
+        wardrobe.addWardrobeItem(sneakers);
         db.storeWardrobe(wardrobe);
 
         //Delete the clothes from the Wardrobe and make sure they don't exists
         wardrobe.clear();
         assertNull(wardrobe.findWardrobeItem(BLUE_SHIRT));
         assertNull(wardrobe.findWardrobeItem(KHAKIS));
+        assertNull(wardrobe.findWardrobeItem(SNEAKERS));
 
         //Load them again from the db
         db.loadWardrobe(wardrobe);
         assertNotNull(wardrobe.findWardrobeItem(BLUE_SHIRT));
         assertNotNull(wardrobe.findWardrobeItem(KHAKIS));
+        assertNotNull(wardrobe.findWardrobeItem(SNEAKERS));
 
         db.close();
     }
