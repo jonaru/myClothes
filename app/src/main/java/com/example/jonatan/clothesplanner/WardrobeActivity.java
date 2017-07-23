@@ -63,17 +63,17 @@ public class WardrobeActivity extends Activity {
     private void addItemsFromWardrobe() {
         upperItemsViewPager.removeAllViews();
         lowerItemsViewPager.removeAllViews();
-        List<IWardrobeItem> shirtList = wardrobe.getUpperItems();
-        List<IWardrobeItem> trousersList = wardrobe.getLowerItems();
+        List<IWardrobeItem> upperItemsList = wardrobe.getUpperItems();
+        List<IWardrobeItem> lowerItemsList = wardrobe.getLowerItems();
 
-        for (IWardrobeItem shirt : shirtList)
+        for (IWardrobeItem upperItem : upperItemsList)
         {
-            addWardrobeItemToPager(shirt);
+            addWardrobeItemToPager(upperItem);
         }
 
-        for (IWardrobeItem trousers : trousersList)
+        for (IWardrobeItem lowerItem : lowerItemsList)
         {
-            addWardrobeItemToPager(trousers);
+            addWardrobeItemToPager(lowerItem);
         }
     }
 
