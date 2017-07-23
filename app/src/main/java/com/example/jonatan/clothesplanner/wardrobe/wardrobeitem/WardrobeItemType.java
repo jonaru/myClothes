@@ -5,7 +5,8 @@ package com.example.jonatan.clothesplanner.wardrobe.wardrobeitem;
  */
 
 public enum WardrobeItemType {
-    SHIRT,
-    TROUSERS,
+    UPPER,
+    LOWER,
+    FOOTWEAR,
     DEFAULT
 }

@@ -13,7 +13,6 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,7 +22,6 @@ import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 
 public class PopUpWardrobeActivity extends Activity {
@@ -52,7 +50,7 @@ public class PopUpWardrobeActivity extends Activity {
 
         galleryImageButton = (ImageButton) findViewById(R.id.galleryImageButton);
 
-        //Need to restore the state if the camera's captured image bitmap since it seems the activity often gets recreated on some devices (Samsung) and the image then lost and not displayed
+        //Need to restore the state of the camera's captured image bitmap since it seems the activity often gets recreated on some devices (Samsung) and the image then lost and not displayed
         if (savedInstanceState != null) {
             imageBitmap = savedInstanceState.getParcelable("imageBitmap");
         }
@@ -87,14 +85,14 @@ public class PopUpWardrobeActivity extends Activity {
         highlightSelection(view);
         ImageButton imageButton = (ImageButton)view;
         selectedDrawable = imageButton.getDrawable();
-        selectedItemType = WardrobeItemType.SHIRT;
+        selectedItemType = WardrobeItemType.UPPER;
     }
 
     public void selectTrousers(@SuppressWarnings("UnusedParameters") View view) {
         highlightSelection(view);
         ImageButton imageButton = (ImageButton)view;
         selectedDrawable = imageButton.getDrawable();
-        selectedItemType = WardrobeItemType.TROUSERS;
+        selectedItemType = WardrobeItemType.LOWER;
     }
 
     public void selectFromGallery(@SuppressWarnings("UnusedParameters") View view) {

@@ -1,6 +1,5 @@
 package com.example.jonatan.clothesplanner.wardrobe;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
@@ -14,10 +13,10 @@ import java.util.List;
  * Created by Jonatan on 2016-12-13.
  */
 public class Wardrobe implements IWardrobe {
-    public static final String SHIRT_STRING = "Shirt";
-    public static final String TROUSERS_STRING = "Trousers";
-    private final ArrayList<IWardrobeItem> shirtList = new ArrayList<>();
-    private final ArrayList<IWardrobeItem> trousersList = new ArrayList<>();
+    public static final String UPPER_ITEMS_STRING = "upper";
+    public static final String LOWER_ITEMS_STRING = "lower";
+    private final ArrayList<IWardrobeItem> upperItemsList = new ArrayList<>();
+    private final ArrayList<IWardrobeItem> lowerItemsList = new ArrayList<>();
     private static Wardrobe instance;
     private IStorageAdapter storageAdapter;
 
@@ -38,19 +37,19 @@ public class Wardrobe implements IWardrobe {
     }
 
     @Override
-    public List<IWardrobeItem> getShirts() {
-        return shirtList;
+    public List<IWardrobeItem> getUpperItems() {
+        return upperItemsList;
     }
 
     @Override
-    public List<IWardrobeItem> getTrousers() {
-        return trousersList;
+    public List<IWardrobeItem> getLowerItems() {
+        return lowerItemsList;
     }
 
     @Override
     public void clear() {
-        shirtList.clear();
-        trousersList.clear();
+        upperItemsList.clear();
+        lowerItemsList.clear();
     }
 
     @Override
@@ -94,27 +93,27 @@ public class Wardrobe implements IWardrobe {
     @Override
     public void addWardrobeItem(IWardrobeItem wardrobeItem) {
         switch (wardrobeItem.getWardrobeItemType()){
-            case SHIRT: shirtList.add(wardrobeItem); break;
-            case TROUSERS: trousersList.add(wardrobeItem); break;
+            case UPPER: upperItemsList.add(wardrobeItem); break;
+            case LOWER: lowerItemsList.add(wardrobeItem); break;
         }
     }
 
     @Override
     public boolean removeWardrobeItem(String wardrobeItemString) {
-        for (IWardrobeItem item : shirtList)
+        for (IWardrobeItem item : upperItemsList)
         {
             if (item.getWardrobeItemString().compareTo(wardrobeItemString) == 0)
             {
-                shirtList.remove(item);
+                upperItemsList.remove(item);
                 return true;
             }
         }
 
-        for (IWardrobeItem item : trousersList)
+        for (IWardrobeItem item : lowerItemsList)
         {
             if (item.getWardrobeItemString().compareTo(wardrobeItemString) == 0)
             {
-                trousersList.remove(item);
+                lowerItemsList.remove(item);
                 return true;
             }
         }
@@ -123,20 +122,20 @@ public class Wardrobe implements IWardrobe {
 
     @Override
     public boolean removeWardrobeItem(Drawable drawable) {
-        for (IWardrobeItem item : shirtList)
+        for (IWardrobeItem item : upperItemsList)
         {
             if (item.getDrawable() == drawable)
             {
-                shirtList.remove(item);
+                upperItemsList.remove(item);
                 return true;
             }
         }
 
-        for (IWardrobeItem item : trousersList)
+        for (IWardrobeItem item : lowerItemsList)
         {
             if (item.getDrawable() == drawable)
             {
-                trousersList.remove(item);
+                lowerItemsList.remove(item);
                 return true;
             }
         }
@@ -145,7 +144,7 @@ public class Wardrobe implements IWardrobe {
 
     @Override
     public IWardrobeItem findWardrobeItem(String wardrobeItemString) {
-        for (IWardrobeItem item : shirtList)
+        for (IWardrobeItem item : upperItemsList)
         {
             if (item.getWardrobeItemString().compareTo(wardrobeItemString) == 0)
             {
@@ -153,7 +152,7 @@ public class Wardrobe implements IWardrobe {
             }
         }
 
-        for (IWardrobeItem item : trousersList)
+        for (IWardrobeItem item : lowerItemsList)
         {
             if (item.getWardrobeItemString().compareTo(wardrobeItemString) == 0)
             {
@@ -164,13 +163,13 @@ public class Wardrobe implements IWardrobe {
     }
 
     public WardrobeItemType getItemTypeFromString(String itemTypeString) {
-        if (itemTypeString.compareTo(SHIRT_STRING) == 0)
+        if (itemTypeString.compareTo(UPPER_ITEMS_STRING) == 0)
         {
-            return WardrobeItemType.SHIRT;
+            return WardrobeItemType.UPPER;
         }
-        else if (itemTypeString.compareTo(TROUSERS_STRING) == 0)
+        else if (itemTypeString.compareTo(LOWER_ITEMS_STRING) == 0)
         {
-            return WardrobeItemType.TROUSERS;
+            return WardrobeItemType.LOWER;
         }
         return WardrobeItemType.DEFAULT;
     }

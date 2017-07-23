@@ -74,11 +74,11 @@ public class WeeklyPlanUnitTest {
     @Test
     public void testGenerateWeeklyPlan() throws Exception {
         Wardrobe wardrobe = Wardrobe.getInstance();
-        IWardrobeItem blue_shirt = new WardrobeItem(BLUE_SHIRT, WardrobeItemType.SHIRT);
-        IWardrobeItem white_shirt = new WardrobeItem(WHITE_SHIRT, WardrobeItemType.SHIRT);
-        IWardrobeItem striped_shirt = new WardrobeItem(STRIPED_SHIRT, WardrobeItemType.SHIRT);
-        IWardrobeItem jeans = new WardrobeItem(JEANS, WardrobeItemType.TROUSERS);
-        IWardrobeItem khakis = new WardrobeItem(KHAKIS, WardrobeItemType.TROUSERS);
+        IWardrobeItem blue_shirt = new WardrobeItem(BLUE_SHIRT, WardrobeItemType.UPPER);
+        IWardrobeItem white_shirt = new WardrobeItem(WHITE_SHIRT, WardrobeItemType.UPPER);
+        IWardrobeItem striped_shirt = new WardrobeItem(STRIPED_SHIRT, WardrobeItemType.UPPER);
+        IWardrobeItem jeans = new WardrobeItem(JEANS, WardrobeItemType.LOWER);
+        IWardrobeItem khakis = new WardrobeItem(KHAKIS, WardrobeItemType.LOWER);
         wardrobe.addWardrobeItem(blue_shirt);
         wardrobe.addWardrobeItem(white_shirt);
         wardrobe.addWardrobeItem(striped_shirt);

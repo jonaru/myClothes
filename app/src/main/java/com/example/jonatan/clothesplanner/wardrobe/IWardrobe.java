@@ -13,9 +13,9 @@ import java.util.List;
 
 public interface IWardrobe {
 
-    List<IWardrobeItem> getShirts();
+    List<IWardrobeItem> getUpperItems();
 
-    List<IWardrobeItem> getTrousers();
+    List<IWardrobeItem> getLowerItems();
 
     void clear();
 

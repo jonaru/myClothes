@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 
 import com.example.jonatan.clothesplanner.wardrobe.IStorageAdapter;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
+import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 
 import java.io.ByteArrayInputStream;
@@ -25,8 +26,6 @@ public class WardrobeDbHelper extends SQLiteOpenHelper implements IStorageAdapte
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "WardrobeReader.db";
-    public static final String SHIRT = "Shirt";
-    public static final String TROUSERS = "Trousers";
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE IF NOT EXISTS " + WardrobeReaderContract.WardrobeEntry.TABLE_NAME + " (" +
@@ -129,12 +128,12 @@ public class WardrobeDbHelper extends SQLiteOpenHelper implements IStorageAdapte
         database.execSQL(SQL_DELETE_ENTRIES);
         database.execSQL(SQL_CREATE_ENTRIES);
 
-        for (IWardrobeItem item : wardrobe.getShirts()) {
-            storeWardrobeItem(item, SHIRT);
+        for (IWardrobeItem item : wardrobe.getUpperItems()) {
+            storeWardrobeItem(item, Wardrobe.UPPER_ITEMS_STRING);
         }
 
-        for (IWardrobeItem item : wardrobe.getTrousers()) {
-            storeWardrobeItem(item, TROUSERS);
+        for (IWardrobeItem item : wardrobe.getLowerItems()) {
+            storeWardrobeItem(item, Wardrobe.LOWER_ITEMS_STRING);
         }
     }
 

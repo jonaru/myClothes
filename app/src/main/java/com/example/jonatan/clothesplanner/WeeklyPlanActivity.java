@@ -48,7 +48,7 @@ public class WeeklyPlanActivity extends AppCompatActivity {
             day.removeAllViews();
         }
 
-        if (wardrobe.getShirts().size() > 0) {
+        if (wardrobe.getUpperItems().size() > 0) {
             for (int i = 0; i < dailyPlans.size(); i++)
             {
                 weeklyPlan.getShirt().addToView(dailyPlans.get(i));
@@ -56,7 +56,7 @@ public class WeeklyPlanActivity extends AppCompatActivity {
             }
         }
 
-        if (wardrobe.getTrousers().size() > 0) {
+        if (wardrobe.getLowerItems().size() > 0) {
             for (int i = 0; i < dailyPlans.size(); i++)
             {
                 weeklyPlan.getTrousers().addToView(dailyPlans.get(i));

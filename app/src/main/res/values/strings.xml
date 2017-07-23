@@ -17,8 +17,8 @@
     <string name="shirt">Shirt</string>
 
     <string-array name="wardrobe_array">
-        <item>Trousers</item>
-        <item>Shirt</item>
-        <item>Sweater</item>
+        <item>lower</item>
+        <item>upper</item>
+        <item>footwear</item>
     </string-array>
 </resources>

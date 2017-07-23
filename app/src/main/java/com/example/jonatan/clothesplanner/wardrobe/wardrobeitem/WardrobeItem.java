@@ -39,16 +39,14 @@ public class WardrobeItem implements IWardrobeItem {
         return itemDescription;
     }
 
-    public Drawable getDrawable() {
-        return drawable;
-    }
-
-    @Override
     public WardrobeItemType getWardrobeItemType() {
         return itemType;
     }
 
-    @Override
+    public Drawable getDrawable() {
+        return drawable;
+    }
+
     public View addToView(LinearLayout layout) {
         Context context = layout.getContext();
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(

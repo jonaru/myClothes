@@ -66,12 +66,12 @@ public class FileHandlingHelper implements IFileHandlingHelper, IStorageAdapter 
     @Override
     public void storeWardrobe(IWardrobe wardrobe) {
         try {
-            storeToFile(wardrobe.getShirts(), myContext.getResources().getString(R.string.saved_shirts));
+            storeToFile(wardrobe.getUpperItems(), myContext.getResources().getString(R.string.saved_shirts));
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            storeToFile(wardrobe.getTrousers(), myContext.getResources().getString(R.string.saved_trousers));
+            storeToFile(wardrobe.getLowerItems(), myContext.getResources().getString(R.string.saved_trousers));
         } catch (IOException e) {
             e.printStackTrace();
         }

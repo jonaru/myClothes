@@ -17,7 +17,6 @@ import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.intent.Intents;
-import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.content.ContextCompat;
@@ -57,7 +56,6 @@ import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.Intents.intending;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAction;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasData;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
@@ -73,7 +71,6 @@ import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
-import android.support.test.espresso.intent.matcher.IntentMatchers;
 
 /**
  * Instrumentation test, which will execute on an Android device.
@@ -91,6 +88,9 @@ public class ClothesPlannerInstrumentedTest {
     static private String BLUE_SHIRT = "blue shirt";
     static private String WHITE_SHIRT = "white shirt";
     static private String STRIPED_SHIRT = "striped shirt";
+    static private int LOWER_SPINNER_OPTION = 0;
+    static private int UPPER_SPINNER_OPTION = 1;
+    private String[] wardrobeSpinnerStrings;
     private FileInputStream fileInputStream;
     WardrobeDbHelper db;
 
@@ -106,6 +106,7 @@ public class ClothesPlannerInstrumentedTest {
     @Before
     public void init() {
         Context appContext = InstrumentationRegistry.getTargetContext();
+        wardrobeSpinnerStrings = appContext.getResources().getStringArray(R.array.wardrobe_array);
         if (runWithDb) {
             db = new WardrobeDbHelper(InstrumentationRegistry.getTargetContext());
             Wardrobe.initInstance((db));
@@ -113,7 +114,7 @@ public class ClothesPlannerInstrumentedTest {
 
             //Store the jeans in the database before tests start
             Drawable jeans_drawable = ContextCompat.getDrawable(appContext, R.drawable.jeans_trousers);
-            IWardrobeItem trousers = new WardrobeItem(wardrobeItemStringToBeWrittenBeforeStart, jeans_drawable, WardrobeItemType.TROUSERS);
+            IWardrobeItem trousers = new WardrobeItem(wardrobeItemStringToBeWrittenBeforeStart, jeans_drawable, WardrobeItemType.LOWER);
             wardrobe.addWardrobeItem(trousers);
             db.storeWardrobe(wardrobe);
             wardrobe.clear();
@@ -335,7 +336,7 @@ public class ClothesPlannerInstrumentedTest {
 
         //select shirt from the drop-down menu (spinner)
         onView(withId(R.id.wardrobe_spinner)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is("Shirt"))).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is(wardrobeSpinnerStrings[UPPER_SPINNER_OPTION]))).perform(click());
 
         onView(withId(R.id.galleryImageButton)).perform(click());
         onView(withId(R.id.galleryImageButton)).check(matches(withBackground(R.drawable.highlight)));
@@ -381,7 +382,7 @@ public class ClothesPlannerInstrumentedTest {
 
         //select shirt from the drop-down menu (spinner)
         onView(withId(R.id.wardrobe_spinner)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is("Shirt"))).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is(wardrobeSpinnerStrings[UPPER_SPINNER_OPTION]))).perform(click());
 
         onView(withId(R.id.galleryImageButton)).perform(click());
         onView(withId(R.id.galleryImageButton)).check(matches(withBackground(R.drawable.highlight)));
@@ -533,7 +534,7 @@ public class ClothesPlannerInstrumentedTest {
 
         //select shirt from the drop-down menu (spinner)
         onView(withId(R.id.wardrobe_spinner)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is("Shirt"))).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is(wardrobeSpinnerStrings[UPPER_SPINNER_OPTION]))).perform(click());
 
         //Enter description
         onView(withId(R.id.editText_add_item)).perform(typeText(description), closeSoftKeyboard());
@@ -557,7 +558,7 @@ public class ClothesPlannerInstrumentedTest {
 
         //select trousers from the drop-down menu (spinner)
         onView(withId(R.id.wardrobe_spinner)).perform(click());
-        onData(allOf(is(instanceOf(String.class)), is("Trousers"))).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is(wardrobeSpinnerStrings[LOWER_SPINNER_OPTION]))).perform(click());
 
         //Enter description
         onView(withId(R.id.editText_add_item)).perform(typeText(description), closeSoftKeyboard());

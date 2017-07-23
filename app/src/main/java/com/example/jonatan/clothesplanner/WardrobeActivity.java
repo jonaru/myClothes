@@ -63,8 +63,8 @@ public class WardrobeActivity extends Activity {
     private void addItemsFromWardrobe() {
         shirtViewPager.removeAllViews();
         trousersViewPager.removeAllViews();
-        List<IWardrobeItem> shirtList = wardrobe.getShirts();
-        List<IWardrobeItem> trousersList = wardrobe.getTrousers();
+        List<IWardrobeItem> shirtList = wardrobe.getUpperItems();
+        List<IWardrobeItem> trousersList = wardrobe.getLowerItems();
 
         for (IWardrobeItem shirt : shirtList)
         {
@@ -83,13 +83,13 @@ public class WardrobeActivity extends Activity {
         Button removeButton = (Button) createNewRemoveButton();
         wardrobeItemViewGroup.addView(removeButton);
 
-        if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.SHIRT)
+        if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.UPPER)
         {
             removeButton.setOnClickListener(new RemoveButtonOnClickListener(shirtAdapter, shirtViewPager));
             int pageIndex = shirtAdapter.addView(wardrobeItemViewGroup);
             shirtViewPager.setCurrentItem(pageIndex, true);
         }
-        else if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.TROUSERS)
+        else if (addedWardrobeItem.getWardrobeItemType() == WardrobeItemType.LOWER)
         {
             removeButton.setOnClickListener(new RemoveButtonOnClickListener(trousersAdapter, trousersViewPager));
             int pageIndex = trousersAdapter.addView(wardrobeItemViewGroup);

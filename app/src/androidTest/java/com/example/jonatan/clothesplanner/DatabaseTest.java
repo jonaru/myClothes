@@ -53,8 +53,8 @@ public class DatabaseTest {
         //Store some clothes in the wardrobe db
         Drawable blue_shirt_drawable = ContextCompat.getDrawable(appContext, R.drawable.shirt_blue);
         Drawable khakis_drawable = ContextCompat.getDrawable(appContext, R.drawable.khaki_trousers);
-        IWardrobeItem shirt = new WardrobeItem(BLUE_SHIRT, blue_shirt_drawable, WardrobeItemType.SHIRT);
-        IWardrobeItem trousers = new WardrobeItem(KHAKIS, khakis_drawable, WardrobeItemType.TROUSERS);
+        IWardrobeItem shirt = new WardrobeItem(BLUE_SHIRT, blue_shirt_drawable, WardrobeItemType.UPPER);
+        IWardrobeItem trousers = new WardrobeItem(KHAKIS, khakis_drawable, WardrobeItemType.LOWER);
         wardrobe.addWardrobeItem(shirt);
         wardrobe.addWardrobeItem(trousers);
         db.storeWardrobe(wardrobe);
@@ -79,8 +79,8 @@ public class DatabaseTest {
         Wardrobe.initInstance(((IStorageAdapter) db));
 
         IWardrobe wardrobe = Wardrobe.getInstance();
-        IWardrobeItem shirt = new WardrobeItem(BLUE_SHIRT, WardrobeItemType.SHIRT);
-        IWardrobeItem trousers = new WardrobeItem(KHAKIS, WardrobeItemType.TROUSERS);
+        IWardrobeItem shirt = new WardrobeItem(BLUE_SHIRT, WardrobeItemType.UPPER);
+        IWardrobeItem trousers = new WardrobeItem(KHAKIS, WardrobeItemType.LOWER);
         wardrobe.addWardrobeItem(shirt);
         wardrobe.addWardrobeItem(trousers);
 
