@@ -16,6 +16,7 @@
     <string name="weekly_plan">Weekly Plan</string>
     <string name="trousers">Trousers</string>
     <string name="shirt">Shirt</string>
+    <string name="wardrobe">Wardrobe</string>
 
     <string-array name="wardrobe_array">
         <item>lower</item>

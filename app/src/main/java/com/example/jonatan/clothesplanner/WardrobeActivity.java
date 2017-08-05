@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -66,6 +67,13 @@ public class WardrobeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         addItemsFromWardrobe();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.my_toolbar, menu);
+        return true;
     }
 
     public void addWardrobeItem(@SuppressWarnings("UnusedParameters") View view) throws WardrobeException {
