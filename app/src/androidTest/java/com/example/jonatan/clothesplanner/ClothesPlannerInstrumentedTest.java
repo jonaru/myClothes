@@ -121,17 +121,6 @@ public class ClothesPlannerInstrumentedTest {
             db.storeWardrobe(wardrobe);
             wardrobe.clear();
         }
-        else {
-            FileOutputStream fileOutputStream;
-            try {
-                fileOutputStream = appContext.openFileOutput(appContext.getResources().getString(R.string.saved_trousers), Context.MODE_PRIVATE);
-                fileOutputStream.write(wardrobeItemStringToBeWrittenBeforeStart.getBytes());
-
-                fileOutputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @After
@@ -142,13 +131,6 @@ public class ClothesPlannerInstrumentedTest {
 
         if(runWithDb){
             db.clearTables();
-        } else {
-            File trousersFile = new File(appContext.getFilesDir()+"/"+appContext.getResources().getString(R.string.saved_trousers));
-            File shirtFile = new File(appContext.getFilesDir()+"/"+appContext.getResources().getString(R.string.saved_shirts));
-            File weeklyPlanFile = new File(appContext.getFilesDir()+"/"+appContext.getResources().getString(R.string.weekly_plan));
-            trousersFile.delete();
-            shirtFile.delete();
-            weeklyPlanFile.delete();
         }
     }
 
@@ -244,10 +226,6 @@ public class ClothesPlannerInstrumentedTest {
             Wardrobe wardrobe = Wardrobe.getInstance();
             wardrobe.loadWardrobe();
             assertNull(wardrobe.findWardrobeItem(wardrobeItemStringToBeWrittenBeforeStart));
-        } else {
-            Context appContext = InstrumentationRegistry.getTargetContext();
-            String wardrobeFileString = readLineFromWardrobeFile(appContext.getResources().getString(R.string.saved_trousers));
-            assertNull(wardrobeFileString);
         }
     }
 
@@ -429,9 +407,6 @@ public class ClothesPlannerInstrumentedTest {
             wardrobe.clear();
             wardrobe.loadWardrobe();
             assertNotNull(wardrobe.findWardrobeItem(KHAKIS));
-        } else {
-            String inputString = readLineFromWardrobeFile(appContext.getResources().getString(R.string.saved_trousers));
-            assertEquals(inputString, KHAKIS);
         }
 
         //Click My Wardrobe button
@@ -450,9 +425,6 @@ public class ClothesPlannerInstrumentedTest {
             Wardrobe wardrobe = Wardrobe.getInstance();
             wardrobe.loadWardrobe();
             assertNull(wardrobe.findWardrobeItem(KHAKIS));
-        } else {
-            String secondInput = readLineFromWardrobeFile(appContext.getResources().getString(R.string.saved_trousers));
-            assertNull(secondInput);
         }
     }
 
