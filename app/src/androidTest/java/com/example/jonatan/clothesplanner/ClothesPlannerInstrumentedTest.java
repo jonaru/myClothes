@@ -157,16 +157,17 @@ public class ClothesPlannerInstrumentedTest {
         goToWardrobe();
         addShirt(BLUE_SHIRT);
 
-        //Click on back button
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
-
         //Click Weekly Plan button
-        onView(withId(R.id.WeeklyPlanButton)).perform(click());
+        onView(withId(R.id.action_weekly_plan)).perform(click());
 
         //Scroll view
         onView(withId(R.id.fridayViewGroup)).
                 perform(ViewActions.scrollTo()).check(matches(isDisplayed()));
+    }
+
+    private void clickOnBackButton() {
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
     }
 
     @Test
@@ -181,14 +182,10 @@ public class ClothesPlannerInstrumentedTest {
         addShirt(WHITE_SHIRT);
         addShirt(STRIPED_SHIRT);
 
-        //Click on back button
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
-
         //Click Weekly Plan button
-        onView(withId(R.id.WeeklyPlanButton)).perform(click());
+        onView(withId(R.id.action_weekly_plan)).perform(click());
 
-        // Check that item has been added to the wardrobe linear layout
+        // Check that items has been added to the plan
         onView(withId(R.id.weekly_plan_layout))
                 .check(matches(hasDescendant(allOf(withId(R.id.mondayViewGroup), hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart)), hasDescendant(withDrawable(R.drawable.shirt_blue))))));
 
@@ -208,12 +205,11 @@ public class ClothesPlannerInstrumentedTest {
 
 
         //Click on back button
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        clickOnBackButton();
 
         //Now enter again to check that the plan is read from file and presented
         //Click Weekly Plan button
-        onView(withId(R.id.WeeklyPlanButton)).perform(click());
+        onView(withId(R.id.action_weekly_plan)).perform(click());
 
         // Check that item has been added to the wardrobe linear layout
         onView(withId(R.id.weekly_plan_layout))
@@ -238,12 +234,10 @@ public class ClothesPlannerInstrumentedTest {
 
 
         //Click on back button
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        clickOnBackButton();
 
         //Click on back button
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        clickOnBackButton();
 
         //Check that file has been cleared
         if(runWithDb){
@@ -423,12 +417,10 @@ public class ClothesPlannerInstrumentedTest {
         addTrousers(KHAKIS);
 
         //Click on back button
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        clickOnBackButton();
 
         //Click on back button
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        clickOnBackButton();
 
         // Check that the item was written to file
         Context appContext = InstrumentationRegistry.getTargetContext(); //need this for the file reading
@@ -449,12 +441,10 @@ public class ClothesPlannerInstrumentedTest {
         clickRemove(R.drawable.khaki_trousers);
 
         //Click on back button
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        clickOnBackButton();
 
         //Click on back button
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        getInstrumentation().sendKeySync(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        clickOnBackButton();
 
         if(runWithDb){
             Wardrobe wardrobe = Wardrobe.getInstance();
