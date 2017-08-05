@@ -60,10 +60,12 @@ public class WeeklyPlanActivity extends AppCompatActivity {
             case R.id.action_wardrobe:
                 Intent wardrobeIntent = new Intent(this, WardrobeActivity.class);
                 startActivity(wardrobeIntent);
+                return true;
 
             case R.id.action_weekly_plan:
                 Intent weeklyPlanIntent = new Intent(this, WeeklyPlanActivity.class);
                 startActivity(weeklyPlanIntent);
+                return true;
 
             default:
                 // If we got here, the user's action was not recognized.

@@ -152,6 +152,25 @@ public class ClothesPlannerInstrumentedTest {
     }
 
     @Test
+    public void navigateFromWeeklyPlanToWardrobe() throws Exception {
+        enterWardrobe();
+
+        //Click Weekly Plan button
+        onView(withId(R.id.action_weekly_plan)).perform(click());
+
+        //check that we are in the weekly plan activity
+        onView(withId(R.id.weekly_plan_layout))
+                .check(matches(hasDescendant(withId(R.id.mondayViewGroup))));
+
+        //Click on wardrobe button
+        onView(withId(R.id.action_wardrobe)).perform(click());
+
+        //check that we are in the wardrobe activity
+        onView(withId(R.id.lower_body_pager))
+                .check(matches(hasDescendant(withText(wardrobeItemStringToBeWrittenBeforeStart))));
+    }
+
+    @Test
     public void displayWeeklyPlanTest() throws Exception {
         enterWardrobe();
 

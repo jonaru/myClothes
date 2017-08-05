@@ -20,7 +20,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".WardrobeActivity" />
-        <activity android:name=".WeeklyPlanActivity" />
+        <activity android:name=".WeeklyPlanActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WardrobeActivity" />
+        </activity>
         <activity android:name=".PopUpWardrobeActivity"></activity>
     </application>
 
