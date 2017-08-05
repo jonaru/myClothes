@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.example.jonatan.clothesplanner.wardrobe.IStorageAdapter;
 import com.example.jonatan.clothesplanner.wardrobe.IWardrobe;
 import com.example.jonatan.clothesplanner.wardrobe.Wardrobe;
+import com.example.jonatan.clothesplanner.wardrobe.wardrobedb.WardrobeDbHelper;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.IWardrobeItem;
 import com.example.jonatan.clothesplanner.wardrobe.wardrobeitem.WardrobeItemType;
 
@@ -36,7 +38,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() { super.onResume(); }
 
-    public void goToHomeScreen(View view) {
+    public void enterWardrobe(View view) {
+        //Initialize Wardrobe
+        IStorageAdapter storageAdapter = new WardrobeDbHelper(getApplicationContext());
+        Wardrobe.initInstance(storageAdapter);
+        Wardrobe.getInstance().loadWardrobe();
+
         Intent intent = new Intent(this, HomeScreenActivity.class);
         startActivity(intent);
     }

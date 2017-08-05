@@ -18,9 +18,9 @@ public class HomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
 
         //Initialize Wardrobe
-        IStorageAdapter storageAdapter = new WardrobeDbHelper(getApplicationContext());
+/*        IStorageAdapter storageAdapter = new WardrobeDbHelper(getApplicationContext());
         Wardrobe.initInstance(storageAdapter);
-        Wardrobe.getInstance().loadWardrobe();
+        Wardrobe.getInstance().loadWardrobe();*/
     }
 
     @Override
