@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Wardrobe.initInstance(storageAdapter);
         Wardrobe.getInstance().loadWardrobe();
 
-        Intent intent = new Intent(this, HomeScreenActivity.class);
+        Intent intent = new Intent(this, WardrobeActivity.class);
         startActivity(intent);
     }
 }

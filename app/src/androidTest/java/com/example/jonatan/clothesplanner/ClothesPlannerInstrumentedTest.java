@@ -40,7 +40,6 @@ import org.junit.runner.RunWith;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -136,7 +135,7 @@ public class ClothesPlannerInstrumentedTest {
 
     @Test
     public void scrollWeeklyPlanTest() throws Exception {
-        goToWardrobe();
+        enterWardrobe();
         addShirt(BLUE_SHIRT);
 
         //Click Weekly Plan button
@@ -154,7 +153,7 @@ public class ClothesPlannerInstrumentedTest {
 
     @Test
     public void displayWeeklyPlanTest() throws Exception {
-        goToWardrobe();
+        enterWardrobe();
 
         // Add khakis item
         addTrousers(KHAKIS);
@@ -204,7 +203,7 @@ public class ClothesPlannerInstrumentedTest {
 
     @Test
     public void loadWardrobeFromFileOnStartupTest() throws Exception {
-        goToWardrobe();
+        enterWardrobe();
 
         // Check that item has been added to the wardrobe linear layout
         onView(withId(R.id.lower_body_pager))
@@ -240,7 +239,7 @@ public class ClothesPlannerInstrumentedTest {
 
     @Test
     public void addRemoveWardrobeItemTest() throws Exception {
-        goToWardrobe();
+        enterWardrobe();
         addShirt(BLUE_SHIRT);
 
         // Check that item has been added to the wardrobe linear layout
@@ -255,7 +254,7 @@ public class ClothesPlannerInstrumentedTest {
 
     @Test
     public void addRemoveFootWearTest() throws Exception {
-        goToWardrobe();
+        enterWardrobe();
         addFootwear(SNEAKERS);
 
         // Check that item has been added to the wardrobe linear layout
@@ -272,7 +271,7 @@ public class ClothesPlannerInstrumentedTest {
 
     @Test
     public void highlightSelectedItemTest() throws Exception {
-        goToWardrobe();
+        enterWardrobe();
 
         onView(withId(R.id.button)).perform(ViewActions.scrollTo());
         onView(withId(R.id.button)).perform(click());
@@ -290,7 +289,7 @@ public class ClothesPlannerInstrumentedTest {
 
     @Test
     public void selectFromGalleryTest() throws Exception {
-        goToWardrobe();
+        enterWardrobe();
         onView(withId(R.id.button)).perform(ViewActions.scrollTo());
         onView(withId(R.id.button)).perform(click());
 
@@ -340,7 +339,7 @@ public class ClothesPlannerInstrumentedTest {
 
     @Test
     public void selectFromCameraTest() throws Exception {
-        goToWardrobe();
+        enterWardrobe();
         onView(withId(R.id.button)).perform(ViewActions.scrollTo());
         onView(withId(R.id.button)).perform(click());
 
@@ -386,7 +385,7 @@ public class ClothesPlannerInstrumentedTest {
 
     @Test
     public void addRemoveWardrobeItemReadFromFileTest() throws Exception {
-        goToWardrobe();
+        enterWardrobe();
 
         //Click remove button on the jeans
         clickRemove(wardrobeItemStringToBeWrittenBeforeStart);
@@ -409,8 +408,8 @@ public class ClothesPlannerInstrumentedTest {
             assertNotNull(wardrobe.findWardrobeItem(KHAKIS));
         }
 
-        //Click My Wardrobe button
-        onView(withId(R.id.WardrobeButton)).perform(click());
+        //Go to wardrobe again, so that we read from database
+        enterWardrobe();
 
         //Click remove and check that item is removed from file
         clickRemove(R.drawable.khaki_trousers);
@@ -501,12 +500,9 @@ public class ClothesPlannerInstrumentedTest {
         );
     }
 
-    private void goToWardrobe() {
+    private void enterWardrobe() {
         //Click Login button
         onView(withId(R.id.LoginButton)).perform(click());
-
-        //Click My Wardrobe button
-        onView(withId(R.id.WardrobeButton)).perform(click());
     }
 
     private void addShirt(String description) {
