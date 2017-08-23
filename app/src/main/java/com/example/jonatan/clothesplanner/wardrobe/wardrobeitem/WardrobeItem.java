@@ -2,6 +2,7 @@ package com.example.jonatan.clothesplanner.wardrobe.wardrobeitem;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -61,14 +62,18 @@ public class WardrobeItem implements IWardrobeItem {
             final ImageView imageView = new ImageView(context);
             imageView.setImageDrawable(drawable);
             imageView.setLayoutParams(layoutParams);
+            imageView.setPadding(0, 0, 50, 0);
             wardrobeItemLayout.addView(imageView);
         }
 
         final TextView textView = new TextView(context);
         textView.setLayoutParams(layoutParams);
         textView.setText(this.getWardrobeItemString());
+        textView.setTextSize(20);
         wardrobeItemLayout.addView(textView);
 
+        wardrobeItemLayout.setPadding(0, 0, 50, 0);
+        wardrobeItemLayout.setGravity(Gravity.CENTER);
         layout.addView(wardrobeItemLayout);
         return layout;
     }
