@@ -56,6 +56,7 @@ import static android.support.test.espresso.intent.Intents.intending;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAction;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasData;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static android.support.test.espresso.matcher.ViewMatchers.hasFocus;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withChild;
@@ -309,7 +310,7 @@ public class ClothesPlannerInstrumentedTest {
     @Test
     public void selectFromGalleryTest() throws Exception {
         enterWardrobe();
-        onView(withId(R.id.button)).perform(ViewActions.scrollTo());
+        onView(allOf(withId(R.id.button), isDisplayed())).perform(ViewActions.scrollTo());
         onView(withId(R.id.button)).perform(click());
 
         //Create ActivityResult to return when clicking the gallery button

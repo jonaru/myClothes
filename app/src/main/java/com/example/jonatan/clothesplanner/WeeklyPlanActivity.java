@@ -1,6 +1,7 @@
 package com.example.jonatan.clothesplanner;
 
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +17,8 @@ import com.example.jonatan.clothesplanner.wardrobe.WeeklyPlan;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class WeeklyPlanActivity extends AppCompatActivity {
 
@@ -54,22 +57,18 @@ public class WeeklyPlanActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
                 return true;
 
             case R.id.action_wardrobe:
-                Intent wardrobeIntent = new Intent(this, WardrobeActivity.class);
-                startActivity(wardrobeIntent);
+                Intent intent = new Intent(this, WardrobeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 return true;
 
             case R.id.action_weekly_plan:
-                Intent weeklyPlanIntent = new Intent(this, WeeklyPlanActivity.class);
-                startActivity(weeklyPlanIntent);
                 return true;
 
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
         }
