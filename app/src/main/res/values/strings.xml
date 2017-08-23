@@ -5,7 +5,7 @@
     <string name="login">Login</string>
     <string name="enter">Enter</string>
     <string name="my_wardrobe">My Wardrobe</string>
-    <string name="add_item">Add Wardrobe Item</string>
+    <string name="add_description">Add description</string>
     <string name="wardrobe_array_prompt">Type of item</string>
     <string name="upper_body">Upper Body</string>
     <string name="lower_body">Lower Body</string>
@@ -17,10 +17,13 @@
     <string name="trousers">Trousers</string>
     <string name="shirt">Shirt</string>
     <string name="wardrobe">Wardrobe</string>
+    <string name="popup_wardrobe_instruction">Enter a description and select type of item</string>
+    <string name="select_image_instruction">Select an image for the item</string>
 
     <string-array name="wardrobe_array">
         <item>lower</item>
         <item>upper</item>
         <item>footwear</item>
     </string-array>
+
 </resources>
