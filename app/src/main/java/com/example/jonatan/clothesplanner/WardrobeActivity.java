@@ -19,8 +19,8 @@ public class WardrobeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wardrobe);
 
         //set up actionbar
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
+        Toolbar actionBar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(actionBar);
 
         //set up fragment pager
         wardrobeViewPager = (ViewPager) findViewById(R.id.wardrobe_viewpager);
@@ -43,13 +43,12 @@ public class WardrobeActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_wardrobe:
-                // Do nothing
+                wardrobeViewPager.setCurrentItem(0);
                 return true;
 
             case R.id.action_weekly_plan:
-                Intent intent = new Intent(this, WeeklyPlanActivity.class);
-                startActivity(intent);
-
+                wardrobeViewPager.setCurrentItem(1);
+                return true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
