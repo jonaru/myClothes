@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jonatan.clothesplanner.R;
@@ -45,7 +46,8 @@ public class RemoveButtonOnClickListener implements View.OnClickListener {
         IWardrobe wardrobe = Wardrobe.getInstance();
         ViewGroup parentView = (ViewGroup) view.getParent();
 
-        View itemView = parentView.getChildAt(0);
+        LinearLayout itemLayout = (LinearLayout)parentView.getChildAt(0);
+        View itemView = itemLayout.getChildAt(0);
         if (itemView instanceof TextView)
         {
             String itemString = ((TextView)itemView).getText().toString();

@@ -49,23 +49,27 @@ public class WardrobeItem implements IWardrobeItem {
 
     public View addToView(LinearLayout layout) {
         Context context = layout.getContext();
+        LinearLayout wardrobeItemLayout = new LinearLayout(context);
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
+        wardrobeItemLayout.setLayoutParams(layoutParams);
+        wardrobeItemLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         if (drawable != null)
         {
             final ImageView imageView = new ImageView(context);
             imageView.setImageDrawable(drawable);
             imageView.setLayoutParams(layoutParams);
-            layout.addView(imageView);
+            wardrobeItemLayout.addView(imageView);
         }
 
         final TextView textView = new TextView(context);
         textView.setLayoutParams(layoutParams);
         textView.setText(this.getWardrobeItemString());
-        layout.addView(textView);
+        wardrobeItemLayout.addView(textView);
 
+        layout.addView(wardrobeItemLayout);
         return layout;
     }
 }

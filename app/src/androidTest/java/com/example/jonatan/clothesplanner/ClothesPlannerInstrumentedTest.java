@@ -463,7 +463,7 @@ public class ClothesPlannerInstrumentedTest {
     }
 
     private void clickRemove(String itemStringToRemove) {
-        onView(allOf(withText(R.string.remove), withParent(withChild(withText(itemStringToRemove))))).perform(
+        onView(allOf(withText(R.string.remove), withParent(withChild(withChild(withText(itemStringToRemove)))))).perform(
                 new ViewAction() {
                     @Override
                     public Matcher<View> getConstraints() {
@@ -484,7 +484,7 @@ public class ClothesPlannerInstrumentedTest {
     }
 
     private void clickRemove(int drawableToRemove) {
-        onView(allOf(withText(R.string.remove), withParent(withChild(withDrawable(drawableToRemove))))).perform(
+        onView(allOf(withText(R.string.remove), withParent(withChild(withChild(withDrawable(drawableToRemove)))))).perform(
                 new ViewAction() {
                     @Override
                     public Matcher<View> getConstraints() {
