@@ -11,21 +11,23 @@
     android:background="@drawable/wardrobe_background"
     tools:context="com.example.jonatan.clothesplanner.MainActivity">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/LoginButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/enter"
-            android:onClick="enterWardrobe"
-            android:layout_marginLeft="111dp"
-            android:layout_marginStart="111dp"
-            style="@android:style/Widget.Button.Inset"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
     </ScrollView>
+
+    <Button
+        android:id="@+id/LoginButton"
+        style="@android:style/Widget.Button.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="61dp"
+        android:layout_marginLeft="110dp"
+        android:layout_marginStart="110dp"
+        android:onClick="enterWardrobe"
+        android:text="@string/enter"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
