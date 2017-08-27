@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 
-ext.versionMajor = 2
+ext.versionMajor = 3
 
 //noinspection GroovyMissingReturnStatement
 android {
